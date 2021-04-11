@@ -1,4 +1,4 @@
-title = "My cool new Blog"
+title = "验证菜鸟's Blogs"
 baseURL = "https://cslgbk.github.io/"
 theme = "bilberry-hugo-theme"
 
@@ -35,7 +35,7 @@ disqusShortname = ""
   paginate = 7
 
   # Enable / Disable MathJax
-  enable_mathjax    = false
+  enable_mathjax    = true
 
   # Enable / Disable algolia search
   algolia_search    = true
@@ -43,7 +43,7 @@ disqusShortname = ""
   algolia_apiKey    = "16030625f1a4d0dd3b8aefd794fd4cf1"
   algolia_indexName = "bilberry-hugo-theme"
     # Set this option to false if you want to search within all articles in all languages at once
-    algolia_currentLanguageOnly = true
+    algolia_currentLanguageOnly = false
 
   # Enable / Disable comments on the articles via commento
   commentoJsURL = "https://commento.lednerb.de/js/commento.js"
@@ -62,7 +62,7 @@ disqusShortname = ""
     avatarEmail = "code@lednerb.de"
 
     # set an path to the image file you want to use | overwrites avatar by email
-    customImage = ""
+    customImage = "/t.jpg"
 
     # define the icon you want to use for the overlay for the customImage or avatar.
     overlayIcon = "fa-home"
@@ -134,12 +134,12 @@ disqusShortname = ""
 # customize your available languages for your multi-lingual site
 # or delete the [Languages] blog to use the theme with only one supported language
 [Languages]
-  [Languages.en]
+  [Languages.ch]
     weight = 1
-  [Languages.de]
+  [Languages.en]
     weight = 2
-    title = "Mein cooler neuer Blog"
-    subtitle = "Hallo Welt! Dies ist der epischste Untertitel aller Zeiten."
+    # title = "Mein cooler neuer Blog"
+    # subtitle = "Hallo Welt! Dies ist der epischste Untertitel aller Zeiten."
 
 # don't change anything below
 [taxonomies]
