@@ -6,7 +6,7 @@ theme = "bodhi"
 [params]
     subtitle = "simple and minimal."
     avatar = "/t.png"
-    author = "Rohan Verma"
+    author = "Bk"
     commentoSrc = "https://commento.example.com/js/commento.js"
     footerMessage = "Keep it simple."
     disableSearch = false
@@ -17,7 +17,7 @@ url = "/"
 weight = 1
 
 [[menu.main_right]]
-name = "about"
+name = "关于"
 url = "/about/"
 weight = 1
 
