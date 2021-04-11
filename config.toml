@@ -1,5 +1,5 @@
 baseURL = "https://cslgbk.github.io"
-languageCode = "en-us"
+languageCode = "cn"
 title = "Bodhi Theme"
 theme = "themes/bodhi"
 
