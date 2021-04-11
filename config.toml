@@ -5,7 +5,7 @@ theme = "bodhi"
 
 [params]
     subtitle = "simple and minimal."
-    avatar = "/avatar.png"
+    avatar = "/t.png"
     author = "Rohan Verma"
     commentoSrc = "https://commento.example.com/js/commento.js"
     footerMessage = "Keep it simple."
