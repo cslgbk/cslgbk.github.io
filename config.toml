@@ -4,7 +4,7 @@ title = "Bodhi Theme"
 theme = "bodhi"
 
 [params]
-    subtitle = "simple and minimal."
+    subtitle = "验证菜鸟"
     avatar = "/t.png"
     author = "Bk"
     commentoSrc = "https://commento.example.com/js/commento.js"
@@ -12,7 +12,7 @@ theme = "bodhi"
     disableSearch = false
 
 [[menu.main]]
-name = "home"
+name = "主页"
 url = "/"
 weight = 1
 
@@ -22,18 +22,18 @@ url = "/about/"
 weight = 1
 
 [[menu.nav]]
-name = "blogs"
+name = "博客"
 url = "/blog"
 weight = 1
 
 [[menu.nav]]
-parent = "blogs"
+parent = "博客"
 name = "tags"
 url = "/tags"
 weight = 2
 
 [[menu.nav]]
-parent = "blogs"
+parent = "博客"
 name = "categories"
 url = "/categories"
 weight = 3
