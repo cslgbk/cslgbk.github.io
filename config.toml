@@ -6,7 +6,7 @@ theme = "bilberry-hugo-theme"
 enableRobotsTXT = true
 
 # Change to one of your content languages defined at the end.
-DefaultContentLanguage = "en"
+DefaultContentLanguage = "ch"
 
 # Enable / Disable Google Analytics statistics for your site
 googleAnalytics = ""
@@ -56,7 +56,7 @@ disqusShortname = ""
 
   # Header configuration
     # your subtitle if you want to use any
-    subtitle = "Hello World! This is the most epic subtitle ever."
+    subtitle = "困境总会过去"
 
     # if you want to use libravatar or gravatar for the header image
     avatarEmail = "code@lednerb.de"
@@ -75,7 +75,7 @@ disqusShortname = ""
     stickyNav = false
 
     # show a language chooser in the header
-    showHeaderLanguageChooser = true
+    showHeaderLanguageChooser = false
 
   # Content configuration
     # Enable an optional pinned page to display at the top of the index
@@ -95,7 +95,7 @@ disqusShortname = ""
     showReadingTime = false
 
     # Minimum word count to display the Table of Contents
-    tocMinWordCount = 400
+    tocMinWordCount = 10
 
   # Footer configuration
     showFooter = true
@@ -109,7 +109,7 @@ disqusShortname = ""
     amountCategoriesInFooter = 7
 
     # show a language chooser in the footer
-    showFooterLanguageChooser = true
+    showFooterLanguageChooser = false
 
     # social media profile urls for the footer links
     showSocialMedia = true
@@ -154,6 +154,6 @@ disqusShortname = ""
 
 [markup]
   [markup.tableOfContents]
-    endLevel = 5
+    endLevel = 2
     ordered = false
-    startLevel = 2
+    startLevel = 1
