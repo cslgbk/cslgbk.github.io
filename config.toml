@@ -56,7 +56,7 @@ disqusShortname = ""
 
   # Header configuration
     # your subtitle if you want to use any
-    subtitle = "困境总会过去"
+    subtitle = "日积月累"
 
     # if you want to use libravatar or gravatar for the header image
     avatarEmail = "code@lednerb.de"
