@@ -118,7 +118,7 @@ disqusShortname = ""
     # all icons https://fontawesome.com/icons?d=gallery&m=free
     # brand icons https://fontawesome.com/icons?d=gallery&s=brands&m=free
     socialMediaLinks = [
-      { link = "https://qm.qq.com/cgi-bin/qm/qr?k=aa7aFYr9mvA2KDkQkX3v0Vf8z-KoDB0r", icon = "fab fa-twitter" },
+      { link = "https://qm.qq.com/cgi-bin/qm/qr?k=aa7aFYr9mvA2KDkQkX3v0Vf8z-KoDB0r", icon = "fab fa-qq" },
       { link = "https://github.com/cslgbk", icon = "fab fa-github" },
     ]
 
