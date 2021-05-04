@@ -1,5 +1,5 @@
 ---
-title: "使用正态分布随机Item"
+title: "正态分布随机化item"
 date: 2021-04-12T10:33:21+08:00
 draft: false
 tags: ["UVM", "DPI", "C", "python"]
@@ -7,7 +7,7 @@ categories: ["UVM", "python"]
 
 ---
 # 1.总体思路
-<font size=3/>通过正态分布生成函数产生数据传递item，最终通过driver将数据打印至日志文件，利用python脚本绘制分布图，检验产生数据是否正确</font>
+<font size=3/>通过正态分布generator产生数据传递item，最终通过driver将数据打印至日志文件，利用python脚本绘制分布图，检验产生数据是否正确</font>
 <!--more-->
 <font size=3/>产生正态分布数据有两种方法，第一种是在利用SV中的权重分布模拟正态函数分布，第二种是利用DPI接口实现正态函数。考虑到实现难易程度，选择后者。总体框架如下图所示。</font>
 <br/>
