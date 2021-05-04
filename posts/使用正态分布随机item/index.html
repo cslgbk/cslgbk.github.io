@@ -1,7 +1,9 @@
-<!doctype html><html class=no-js lang=ch><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=siteBaseUrl content="https://cslgbk.github.io/"><meta name=author content="Lednerb"><meta name=description content="Bilberry Premium Theme for Hugo."><meta name=keywords content="blog,personal,responsive,search,font awesome,pages,posts,multilingual,highlight.js,syntax highlighting,premium,shortcuts"><meta name=generator content="Hugo 0.82.0"><title>使用正态分布随机Item | 验证菜鸟's Blogs</title><meta name=description content="使用正态分布随机Item - Bilberry Premium Theme for Hugo."><meta itemprop=name content="使用正态分布随机Item"><meta itemprop=description content="使用正态分布随机Item - Bilberry Premium Theme for Hugo."><meta property="og:title" content="使用正态分布随机Item"><meta property="og:description" content="使用正态分布随机Item - Bilberry Premium Theme for Hugo."><meta property="og:image" content="https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?size=200"><meta property="og:url" content="https://cslgbk.github.io/posts/%E4%BD%BF%E7%94%A8%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/"><meta property="og:site_name" content="验证菜鸟's Blogs"><meta property="og:type" content="article"><script src=/modernizr-simple.js></script><link href=/posts/%E4%BD%BF%E7%94%A8%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/ rel=alternate type=application/rss+xml title="验证菜鸟's Blogs"><link href=/posts/%E4%BD%BF%E7%94%A8%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/ rel=feed type=application/rss+xml title="验证菜鸟's Blogs"><link rel=stylesheet href=https://cslgbk.github.io/theme.css></head><body class=bilberry-hugo-theme><nav><div class=container><ul class=topnav></ul><div id=search-box class=search><i class="fas fa-search"></i>
+<!doctype html><html class=no-js lang=ch><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=siteBaseUrl content="https://cslgbk.github.io/"><meta name=author content="Lednerb"><meta name=description content="Bilberry Premium Theme for Hugo."><meta name=keywords content="blog,personal,responsive,search,font awesome,pages,posts,multilingual,highlight.js,syntax highlighting,premium,shortcuts"><meta name=generator content="Hugo 0.83.1"><title>使用正态分布随机Item | 验证菜鸟's Blogs</title><meta name=description content="使用正态分布随机Item - Bilberry Premium Theme for Hugo."><meta itemprop=name content="使用正态分布随机Item"><meta itemprop=description content="使用正态分布随机Item - Bilberry Premium Theme for Hugo."><meta property="og:title" content="使用正态分布随机Item"><meta property="og:description" content="使用正态分布随机Item - Bilberry Premium Theme for Hugo."><meta property="og:image" content="https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?size=200"><meta property="og:url" content="https://cslgbk.github.io/posts/%E4%BD%BF%E7%94%A8%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/"><meta property="og:site_name" content="验证菜鸟's Blogs"><meta property="og:type" content="article"><script src=/modernizr-simple.js></script><link href=/posts/%E4%BD%BF%E7%94%A8%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/ rel=alternate type=application/rss+xml title="验证菜鸟's Blogs"><link href=/posts/%E4%BD%BF%E7%94%A8%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/ rel=feed type=application/rss+xml title="验证菜鸟's Blogs"><link rel=stylesheet href=https://cslgbk.github.io/theme.css></head><body class=bilberry-hugo-theme><nav><div class=container><ul class=topnav></ul><div id=search-box class=search><i class="fas fa-search"></i>
 <input id=search type=text placeholder></div></div></nav><header><div class=container><div class=logo><a href=/ class=logo><img src=/t.jpg alt>
 <span class=overlay><i class="fa fa-home"></i></span></a></div><div class=titles><h3 class=title><a href=/>验证菜鸟's Blogs</a></h3><span class=subtitle>日积月累</span></div><div class=toggler><i class="fa fa-bars" aria-hidden=true></i></div></div></header><div class="main container"><div class="article-wrapper u-cf single"><a class=bubble href=https://cslgbk.github.io/posts/%E4%BD%BF%E7%94%A8%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/><i class="fas fa-fw fa-pencil-alt"></i></a><article class="default article"><div class=content><h1 class=article-title><a href=https://cslgbk.github.io/posts/%E4%BD%BF%E7%94%A8%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/>使用正态分布随机Item</a></h1><div class=meta><span class="date moment">2021-04-12</span>
-<span class=categories><a href=https://cslgbk.github.io/categories/uvm/>UVM</a></span></div><h1 id=1总体思路>1.总体思路</h1><p>第一种是在利用SV中的权重分布模拟正态函数分布，第二种是利用DPI接口实现正态函数。考虑到实现难易程度，选择后者。总体框架如图1.1所示。</p><h1 id=2在c中实现正态分布函数>2.在C中实现正态分布函数</h1><p>实现正态分布函数有两种方法，一种是采用泰勒展开式，计算出最终值，一种是通过中心-极限定理得出正态分布。正态函数的泰勒展开式 -_-|| &mldr; 一般采用中心-极限定理比较方便。
+<span class=categories><a href=https://cslgbk.github.io/categories/uvm/>UVM</a>
+<a href=https://cslgbk.github.io/categories/python/>python</a></span></div><h1 id=1总体思路>1.总体思路</h1><p>通过正态分布生成函数产生数据传递item，最终通过driver将数据打印至日志文件，利用python脚本绘制分布图，检验产生数据是否正确</p><p>产生正态分布数据有两种方法，第一种是在利用SV中的权重分布模拟正态函数分布，第二种是利用DPI接口实现正态函数。考虑到实现难易程度，选择后者。总体框架如下图所示。
+<img src=/images/else/normal_str.png alt=str></p><h1 id=2在c中实现正态分布函数>2.在C中实现正态分布函数</h1><p>实现正态分布函数有两种方法，一种是采用泰勒展开式，计算出最终值，一种是通过中心-极限定理得出正态分布。正态函数的泰勒展开式 -_-|| &mldr; 一般采用中心-极限定理比较方便。
 中心-极限定理的大致解释，每次从这些总体中随机抽取 n 个抽样，一共抽 m 次。 然后把这 m 组抽样分别求出平均值。 这些平均值的分布接近正态分布。</p><pre><code class=language-C代码 data-lang=C代码>    #include&lt;svdpi.h&gt;           //dpi头文件，仿真器自带
     #include&lt;stdlib.h&gt;
     unsigned int get_normal()
@@ -20,10 +22,10 @@
 
 </code></pre><h1 id=3uvm搭建>3.UVM搭建</h1><p>测试平台由代码：</p><pre><code>`include &quot;uvm_macros.svh&quot;
 
-import &quot;DPI-C&quot; function bit [31:0] get_normal();    //导入C函数
+import &quot;DPI-C&quot; function bit [31:0] get_normal();  //导入C函数
 import uvm_pkg::*;
 	
-class my_trans extends uvm_sequence_item;           //定义my_trans
+class my_trans extends uvm_sequence_item;        //定义my_trans
 	bit [31:0] dat;
 	
 	`uvm_object_utils_begin(my_trans)
@@ -42,7 +44,7 @@ class my_trans extends uvm_sequence_item;           //定义my_trans
 	endfunction : do_print
 endclass
 
-class my_sequence extends uvm_sequence;             //定义my_sequence
+class my_sequence extends uvm_sequence;         //定义my_sequence
 	`uvm_object_utils(my_sequence)
 	
 	function new(string name = &quot;my_sequence&quot;);
@@ -58,7 +60,7 @@ class my_sequence extends uvm_sequence;             //定义my_sequence
 	endtask	
 endclass
 
-class my_sequencer extends uvm_sequencer#(.REQ(my_trans),.RSP(my_trans));           //定义my_sequencer
+class my_sequencer extends uvm_sequencer#(.REQ(my_trans),.RSP(my_trans));     //定义my_sequencer
 	`uvm_component_utils(my_sequencer)
 	function new(string name = &quot;my_sequencer&quot;, uvm_component parent);
 		super.new(name,parent);
@@ -66,7 +68,7 @@ class my_sequencer extends uvm_sequencer#(.REQ(my_trans),.RSP(my_trans));       
 	
 endclass
 
-class my_driver extends uvm_driver#(.REQ(my_trans),.RSP(my_trans));     //定义my_driver
+class my_driver extends uvm_driver#(.REQ(my_trans),.RSP(my_trans));   //定义my_driver
 	`uvm_component_utils(my_driver)
 
 	function new(string name, uvm_component parent);
@@ -84,7 +86,7 @@ class my_driver extends uvm_driver#(.REQ(my_trans),.RSP(my_trans));     //定义
 	endtask
 endclass
 
-class my_env extends uvm_env;                           //定义my_env
+class my_env extends uvm_env;           //定义my_env
 	`uvm_component_utils(my_env)
 	
 	my_sequencer sqr;
@@ -134,11 +136,74 @@ initial begin
 	run_test(&quot;test0&quot;);
 end
 endmodule 
-</code></pre></div><div class=footer><div class=tags><i class="fa fa-tags"></i><div class=links><a href=https://cslgbk.github.io/tags/uvm/>UVM</a>
+</code></pre><h1 id=4-利用python脚本提取数据查看结果>4. 利用python脚本提取数据，查看结果</h1><p>VCS最终打印数据：</p><pre><code>--------------------------------
+Name       Type      Size  Value
+--------------------------------
+dat_trans  my_trans  -     @572 
+  dat      integral  32    'd43 
+--------------------------------
+</code></pre><p>利用python脚本提取dat的数值：</p><pre><code>import matplotlib
+import matplotlib.pyplot as plt
+
+f = open(&quot;sim.log&quot;)
+
+line = f.readlines()
+dat=[]
+for tmp in line:
+    s  = tmp.split()
+    for i in range(0,len(s)-1):
+        if s[i] == &quot; &quot;:
+            s.pop(i)
+    if len(s) &gt; 3:
+        if s[0]==&quot;dat&quot;:
+            if s[1] == &quot;integral&quot;:
+                dat.append(int(s[3][2:])) # 提取数据
+
+
+plt.hist(dat,100,(0,99))
+plt.show()
+</code></pre><h1 id=5-makefile文件编写>5. makefile文件编写</h1><p>vcs仿真器makefile：</p><pre><code>VCS = vcs -f tb.list +vc ../tb/gen.c\
+		-full64 -debug_all -sverilog -timescale=&quot;1ns/1ps&quot; -l log.txt \
+		+vpi \
+		+define+UVM_OBJECT_MUST_HAVE_CONSTRUCTOR \
+		$(UVM_HOME)/src/dpi/uvm_dpi.cc -CFLAGS -DVCS
+
+SIM = ./simv -l sim.log +UVM_TIMEOUT=100000000
+
+DISP = python3 analyze_dat.py
+
+gui:
+	$(SIM) -gui 
+
+comp:
+	$(VCS)
+	
+sim:
+	$(SIM)
+	
+disp:
+	$(DISP)
+
+run:
+	$(VCS)
+	$(SIM) 
+	$(DISP)
+
+clean:
+	cp makefile ../makefile
+	cp tb.list ../tb.list
+	cp analyze_dat.py ../analyze_dat.py
+	rm -rf *
+	mv ../makefile makefile
+	mv ../tb.list tb.list
+	mv ../analyze_dat.py analyze_dat.py
+</code></pre><h1 id=6-运行结果>6. 运行结果</h1><p>make运行</p><pre><code>make run
+</code></pre><p>最终结果：</p><p><img src=/images/else/normal_dat.png alt=result></p></div><div class=footer><div class=tags><i class="fa fa-tags"></i><div class=links><a href=https://cslgbk.github.io/tags/uvm/>UVM</a>
 <a href=https://cslgbk.github.io/tags/dpi/>DPI</a>
 <a href=https://cslgbk.github.io/tags/c/>C</a>
-<a href=https://cslgbk.github.io/tags/randomize/>randomize</a></div></div></div></article></div><div id=comments-container><script defer src=https://commento.lednerb.de/js/commento.js></script><div id=commento></div></div></div><footer><div class=container><div class=recent-posts><strong></strong><ul><li><a href=https://cslgbk.github.io/posts/%E4%BD%BF%E7%94%A8%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/>使用正态分布随机Item</a></li><li><a href=https://cslgbk.github.io/posts/my-first-post/>My First Post</a></li></ul></div><div class=categories><a href=/categories/><strong></strong></a><ul><li><a href=/categories/uvm>Uvm
-(1)</a></li></ul></div><div class=right><div class=external-profiles><strong></strong><a href="https://qm.qq.com/cgi-bin/qm/qr?k=aa7aFYr9mvA2KDkQkX3v0Vf8z-KoDB0r" target=_blank><i class="fab fa-twitter"></i></a>
+<a href=https://cslgbk.github.io/tags/python/>python</a></div></div></div></article></div><div id=comments-container><script defer src=https://commento.lednerb.de/js/commento.js></script><div id=commento></div></div></div><footer><div class=container><div class=recent-posts><strong></strong><ul><li><a href=https://cslgbk.github.io/posts/%E4%BD%BF%E7%94%A8%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/>使用正态分布随机Item</a></li></ul></div><div class=categories><a href=/categories/><strong></strong></a><ul><li><a href=/categories/python>Python
+(1)</a></li><li><a href=/categories/uvm>Uvm
+(1)</a></li></ul></div><div class=right><div class=external-profiles><strong></strong><a href="https://qm.qq.com/cgi-bin/qm/qr?k=aa7aFYr9mvA2KDkQkX3v0Vf8z-KoDB0r" target=_blank><i class="fab fa-qq"></i></a>
 <a href=https://github.com/cslgbk target=_blank><i class="fab fa-github"></i></a></div></div></div></footer><div class=credits><div class=container><div class=copyright><a href=https://github.com/Lednerb target=_blank>&copy;
 2017
 by Lednerb</a></div><div class=author><a href=https://github.com/Lednerb/bilberry-hugo-theme target=_blank>Bilberry-Hugo</a></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type=text/x-mathjax-config>
