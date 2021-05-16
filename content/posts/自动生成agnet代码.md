@@ -1,5 +1,5 @@
 ---
-title: "正态分布随机化item"
+title: "自动化生成agnet代码"
 date: 2021-05-12T05:33:21+08:00
 draft: false
 tags: ["UVM", "验证自动化", "python"]
