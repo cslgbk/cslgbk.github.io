@@ -3,7 +3,107 @@
 <span class=overlay><i class="fa fa-home"></i></span></a></div><div class=titles><h3 class=title><a href=/>验证菜鸟's Blogs</a></h3><span class=subtitle>日积月累</span></div><div class=toggler><i class="fa fa-bars" aria-hidden=true></i></div></div></header><div class="main container"><div class="article-wrapper u-cf single"><a class=bubble href=https://cslgbk.github.io/posts/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/><i class="fas fa-fw fa-pencil-alt"></i></a><article class="default article"><div class=content><h1 class=article-title><a href=https://cslgbk.github.io/posts/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/>自动化生成agent代码</a></h1><div class=meta><span class="date moment">2021-05-16</span>
 <span class=categories><a href=https://cslgbk.github.io/categories/uvm/>UVM</a>
 <a href=https://cslgbk.github.io/categories/python/>python</a>
-<a href=https://cslgbk.github.io/categories/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96/>验证自动化</a></span></div><h1 id=1总体思路>1.总体思路</h1><p>在搭建验证框架时经常要输入很多重复性的代码，有两种快速获得验证的方法，一种是复制原有的框架代码，在代码上面修改，一种是利用脚本语言快速生成代码。本文通过python脚本，快速生成agent的代码，提高工作效率。</p><h1 id=2python脚本>2.python脚本</h1><p>利用open、write函数创建SV文件，写入UVM框架代码。</p><p>code_gen.py:</p><h1 id=3生成结果>3.生成结果</h1><pre><code>python3 ./code_gen.py
+<a href=https://cslgbk.github.io/categories/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96/>验证自动化</a></span></div><h1 id=1总体思路>1.总体思路</h1><p>在搭建验证框架时经常要输入很多重复性的代码，有两种快速获得验证的方法，一种是复制原有的框架代码，在代码上面修改，一种是利用脚本语言快速生成代码。本文通过python脚本，快速生成agent的代码，提高工作效率。</p><h1 id=2python脚本>2.python脚本</h1><p>利用open、write函数创建SV文件，写入UVM框架代码。</p><p>code_gen.py:</p><pre><code>#coding=utf-8
+
+import sys
+
+name = input(&quot;input agentname:\n&quot;)
+
+f = open(name+&quot;_pkg.sv&quot;, 'w+', encoding=&quot;utf-8&quot;)
+
+f.write(&quot;`include \&quot;uvm_macros.svh\&quot;\n\n&quot;)
+
+f.write(&quot;package &quot;+name+&quot;_pkg;\n\n&quot;)
+f.write(&quot;import uvm_pkg::*;\n\n&quot;)
+name_trans = name + &quot;_trans&quot;
+f.write(&quot;class &quot;+name_trans+&quot; extends uvm_sequence_item;\n&quot;)
+f.write(&quot;\tfunction new(string name=\&quot;&quot;+name_trans+&quot;\&quot;);\n&quot;)
+f.write(&quot;\t\tsuper.new(name);\n&quot;)
+f.write(&quot;\tendfunction\n\n&quot;)
+f.write(&quot;\t//输入变量\n&quot;)
+f.write(&quot;\trand ;\n&quot;)
+f.write(&quot;\trand ;\n&quot;)
+
+f.write(&quot;\t`uvm_object_utils_begin(&quot;+name_trans+&quot;)\n&quot;)
+f.write(&quot;\t\t`uvm_field_\n&quot;)
+f.write(&quot;\t\t`uvm_field_\n&quot;)
+f.write(&quot;\t`uvm_object_utils_end\n&quot;)
+
+f.write(&quot;\nendclass\n&quot;)
+
+name_seq = name+&quot;_seq&quot;
+f.write(&quot;\nclass &quot;+name_seq+&quot; extends uvm_sequence;\n&quot;)
+f.write(&quot;\t`uvm_object_utils(&quot;+name_seq+&quot;)\n\n&quot;)
+f.write(&quot;\tfunction new(string name=\&quot;&quot;+name_seq+&quot;\&quot;);\n&quot;)
+f.write(&quot;\t\tsuper.new(name);\n&quot;)
+f.write(&quot;\tendfunction\n\n&quot;)
+f.write(&quot;\tvirtual task body();\n&quot;)
+f.write(&quot;\t\t&quot;+name_trans+&quot; tr;\n&quot;)
+f.write(&quot;\t\trepeat(10) begin\n&quot;)
+f.write(&quot;\t\t\t`uvm_do(tr)\n&quot;)
+f.write(&quot;\t\tend\n&quot;)
+f.write(&quot;\t\tendtask\n&quot;)
+f.write(&quot;endclass\n\n&quot;)
+name_sqr = name+&quot;_sqr&quot;
+f.write(&quot;class &quot;+name_sqr+&quot; extends uvm_sequencer#(&quot;+name_trans+&quot;);\n&quot;)
+f.write(&quot;\t`uvm_component_utils(&quot;+name_sqr+&quot;)\n\n&quot;)
+f.write(&quot;\tfunction new(string name=\&quot;&quot;+name_sqr+&quot;\&quot;, uvm_component parent=null);\n&quot;)
+f.write(&quot;\t\tsuper.new(name, parent);\n&quot;)
+f.write(&quot;\tendfunction\n&quot;)
+f.write(&quot;endclass\n\n&quot;)
+name_drv = name+&quot;_drv&quot;
+f.write(&quot;class &quot;+name_drv+&quot; extends uvm_driver#(&quot;+name_trans+&quot;);\n&quot;)
+f.write(&quot;\t`uvm_component_utils(&quot;+name_drv+&quot;);\n\n&quot;)
+f.write(&quot;\tfunction new(string name=\&quot;&quot;+name_drv+&quot;\&quot;, uvm_component parent=null);\n&quot;)
+f.write(&quot;\t\tsuper.new(name,parent);\n&quot;)
+f.write(&quot;\tendfunction\n\n&quot;)
+f.write(&quot;\t function void set_interface();\n&quot;)
+f.write(&quot;\t\t//设置接口\n\n&quot;)
+f.write(&quot;\tendfunction\n\n&quot;)
+f.write(&quot;\t&quot;+name_trans+&quot; tmp;\n&quot;)
+f.write(&quot;\ttask main_phase(uvm_phase phase);\n&quot;)
+f.write(&quot;\t\tforever begin\n&quot;)
+f.write(&quot;\t\t\tseq_item_port.get_next_item(tmp);\n&quot;)
+f.write(&quot;\t\t\t//驱动\n\n&quot;)
+f.write(&quot;\t\t\tseq_item_port.item_done();\n&quot;)
+f.write(&quot;\t\tend\n&quot;)
+f.write(&quot;\tendtask\n\n&quot;)
+f.write(&quot;endclass\n\n&quot;)
+name_mon = name + &quot;_mom&quot;
+f.write(&quot;class &quot;+name_mon+&quot; extends uvm_monitor#(&quot;+name_trans+&quot;);\n&quot;)
+f.write(&quot;\t`uvm_component_utils(&quot;+name_mon+&quot;)\n\n&quot;)
+f.write(&quot;\tuvm_analysis_port#(&quot;+name_trans+&quot;) ap;\n\n&quot;)
+f.write(&quot;\tfunction new(string name=\&quot;&quot;+name_mon+&quot;\&quot;, uvm_component parent=null);\n&quot;)
+f.write(&quot;\t\tsuper.new(name, parent);\n&quot;)
+f.write(&quot;\t\tap = new(\&quot;ap_mon\&quot;,this);\n&quot;)
+f.write(&quot;\tendfunction\n\n&quot;)
+f.write(&quot;\ttask main_phase(uvm_phase phase);\n&quot;)
+f.write(&quot;\t\t//驱动\n\n\n&quot;)
+f.write(&quot;\tendtask\n&quot;)
+f.write(&quot;endclass\n\n&quot;)
+name_agnt = name+&quot;_agent&quot;
+f.write(&quot;class &quot;+name_agnt+&quot; extends uvm_agent;\n&quot;)
+f.write(&quot;\t`uvm_component_utils(&quot;+name_agnt+&quot;)\n\n&quot;)
+f.write(&quot;\tfunction new(string name=\&quot;&quot;+name_agnt+&quot;\&quot;, uvm_component parent=null);\n&quot;)
+f.write(&quot;\tsuper.new(name, parent);\n&quot;)
+f.write(&quot;\tendfunction\n\n&quot;)
+f.write(&quot;\t&quot;+name_drv+&quot; drv;\n&quot;)
+f.write(&quot;\t&quot;+name_mon+&quot; mon;\n&quot;)
+f.write(&quot;\t&quot;+name_sqr+&quot; sqr;\n&quot;)
+f.write(&quot;\tfunction void build_phase(uvm_phase phase);\n&quot;)
+f.write(&quot;\t\tdrv = &quot;+name_drv+&quot;::type_id::create(\&quot;&quot;+name_drv+&quot;\&quot;, this);\n&quot;)
+f.write(&quot;\t\tmon = &quot;+name_mon+&quot;::type_id::create(\&quot;&quot;+name_mon+&quot;\&quot;, this);\n&quot;)
+f.write(&quot;\t\tsqr = &quot;+name_sqr+&quot;::type_id::create(\&quot;&quot;+name_sqr+&quot;\&quot;, this);\n&quot;)
+f.write(&quot;\tendfunction\n\n&quot;)
+f.write(&quot;\tfunction void connect_phase(uvm_phase phase);\n&quot;)
+f.write(&quot;\t\tsuper.connect_phase(phase);\n&quot;)
+f.write(&quot;\t\tdrv.seq_item_port.connect(sqr.seq_item_export);\n&quot;)
+f.write(&quot;\tendfunction\n\n&quot;)
+f.write(&quot;endclass\n&quot;)
+f.write(&quot;\nendpackage\n&quot;)
+
+f.close()
+</code></pre><h1 id=3生成结果>3.生成结果</h1><pre><code>python3 ./code_gen.py
 </code></pre><p>生成文件test_pkg:</p><pre><code>`include &quot;uvm_macros.svh&quot;
 
 package test_pkg;
