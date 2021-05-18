@@ -1,0 +1,1189 @@
+<!doctype html><html class=no-js lang=ch><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=siteBaseUrl content="https://cslgbk.github.io/"><meta name=author content="Lednerb"><meta name=description content="Bilberry Premium Theme for Hugo."><meta name=keywords content="blog,personal,responsive,search,font awesome,pages,posts,multilingual,highlight.js,syntax highlighting,premium,shortcuts"><meta name=generator content="Hugo 0.83.1"><title>含寄存器模型验证结构搭建 | 验证菜鸟's Blogs</title><meta name=description content="含寄存器模型验证结构搭建 - Bilberry Premium Theme for Hugo."><meta itemprop=name content="含寄存器模型验证结构搭建"><meta itemprop=description content="含寄存器模型验证结构搭建 - Bilberry Premium Theme for Hugo."><meta property="og:title" content="含寄存器模型验证结构搭建"><meta property="og:description" content="含寄存器模型验证结构搭建 - Bilberry Premium Theme for Hugo."><meta property="og:image" content="https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?size=200"><meta property="og:url" content="https://cslgbk.github.io/posts/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/"><meta property="og:site_name" content="验证菜鸟's Blogs"><meta property="og:type" content="article"><script src=/modernizr-simple.js></script><link href=/posts/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/ rel=alternate type=application/rss+xml title="验证菜鸟's Blogs"><link href=/posts/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/ rel=feed type=application/rss+xml title="验证菜鸟's Blogs"><link rel=stylesheet href=https://cslgbk.github.io/theme.css></head><body class=bilberry-hugo-theme><nav><div class=container><ul class=topnav></ul><div id=search-box class=search><i class="fas fa-search"></i>
+<input id=search type=text placeholder></div></div></nav><header><div class=container><div class=logo><a href=/ class=logo><img src=/t.jpg alt>
+<span class=overlay><i class="fa fa-home"></i></span></a></div><div class=titles><h3 class=title><a href=/>验证菜鸟's Blogs</a></h3><span class=subtitle>日积月累</span></div><div class=toggler><i class="fa fa-bars" aria-hidden=true></i></div></div></header><div class="main container"><div class="article-wrapper u-cf single"><a class=bubble href=https://cslgbk.github.io/posts/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/><i class="fas fa-fw fa-pencil-alt"></i></a><article class="default article"><div class=content><h1 class=article-title><a href=https://cslgbk.github.io/posts/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/>含寄存器模型验证结构搭建</a></h1><div class=meta><span class="date moment">2021-04-21</span>
+<span class=categories><a href=https://cslgbk.github.io/categories/uvm/>UVM</a>
+<a href=https://cslgbk.github.io/categories/mcdf/>MCDF</a></span></div><p>寄存器模型中存储了DUT寄存器中的地址和数据信息，方便寄存器的读写，简化参考模型，便于覆盖率收集等特点。本文以MCDF的控制寄存器为例搭建含有寄存器模型的验证结构。</p><h1 id=1-控制寄存器功能描述>1. 控制寄存器功能描述</h1><h3 id=接口>接口</h3><p><img src=/images/mcdf/reg_if.PNG alt=reg_if></p><p>psel:APB总线选择信号</p><p>paddr:APB总线地址总线</p><p>pwr:APB总线读写信号</p><p>pwdata:APB总线写入数据总线</p><p>pwdata:APB总线读取数据总线</p><p>pen:APB总线使能信号</p><p>pready:读写完成标志位</p><p>pslverr:总线错误标准位</p><p>error_clr:清除slave_node错误标志位</p><p>slv_en:slave_node使能控制位</p><p>slvx_id:通道x ID号</p><p>slvx_len:通道x数据包长度</p><p>slvx_free_slot:通道x可用fifo数量</p><p>slvx_parity_err:通道x奇偶校验标志位</p><h3 id=寄存器>寄存器</h3><p>last_st, cur_st：用于表示APB总线状态</p><p></p><p>ctrl_men：MCDF控制寄存器</p><p>ro_men：reg_if模块中只读寄存器</p><h1 id=2验证结构>2.验证结构</h1><p><img src=/images/mcdf/v1_str.png alt=rgm_stru></p><p>控制寄存器模块可通过APB总线进行读取和配置，可将控制寄存器分为两部分进行验证，一部分是模拟外部总线访问设计模块，一部分是模拟设计内部信号观察控制寄存器的反应。APB_agent用于访问控制寄存器模块的APB总线，reg_agent用于模拟设计内部信号。</p><p>APB_agent中APB_seq产生随机的读写命令，通过driver发送至DUT。monitor用于监测总线变化，监测数据通过predictor、adapter最终传入寄存器模型。寄存器模型在APB总线每次被读写时更新。当monitor监测到总线数据传输完成时，同时触发寄存器模型更新和scoreboard（先缓存至analysis fifo）.</p><p>scoreboard在触发后，读取寄存器模型中更新的值，作为参考设计的值，通过后门访问，直接获取DUT中的真实值，对比后输出结果。</p><h1 id=3apb总线>3.APB总线</h1><p>AMBA总线介绍可参考<a href=http://res.diandianme.com/sdr/resource/6ajyt.pdf>此文档</a></p><p>AMBA总线包含AHB（高级高性能总线）、ASB（高级系统总线）、APB（高级外设总线）。APB总线状态机和时序如下：</p><p><img src=/images/mcdf/APB_Status.png alt=APB_Status>
+<img src=/images/mcdf/APB_Write.png alt=APB_Write>
+<img src=/images/mcdf/APB_Read.png alt=APB_Read></p><h1 id=4验证环境搭建>4.验证环境搭建</h1><p>AMBA总线介绍可参考<a href=http://res.diandianme.com/sdr/resource/6ajyt.pdf>此文档</a></p><p>APB总线APB_pkg.sv：</p><pre><code>`include &quot;uvm_macros.svh&quot;
+
+`define APB_DAT 32
+`define APB_ADDR 8
+
+package APB_pkg;
+
+import uvm_pkg::*;
+
+class APB_item extends uvm_sequence_item;
+	rand bit[`APB_ADDR-1:0] paddr;
+	rand bit[`APB_DAT-1:0]  pwdata;
+	rand bit[`APB_DAT-1:0]  prdata;
+	rand bit pwr;
+	
+	`uvm_object_utils_begin(APB_item)
+		`uvm_field_int(paddr, UVM_ALL_ON)
+		`uvm_field_int(pwdata, UVM_ALL_ON)
+		`uvm_field_int(prdata, UVM_ALL_ON)
+		`uvm_field_int(pwr, UVM_ALL_ON)
+	`uvm_object_utils_end
+	
+    /*
+	constraint addr_con	{
+		paddr dist {8'h00:/8,	
+					8'h04:/8,	
+					8'h08:/8,	
+					8'h0C:/8,
+					8'h80:/8,
+					8'h84:/8,
+					8'h88:/8,
+					8'h8C:/8,
+					8'h90:/8,
+					8'h94:/8,
+					8'h98:/8,
+					8'h9C:/8};
+		}
+        */
+	
+	function new(string name = &quot; &quot;);
+		super.new(name);   
+	endfunction : new
+	
+endclass
+
+class APB_seq extends uvm_sequence;
+	`uvm_object_utils(APB_seq)
+	
+	function new(string name=&quot; &quot;);
+		super.new(name);
+	endfunction
+	
+	virtual task body();
+		APB_item tr;
+		#200
+		forever begin
+			`uvm_do(tr)
+		end
+	endtask
+
+endclass
+
+class APB_sqr extends uvm_sequencer#(APB_item);
+	`uvm_component_utils(APB_sqr)
+	
+	function new(string name=&quot;APB_sqr&quot;, uvm_component parent=null);
+		super.new(name,parent);
+	endfunction
+
+endclass
+	
+class APB_driver extends uvm_driver#(APB_item);
+	
+	`uvm_component_utils(APB_driver)
+	
+	function new(string name = &quot;APB_driver&quot;, uvm_component parent);
+		super.new(name, parent);
+	endfunction
+	
+	virtual reg_interface APB_vif;
+	
+	function void set_interface(virtual reg_interface reg_vif);
+		APB_vif = reg_vif;
+	endfunction
+	
+	task main_phase(uvm_phase phase);
+		//uvm_sequence_item tmp;
+		APB_item t;
+		APB_idle();
+		//@(APB_vif.rstn);
+		forever begin
+			seq_item_port.get_next_item(t);
+			
+			if (t.pwr == 0) begin
+				APB_read(t);
+			end 
+			if (t.pwr == 1) begin
+				APB_write(t);
+			end
+			seq_item_port.item_done();
+		end
+	endtask
+
+	task APB_idle();
+		APB_vif.apb_driver.psel &lt; = 0;
+		APB_vif.apb_driver.pen &lt; = 0;
+	endtask
+	
+	task APB_write(APB_item tmp);
+		//@(APB_vif.pslverr|APB_vif.pready);
+		//while(APB_vif.apb_driver.pslverr);
+		@APB_vif.apb_driver;
+		if( APB_vif.apb_driver.pready ) return;
+		fork
+		//@(!(APB_vif.pslverr|APB_vif.pready));
+		//@(!APB_vif.pslverr);
+		//@(!APB_vif.pready);
+		APB_vif.apb_driver.psel &lt; = 1;       //markdonwn问题， 实际为非阻塞赋值“&lt;=”
+		APB_vif.apb_driver.pen &lt; = 0;
+		APB_vif.apb_driver.paddr &lt; = tmp.paddr;
+		APB_vif.apb_driver.pwdata &lt; = tmp.pwdata;
+		APB_vif.apb_driver.pwr &lt; = tmp.pwr;
+		join
+		
+		@APB_vif.apb_driver 
+		APB_vif.apb_driver.pen &lt; = 1;
+		@APB_vif.apb_driver fork
+		APB_vif.apb_driver.pen &lt; = 0;
+		APB_vif.apb_driver.psel &lt; = 0;
+		join
+	endtask
+	
+	task APB_read(APB_item tmp);
+		//while(APB_vif.apb_driver.pslverr);
+		
+		@APB_vif.apb_driver;
+		if (APB_vif.apb_driver.pready) return;
+		fork
+		//@(!(APB_vif.pslverr|APB_vif.pready));
+		APB_vif.apb_driver.psel &lt; = 1;
+		APB_vif.apb_driver.pen &lt; = 0;
+		APB_vif.apb_driver.paddr &lt; = tmp.paddr;
+		APB_vif.apb_driver.pwr &lt; = tmp.pwr;
+		join
+		@APB_vif.apb_driver 
+		APB_vif.apb_driver.pen &lt; = 1;
+		@APB_vif.apb_driver fork
+		tmp.prdata = APB_vif.apb_driver.prdata;
+		APB_vif.apb_driver.pen &lt; = 0;
+		APB_vif.apb_driver.psel &lt; = 0;
+		join
+	endtask
+endclass
+	
+	
+class APB_monitor extends uvm_monitor;
+	`uvm_component_utils(APB_monitor)
+	
+	uvm_analysis_port#(APB_item) ap;
+	
+	APB_item tmp;
+	int s;
+	
+	virtual reg_interface reg_intf;
+	
+	function void set_interface(virtual reg_interface vif);
+		reg_intf = vif;
+	endfunction
+	
+	function new(string name=&quot;APB_monitor&quot;, uvm_component parent);
+		super.new(name, parent);
+		ap = new(&quot;mon_ap&quot;,this);
+		
+	endfunction
+	
+	task main_phase(uvm_phase phase);
+		
+		forever begin
+			@reg_intf.apb_sample;
+			// `uvm_info(&quot;DEBUG&quot;,$sformatf(&quot;psel:%h pen:%h&quot;, reg_intf.apb_sample.psel, reg_intf.apb_sample.pen), UVM_LOW);
+			if (reg_intf.apb_sample.pslverr) continue;
+			if (s == 0) begin
+				if (reg_intf.apb_sample.pready) continue;
+			end
+			
+			if (reg_intf.apb_sample.psel) begin
+				s = 1;
+			
+				if (reg_intf.apb_sample.pen) begin
+					if (s != 2) begin
+						s = 2;
+						tmp = new(&quot;APB_monitor&quot;);
+						tmp.pwr = reg_intf.apb_sample.pwr;
+						tmp.paddr = reg_intf.apb_sample.paddr;
+						tmp.prdata =reg_intf.apb_sample.prdata;
+						tmp.pwdata = reg_intf.apb_sample.pwdata;
+						ap.write(tmp);
+					end
+				end
+			end else begin
+				s = 0;
+			end
+			
+		end
+	endtask
+endclass
+
+
+class APB_agent extends uvm_agent;
+	`uvm_component_utils(APB_agent)
+	function new(string name, uvm_component parent);
+		super.new(name,parent);
+	endfunction
+	
+	APB_monitor monitor;
+	APB_driver driver;
+	APB_sqr sqr;
+	//reg_monitor reg_mon;
+	
+	function void build_phase(uvm_phase phase);
+		super.build_phase(phase);
+		monitor = APB_monitor::type_id::create(&quot;APB_monitor&quot;,this);
+		driver = APB_driver::type_id::create(&quot;APB_driver&quot;,this);
+		sqr = APB_sqr::type_id::create(&quot;APB_sqr&quot;,this);
+//		reg_mon = reg_monitor::type_id::create(&quot;reg_mon&quot;,this);
+	endfunction
+	
+	function void connect_phase(uvm_phase phase);
+		super.connect_phase(phase);
+		driver.seq_item_port.connect(sqr.seq_item_export);
+	endfunction
+	
+	function void set_interface(virtual reg_interface reg_vif);
+		driver.set_interface(reg_vif);
+		monitor.set_interface(reg_vif);
+//		reg_mon.set_interface(reg_vif);
+	endfunction
+	
+endclass
+
+
+class rm2reg_adapter extends uvm_reg_adapter;
+	`uvm_object_utils(rm2reg_adapter)
+	function new(string name=&quot;rm2reg_adapter&quot;);
+		super.new(name);
+	endfunction
+	
+	function uvm_sequence_item reg2bus(const ref uvm_reg_bus_op rw);
+		APB_item tmp = APB_item::type_id::create(&quot;reg2bus_item&quot;);
+		tmp.pwr = (rw.kind == UVM_WRITE) ? 1:0;
+		tmp.paddr = rw.addr;
+		tmp.pwdata = rw.data;
+		return tmp;
+	endfunction
+	
+	function void bus2reg(uvm_sequence_item bus_item, ref uvm_reg_bus_op rw);
+		APB_item tmp;
+		if (!$cast(tmp, bus_item)) begin
+			`uvm_fatal(&quot;ADAPTER_ERROR_BUS2REG&quot;,&quot;cast error!&quot;)
+			return;
+		end
+		
+		rw.kind = (tmp.pwr == 1) ? UVM_WRITE : UVM_READ;
+		rw.addr = tmp.paddr;
+		rw.data = (tmp.pwr == 1) ? tmp.pwdata:tmp.prdata;
+		rw.status = UVM_IS_OK;
+		//$display(&quot;rw&quot;);
+		//$display(rw);
+	endfunction
+	
+endclass
+
+endpackage
+
+
+</code></pre><p>reg_if_pkg.sv:</p><pre><code>`include &quot;uvm_macros.svh&quot;
+
+import uvm_pkg::*;
+
+class reg_status_tran extends uvm_sequence_item;
+	
+	rand bit slv0_parity_err;
+	rand bit slv1_parity_err;
+	rand bit slv2_parity_err;
+	rand bit slv3_parity_err;
+
+	rand bit[5:0] slv0_free_slot;
+	rand bit[5:0] slv1_free_slot;
+	rand bit[5:0] slv2_free_slot;
+	rand bit[5:0] slv3_free_slot;
+	
+	function new(string name=&quot;reg_status_tran&quot;);
+		super.new(name);
+	endfunction
+	
+	`uvm_object_utils_begin(reg_status_tran)
+		
+		`uvm_field_int(slv0_parity_err, UVM_ALL_ON)
+		`uvm_field_int(slv1_parity_err, UVM_ALL_ON)
+		`uvm_field_int(slv2_parity_err, UVM_ALL_ON)
+		`uvm_field_int(slv3_parity_err, UVM_ALL_ON)
+		
+		`uvm_field_int(slv0_free_slot, UVM_ALL_ON)
+		`uvm_field_int(slv1_free_slot, UVM_ALL_ON)
+		`uvm_field_int(slv2_free_slot, UVM_ALL_ON)
+		`uvm_field_int(slv3_free_slot, UVM_ALL_ON)
+		
+	`uvm_object_utils_end
+	
+endclass
+
+class reg_status_seq extends uvm_sequence#(reg_status_tran);
+	
+	`uvm_object_utils(reg_status_seq)
+	
+	function new(string name=&quot;reg_status_seq&quot;);
+		super.new(name);
+	endfunction
+	
+	reg_status_tran tr;
+	virtual task body();
+		`uvm_do_with(tr, {	slv0_free_slot == 10;
+							slv0_parity_err == 0;
+							slv1_free_slot == 10;
+							slv1_parity_err == 0;
+							slv2_free_slot == 10;
+							slv2_parity_err == 0;
+							slv3_free_slot == 10;
+							slv3_parity_err == 0;})
+		# 2000;
+	endtask
+	
+endclass
+
+class reg_sqr extends uvm_sequencer#(reg_status_tran);
+	
+	`uvm_component_utils(reg_sqr)
+	
+	function new(string name=&quot;reg_sqr&quot;, uvm_component parent=null);
+		super.new(name,parent);
+	endfunction
+	
+endclass
+
+class reg_drv extends uvm_driver#(reg_status_tran);
+	
+	`uvm_component_utils(reg_drv)
+	
+	function new(string name=&quot;drv&quot;, uvm_component parent = null);
+		super.new(name, parent);
+	endfunction
+	
+	virtual reg_interface reg_vif;
+	
+	function set_interface(virtual reg_interface reg_vif);
+		this.reg_vif = reg_vif;
+	endfunction 
+	
+	task main_phase(uvm_phase phase);
+		reg_status_tran tr;
+		
+		forever begin
+			seq_item_port.get_next_item(tr);
+			driver_status(tr);
+			seq_item_port.item_done();
+		end
+	endtask
+		
+	task driver_status(reg_status_tran tr);
+		@reg_vif.reg_driver;
+		reg_vif.reg_driver.slv0_parity_err &lt; = tr.slv0_parity_err;   
+		reg_vif.reg_driver.slv1_parity_err &lt; = tr.slv1_parity_err;
+		reg_vif.reg_driver.slv2_parity_err &lt; = tr.slv2_parity_err;
+		reg_vif.reg_driver.slv3_parity_err &lt; = tr.slv3_parity_err;
+		
+		reg_vif.reg_driver.slv0_free_slot &lt; = tr.slv0_free_slot;
+		reg_vif.reg_driver.slv1_free_slot &lt; = tr.slv1_free_slot;
+		reg_vif.reg_driver.slv2_free_slot &lt; = tr.slv2_free_slot;
+		reg_vif.reg_driver.slv3_free_slot &lt; = tr.slv3_free_slot;
+	endtask
+	
+endclass
+
+class reg_if_agent extends uvm_agent;
+	
+	`uvm_component_utils(reg_if_agent)
+	
+	function new(string name=&quot;reg_if_agent&quot;, uvm_component parent = null);
+		super.new(name, parent);
+	endfunction 
+	
+	reg_sqr sqr;
+	reg_drv drv;
+	
+	
+	function void build_phase(uvm_phase phase);
+		super.build_phase(phase);
+		
+		sqr = reg_sqr::type_id::create(&quot;reg_sqr&quot;, this);
+		drv = reg_drv::type_id::create(&quot;reg_drv&quot;, this);
+		
+	endfunction
+	
+	function void connect_phase(uvm_phase phase);
+		super.connect_phase(phase);
+		drv.seq_item_port.connect(sqr.seq_item_export);
+	endfunction 
+	
+	function void set_interface(virtual reg_interface reg_vif);
+		drv.set_interface(reg_vif);
+	endfunction 
+	
+endclass
+
+</code></pre><p>采用时钟块，避免信号之间竞争 reg_interface.sv:</p><pre><code>interface reg_interface(input clk, input rstn);
+	
+logic  [7:0]       paddr;
+logic              pwr;
+logic              pen;
+logic              psel;
+logic  [31:0]      pwdata;
+logic  [31:0]      prdata;	
+	
+logic             pready;
+logic             pslverr; 
+
+clocking apb_sample @(posedge clk);
+	default input #1 output #1;
+	input paddr;
+	input pwr;
+	input pen;
+	input psel;
+	input pwdata;
+	input prdata;
+	input pready;
+	input pslverr;
+endclocking
+
+clocking apb_driver @(posedge clk);
+	default input #1 output #1;
+	output psel;
+	output pen;
+	output pwr;
+	output paddr;
+	output pwdata;
+	input pready;
+	input pslverr;
+	input prdata;
+endclocking
+
+logic [3:0]       slv_en;  
+logic [3:0]       err_clr;
+logic [7:0]       slv0_id;
+logic [7:0]       slv1_id;
+logic [7:0]       slv2_id;
+logic [7:0]       slv3_id;
+
+logic [7:0]       slv0_len;
+logic [7:0]       slv1_len;
+logic [7:0]       slv2_len;
+logic [7:0]       slv3_len;
+
+logic              slv0_parity_err;
+logic              slv1_parity_err;
+logic              slv2_parity_err;
+logic              slv3_parity_err;
+
+logic  [5:0]       slv0_free_slot;
+logic  [5:0]       slv1_free_slot;
+logic  [5:0]       slv2_free_slot;
+logic  [5:0]       slv3_free_slot;
+
+clocking reg_listen @(posedge clk);
+	default input #1 output  #1;
+	
+	input pslverr;
+	input pready;
+	
+	input slv_en;
+	input err_clr;
+	input slv0_id;
+	input slv1_id;
+	input slv2_id;
+	input slv3_id;
+	
+	input slv0_len;
+	input slv1_len;
+	input slv2_len;
+	input slv3_len;
+	
+	input slv0_parity_err;
+	input slv1_parity_err;
+	input slv2_parity_err;
+	input slv3_parity_err;
+	
+	input slv0_free_slot;
+	input slv1_free_slot;
+	input slv2_free_slot;
+	input slv3_free_slot;
+	
+endclocking
+
+clocking reg_driver @(posedge clk);
+	default input #1 output #1;
+	
+	output slv0_parity_err;
+	output slv1_parity_err;
+	output slv2_parity_err;
+	output slv3_parity_err;
+	
+	output slv0_free_slot;
+	output slv1_free_slot;
+	output slv2_free_slot;
+	output slv3_free_slot;
+	
+endclocking
+
+endinterface
+
+</code></pre><p>寄存器模型reg_rm.sv:</p><pre><code>`include &quot;uvm_macros.svh&quot;
+
+import uvm_pkg::*;
+
+class slv_en extends uvm_reg;
+	`uvm_object_utils(slv_en)
+	
+	function new(string name = &quot;slv_en&quot;);
+		super.new(name, 32, UVM_NO_COVERAGE);
+	endfunction
+	
+	uvm_reg_field reserved;
+	
+	rand uvm_reg_field slv3_en;
+	rand uvm_reg_field slv2_en;
+	rand uvm_reg_field slv1_en;
+	rand uvm_reg_field slv0_en;
+	
+	function build();
+		reserved = uvm_reg_field::type_id::create(&quot;reserved&quot;);
+		slv3_en = uvm_reg_field::type_id::create(&quot;slv3_en&quot;);
+		slv2_en = uvm_reg_field::type_id::create(&quot;slv2_en&quot;);
+		slv1_en = uvm_reg_field::type_id::create(&quot;slv1_en&quot;);
+		slv0_en = uvm_reg_field::type_id::create(&quot;slv0_en&quot;);
+		reserved.configure(this, 28, 4, &quot;RO&quot;, 0, 28'h0, 1, 0, 0);
+		slv3_en.configure(this, 1, 3, &quot;RW&quot;, 0, 0, 1, 1, 0);
+		slv2_en.configure(this, 1, 2, &quot;RW&quot;, 0, 0, 1, 1, 0);
+		slv1_en.configure(this, 1, 1, &quot;RW&quot;, 0, 0, 1, 1, 0);
+		slv0_en.configure(this, 1, 0, &quot;RW&quot;, 0, 0, 1, 1, 0);
+	endfunction
+endclass
+
+
+class parity_err_clr extends uvm_reg;
+	`uvm_object_utils(parity_err_clr)
+	rand uvm_reg_field reserved;
+	rand uvm_reg_field parity_err_clr_3;
+	rand uvm_reg_field parity_err_clr_2;
+	rand uvm_reg_field parity_err_clr_1;
+	rand uvm_reg_field parity_err_clr_0;
+	
+	function new(name=&quot;parity_err_clr&quot;);
+		super.new(name, 32, UVM_NO_COVERAGE);
+	endfunction
+	
+	virtual function build();
+		reserved = uvm_reg_field::type_id::create(&quot;reserved&quot;);
+		parity_err_clr_3 = uvm_reg_field::type_id::create(&quot;parity_err_3&quot;);
+		parity_err_clr_2 = uvm_reg_field::type_id::create(&quot;parity_err_2&quot;);
+		parity_err_clr_1 = uvm_reg_field::type_id::create(&quot;parity_err_1&quot;);
+		parity_err_clr_0 = uvm_reg_field::type_id::create(&quot;parity_err_0&quot;);
+		
+		reserved.configure(this, 28, 4, &quot;RO&quot;, 0, 28'h0, 1, 0, 0);
+		parity_err_clr_3.configure(this, 1, 3, &quot;RW&quot;, 0, 0, 1, 1, 0);
+		parity_err_clr_2.configure(this, 1, 2, &quot;RW&quot;, 0, 0, 1, 1, 0);
+		parity_err_clr_1.configure(this, 1, 1, &quot;RW&quot;, 0, 0, 1, 1, 0);
+		parity_err_clr_0.configure(this, 1, 0, &quot;RW&quot;, 0, 0, 1, 1, 0);
+	endfunction
+endclass
+
+class slv_id extends uvm_reg;
+	`uvm_object_utils(slv_id)
+	
+	function new(string name=&quot;slv_id&quot;);
+		super.new(name, 32, UVM_NO_COVERAGE);
+	endfunction
+	
+	rand uvm_reg_field slv3_id;
+	rand uvm_reg_field slv2_id;
+	rand uvm_reg_field slv1_id;
+	rand uvm_reg_field slv0_id;
+	
+	function build();
+		slv3_id = uvm_reg_field::type_id::create(&quot;slv3_id&quot;);
+		slv2_id = uvm_reg_field::type_id::create(&quot;slv2_id&quot;);
+		slv1_id = uvm_reg_field::type_id::create(&quot;slv1_id&quot;);
+		slv0_id = uvm_reg_field::type_id::create(&quot;slv0_id&quot;);
+		
+		slv3_id.configure(this, 8, 24, &quot;RW&quot;, 0, 8'h0, 1, 1, 0);
+		slv2_id.configure(this, 8, 16, &quot;RW&quot;, 0, 8'h0, 1, 1, 0);
+		slv1_id.configure(this, 8, 8,  &quot;RW&quot;, 0, 8'h0, 1, 1, 0);
+		slv0_id.configure(this, 8, 0,  &quot;RW&quot;, 0, 8'h0, 1, 1, 0);
+	endfunction
+	
+endclass
+
+class slv_len extends uvm_reg;
+	`uvm_object_utils(slv_len)
+	
+	function new(string name=&quot;slv_len&quot;);
+		super.new(name, 32, UVM_NO_COVERAGE);
+	endfunction
+	
+	rand uvm_reg_field slv3_len;
+	rand uvm_reg_field slv2_len;
+	rand uvm_reg_field slv1_len;
+	rand uvm_reg_field slv0_len;
+	
+	function build();
+		
+		slv3_len = uvm_reg_field::type_id::create(&quot;slv3_len&quot;);
+		
+		slv2_len = uvm_reg_field::type_id::create(&quot;slv2_len&quot;);
+		
+		slv1_len = uvm_reg_field::type_id::create(&quot;slv1_len&quot;);
+		
+		slv0_len = uvm_reg_field::type_id::create(&quot;slv0_len&quot;);
+		
+		slv3_len.configure(this, 8, 24, &quot;RW&quot;, 0, 8'h0, 1, 1, 0);
+		slv2_len.configure(this, 8, 16, &quot;RW&quot;, 0, 8'h0, 1, 1, 0);
+		slv1_len.configure(this, 8, 8,  &quot;RW&quot;, 0, 8'h0, 1, 1, 0);
+		slv0_len.configure(this, 8, 0,  &quot;RW&quot;, 0, 8'h0, 1, 1, 0);
+	endfunction
+	
+endclass
+
+class slv_free_slot extends uvm_reg;
+	`uvm_object_utils(slv_free_slot)
+	function new(string name=&quot;slv_free_slot&quot;);
+		super.new(name, 32, UVM_NO_COVERAGE);
+	endfunction
+
+	rand uvm_reg_field reserved;
+	rand uvm_reg_field free_slot;
+	
+	function build();
+		reserved = uvm_reg_field::type_id::create(&quot;reserved&quot;);
+		free_slot = uvm_reg_field::type_id::create(&quot;free_slot&quot;);
+		
+		reserved.configure(this, 26, 6, &quot;RO&quot;, 0, 26'h0, 1, 0, 0);
+		free_slot.configure(this, 6, 0, &quot;RW&quot;, 0, 6'h0, 1, 1, 0);
+	endfunction
+	
+endclass
+
+class slv_parity_err extends uvm_reg;
+	`uvm_object_utils(slv_parity_err)
+	
+	function new(string name=&quot;slv_parity_err&quot;);
+		super.new(name, 32, UVM_NO_COVERAGE);
+	endfunction
+	
+	rand uvm_reg_field reserved;
+	rand uvm_reg_field parity_err;
+	
+	function build();
+		reserved = uvm_reg_field::type_id::create(&quot;reserved&quot;);
+		parity_err = uvm_reg_field::type_id::create(&quot;parity_err&quot;);
+		
+		reserved.configure(this, 31, 1, &quot;RO&quot;, 0, 31'h0, 1, 0, 0);
+		parity_err.configure(this, 1, 0, &quot;RW&quot;, 0, 0, 1, 1, 0);
+	endfunction
+	
+endclass
+
+class reg_rgm extends uvm_reg_block;
+	`uvm_object_utils(reg_rgm)
+	
+	function new(string name = &quot;reg_rgm&quot;);
+		super.new(name, UVM_NO_COVERAGE);
+	endfunction
+	
+	rand slv_en slv_en_reg;
+	rand parity_err_clr parity_err_clr_reg;
+	rand slv_id	slv_id_reg;
+	rand slv_len slv_len_reg;
+	
+	rand slv_free_slot slv0_free_slot_reg;
+	rand slv_free_slot slv1_free_slot_reg;
+	rand slv_free_slot slv2_free_slot_reg;
+	rand slv_free_slot slv3_free_slot_reg;
+	
+	rand slv_parity_err slv0_parity_err_reg;
+	rand slv_parity_err slv1_parity_err_reg;
+	rand slv_parity_err slv2_parity_err_reg;
+	rand slv_parity_err slv3_parity_err_reg;
+	
+	uvm_reg_map map;
+	
+	function build();
+		
+		slv_en_reg = slv_en::type_id::create(&quot;slv_en_reg&quot;);
+		slv_en_reg.configure(this);
+		slv_en_reg.build();
+		
+		parity_err_clr_reg = parity_err_clr::type_id::create(&quot;parity_err_clr_reg&quot;);
+		parity_err_clr_reg.configure(this);
+		parity_err_clr_reg.build();
+		
+		slv_id_reg=slv_id::type_id::create(&quot;slv_id_reg&quot;);
+		slv_id_reg.configure(this);
+		slv_id_reg.build();
+		
+		slv_len_reg = slv_len::type_id::create(&quot;slv_len_reg&quot;);
+		slv_len_reg.configure(this);
+		slv_len_reg.build();
+		
+		slv0_free_slot_reg = slv_free_slot::type_id::create(&quot;slv0_free_slot_reg&quot;);
+		slv0_free_slot_reg.configure(this);
+		slv0_free_slot_reg.build();
+		
+		slv1_free_slot_reg = slv_free_slot::type_id::create(&quot;slv1_free_slot_reg&quot;);
+		slv1_free_slot_reg.configure(this);
+		slv1_free_slot_reg.build();
+
+		slv2_free_slot_reg = slv_free_slot::type_id::create(&quot;slv2_free_slot_reg&quot;);
+		slv2_free_slot_reg.configure(this);
+		slv2_free_slot_reg.build();
+		
+		slv3_free_slot_reg = slv_free_slot::type_id::create(&quot;slv3_free_slot_reg&quot;);
+		slv3_free_slot_reg.configure(this);
+		slv3_free_slot_reg.build();
+		
+		slv0_parity_err_reg = slv_parity_err::type_id::create(&quot;slv0_parity_err_reg&quot;);
+		slv0_parity_err_reg.configure(this);
+		slv0_parity_err_reg.build();
+		
+		slv1_parity_err_reg = slv_parity_err::type_id::create(&quot;slv1_parity_err_reg&quot;);
+		slv1_parity_err_reg.configure(this);
+		slv1_parity_err_reg.build();
+		
+		slv2_parity_err_reg = slv_parity_err::type_id::create(&quot;slv2_parity_err_reg&quot;);
+		slv2_parity_err_reg.configure(this);
+		slv2_parity_err_reg.build();
+		
+		slv3_parity_err_reg = slv_parity_err::type_id::create(&quot;slv3_parity_err_reg&quot;);
+		slv3_parity_err_reg.configure(this);
+		slv3_parity_err_reg.build();
+		
+		map = create_map(&quot;reg_map&quot;, 'h0, 4, UVM_LITTLE_ENDIAN);
+		
+		add_hdl_path(&quot;reg_if_tb.reg_tb&quot;);
+		
+		map.add_reg(slv_en_reg, 8'h00, &quot;RW&quot;);
+		slv_en_reg.add_hdl_path_slice(&quot;ctrl_mem[0]&quot;, 0 ,32);
+		
+		map.add_reg(parity_err_clr_reg, 8'h04, &quot;RW&quot;);
+		parity_err_clr_reg.add_hdl_path_slice(&quot;ctrl_mem[1]&quot;, 0, 32);
+		
+		map.add_reg(slv_id_reg, 8'h08, &quot;RW&quot;);
+		slv_id_reg.add_hdl_path_slice(&quot;ctrl_mem[2]&quot;, 0, 32);
+		
+		map.add_reg(slv_len_reg, 8'h0C, &quot;RW&quot;);
+		slv_len_reg.add_hdl_path_slice(&quot;ctrl_mem[3]&quot;, 0, 32);
+		
+		map.add_reg(slv0_free_slot_reg, 8'h80, &quot;RO&quot;);
+		slv0_free_slot_reg.add_hdl_path_slice(&quot;ro_mem[0]&quot;, 0, 32);
+		
+		map.add_reg(slv1_free_slot_reg, 8'h84, &quot;RO&quot;);
+		slv1_free_slot_reg.add_hdl_path_slice(&quot;ro_mem[1]&quot;, 0, 32);
+		
+		map.add_reg(slv2_free_slot_reg, 8'h88, &quot;RO&quot;);
+		slv2_free_slot_reg.add_hdl_path_slice(&quot;ro_mem[2]&quot;, 0, 32);
+		
+		map.add_reg(slv3_free_slot_reg, 8'h8C, &quot;RO&quot;);
+		slv3_free_slot_reg.add_hdl_path_slice(&quot;ro_mem[3]&quot;, 0, 32);
+		
+		map.add_reg(slv0_parity_err_reg, 8'h90, &quot;RO&quot;);
+		slv0_parity_err_reg.add_hdl_path_slice(&quot;ro_mem[4]&quot;, 0, 32);
+		
+		map.add_reg(slv1_parity_err_reg, 8'h94, &quot;RO&quot;);
+		slv1_parity_err_reg.add_hdl_path_slice(&quot;ro_mem[5]&quot;, 0, 32);
+		
+		map.add_reg(slv2_parity_err_reg, 8'h98, &quot;RO&quot;);
+		slv2_parity_err_reg.add_hdl_path_slice(&quot;ro_mem[6]&quot;, 0, 32);
+		
+		map.add_reg(slv3_parity_err_reg, 8'h9C, &quot;RO&quot;);
+		slv3_parity_err_reg.add_hdl_path_slice(&quot;ro_mem[7]&quot;, 0, 32);
+		
+		lock_model();
+	endfunction
+	
+endclass
+</code></pre><p>环境连接关系reg_test.sv:</p><pre><code>`include &quot;uvm_macros.svh&quot;
+import uvm_pkg::*;
+import APB_pkg::*;
+
+
+class APB_scoreboard extends uvm_scoreboard;
+	`uvm_component_utils(APB_scoreboard)
+	
+	APB_item tmp;
+	reg_rgm rm;
+	uvm_reg reg_tmp;
+	
+	int dat_exp;
+	int actual;
+	uvm_status_e s;
+	
+	uvm_blocking_get_port#(APB_item) scb_p;
+	
+	function new(string name=&quot;apb_scb&quot;, uvm_component parent = null);
+		super.new(name, parent);
+		scb_p = new(&quot;scb&quot;, this);
+	endfunction
+	
+	virtual task main_phase(uvm_phase phase);
+		
+		super.main_phase(phase);
+		forever begin
+			scb_p.get(tmp);
+			reg_tmp = rm.map.get_reg_by_offset(tmp.paddr);
+				
+			if (reg_tmp == null) begin
+				`uvm_info(&quot;BUS ERROR!&quot;, $sformatf(&quot;\taddr:%0h cannot find&quot;, tmp.paddr), UVM_LOW)
+					
+			end else begin
+				dat_exp = reg_tmp.get_mirrored_value();
+				reg_tmp.peek(s, actual);
+				
+				if (actual == dat_exp) begin
+					`uvm_info(&quot;SCB_PASS&quot;,$sformatf(&quot;\tpwr:%h addr:%h actual:%h, exp: %h&quot;, tmp.pwr, tmp.paddr, actual, dat_exp), UVM_LOW)
+				end else begin
+					
+					`uvm_info(&quot;SCB_ERR&quot;,$sformatf(&quot;\tpwr:%h addr:%h actual:%h, exp: %h&quot;, tmp.pwr, tmp.paddr, actual, dat_exp), UVM_LOW)
+				end
+			end
+		end
+	endtask
+	
+endclass
+
+class reg_if_coverage extends uvm_subscriber#(APB_item);
+	
+	`uvm_component_utils(reg_if_coverage)
+	
+	reg_rgm rm;
+	
+	covergroup reg_cg;
+		
+		coverpoint rm.slv_en_reg.slv0_en.value {bins len[]={0, 1};}	
+		coverpoint rm.slv_en_reg.slv1_en.value {bins len[]={0, 1};}
+		coverpoint rm.slv_en_reg.slv2_en.value {bins len[]={0, 1};}
+		coverpoint rm.slv_en_reg.slv3_en.value {bins len[]={0, 1};}
+		
+		coverpoint rm.parity_err_clr_reg.parity_err_clr_0.value {bins len[]={0, 1};}
+		coverpoint rm.parity_err_clr_reg.parity_err_clr_1.value {bins len[]={0, 1};}
+		coverpoint rm.parity_err_clr_reg.parity_err_clr_2.value {bins len[]={0, 1};}
+		coverpoint rm.parity_err_clr_reg.parity_err_clr_3.value {bins len[]={0, 1};}
+		
+		coverpoint rm.slv_id_reg.slv0_id.value;
+		coverpoint rm.slv_id_reg.slv1_id.value;
+		coverpoint rm.slv_id_reg.slv2_id.value;
+		coverpoint rm.slv_id_reg.slv3_id.value;
+		
+		coverpoint rm.slv_len_reg.slv0_len.value;
+		coverpoint rm.slv_len_reg.slv1_len.value;
+		coverpoint rm.slv_len_reg.slv2_len.value;
+		coverpoint rm.slv_len_reg.slv3_len.value;
+		
+		coverpoint rm.slv0_free_slot_reg.free_slot.value;
+		coverpoint rm.slv1_free_slot_reg.free_slot.value;
+		coverpoint rm.slv2_free_slot_reg.free_slot.value;
+		coverpoint rm.slv3_free_slot_reg.free_slot.value;
+		
+	endgroup
+	
+	function new(string name=&quot;reg_if_coverage&quot;, uvm_component parent=null);
+		super.new(name,parent);
+		reg_cg = new();
+	endfunction
+	
+	function void build_phase(uvm_phase phase);
+		
+	endfunction 
+	
+	function void write(T t);
+		reg_cg.sample();
+	endfunction
+
+	function void set_interface(reg_rgm rgm);
+		this.rm = rgm;
+	endfunction
+	
+endclass
+
+class APB_env extends uvm_env;
+	
+	APB_agent apb_agent;
+	rm2reg_adapter reg_adapter;
+	reg_rgm reg_rm;
+	APB_scoreboard scb;
+	reg_if_agent reg_agent;
+	reg_if_coverage reg_cg;
+	
+	virtual reg_interface reg_vif;
+	
+	uvm_reg_predictor #(APB_item) reg_predictor;
+	uvm_tlm_analysis_fifo#(APB_item) scb_fifo;
+	
+	`uvm_component_utils(APB_env)
+	
+	function new(string name=&quot;APB_env&quot;, uvm_component parent);
+		super.new(name,parent);
+	endfunction
+	
+	function void build_phase(uvm_phase phase);
+		
+		if(!uvm_config_db#(virtual reg_interface)::get(this, &quot;&quot;, &quot;reg_vif&quot;, reg_vif)) begin
+			`uvm_fatal(&quot;CONFIG_DB_ERROR&quot;, &quot;reg_vif&quot;)
+		end
+		
+		apb_agent = APB_agent::type_id::create(&quot;apb_agent&quot;,this);
+		
+		reg_adapter = rm2reg_adapter::type_id::create(&quot;reg_adapter&quot;,this);
+		uvm_config_db#(reg_rgm)::get(this,&quot;&quot;,&quot;reg_rm&quot;,reg_rm);
+		reg_predictor = uvm_reg_predictor#(APB_item)::type_id::create(&quot;reg_predictor&quot;,this);
+		reg_predictor.map = reg_rm.default_map;
+		reg_predictor.adapter = reg_adapter;
+		
+		scb = APB_scoreboard::type_id::create(&quot;APB_scb&quot;, this);
+		scb_fifo = new(&quot;scb_fifo&quot;);
+		
+		reg_agent = reg_if_agent::type_id::create(&quot;reg_agent&quot;, this);
+		
+		reg_cg = reg_if_coverage::type_id::create(&quot;reg_cg&quot;, this);
+		reg_cg.set_interface(reg_rm);
+		
+		
+	endfunction
+	
+	function void connect_phase(uvm_phase phase);
+		
+		apb_agent.set_interface(reg_vif);
+		reg_agent.set_interface(reg_vif);
+		
+		scb.rm = reg_rm;
+		reg_rm.default_map.set_sequencer(apb_agent.sqr, reg_adapter);
+		apb_agent.monitor.ap.connect(reg_predictor.bus_in);
+		
+		apb_agent.monitor.ap.connect(scb_fifo.analysis_export);
+		scb.scb_p.connect(scb_fifo.blocking_get_export);
+		
+		reg_agent.drv.seq_item_port.connect(reg_agent.sqr.seq_item_export);
+		
+		apb_agent.monitor.ap.connect(reg_cg.analysis_export);
+		
+	endfunction
+endclass
+
+class base_test extends uvm_test;
+	
+	`uvm_component_utils(base_test)
+	
+	reg_rgm reg_rm;
+	APB_env env;
+	uvm_status_e s;
+	bit[31:0] dat;
+	
+	reg_status_seq reg_status;
+	
+	function new(string name=&quot;base_test&quot;, uvm_component parent=null);
+		super.new(name,parent);
+	endfunction
+	
+	function void build_phase(uvm_phase phase);
+		reg_rm = reg_rgm::type_id::create(&quot;reg_rm&quot;,this);
+		reg_rm.build();
+		reg_rm.default_map.set_auto_predict(0);
+		reg_rm.lock_model();
+		reg_rm.reset();
+		
+		uvm_config_db#(reg_rgm)::set(this,&quot;env&quot;,&quot;reg_rm&quot;,reg_rm);
+		env = APB_env::type_id::create(&quot;env&quot;,this);
+		
+	endfunction
+	
+endclass
+
+</code></pre><p>测试用例case.sv:</p><pre><code>`include &quot;uvm_macros.svh&quot;
+
+import uvm_pkg::*;
+import APB_pkg::*;
+
+class case0_seq extends APB_seq;
+		
+	`uvm_object_utils(case0_seq)
+	
+	function new(string name =&quot;case0_seq&quot;);
+		super.new(name);
+	endfunction
+	
+	APB_item t;
+	
+	
+	
+	task body();
+		#100;
+		repeat(100000) begin
+			//`uvm_info(&quot;CASE0&quot;,&quot;Start...&quot;,UVM_LOW)
+			`uvm_do(t)
+		end
+	endtask
+	
+endclass
+
+class case1_seq extends APB_seq;
+		
+	`uvm_object_utils(case1_seq)
+	
+	function new(string name =&quot;case1_seq&quot;);
+		super.new(name);
+	endfunction
+	
+	APB_item t;
+	
+	task body();
+		#100;
+		repeat(100000) begin
+			//`uvm_info(&quot;CASE0&quot;,&quot;Start...&quot;,UVM_LOW)
+			`uvm_do_with(t, {paddr==8'h8c;})
+		end
+	endtask
+	
+endclass
+
+
+class case0_test extends base_test;
+	
+	`uvm_component_utils(case0_test)
+	
+	function new(string name=&quot;case0_test&quot;, uvm_component parent=null);
+		super.new(name, parent);
+	endfunction
+	
+	function void build_phase(uvm_phase phase);
+		super.build_phase(phase);
+		`uvm_info(&quot;CASE0&quot;,&quot;Building&quot;,UVM_LOW)
+	endfunction
+	
+	case0_seq c;
+	reg_status_seq r;
+	
+	task main_phase(uvm_phase phase);
+		phase.raise_objection(this);
+		
+		c = case0_seq::type_id::create(&quot;case0&quot;);
+		r = reg_status_seq::type_id::create(&quot;status&quot;);
+		fork
+		#20 c.start(env.apb_agent.sqr);
+		r.start(env.reg_agent.sqr);
+		join
+		
+		phase.drop_objection(this);
+	endtask
+	
+endclass
+</code></pre><p>测试tb.sv:</p><pre><code>`include &quot;uvm_macros.svh&quot;
+
+import uvm_pkg::*;
+
+module reg_if_tb();
+
+reg clk;
+reg rstn;
+
+reg_interface reg_intf(clk,rstn);
+
+reg_if reg_tb(	.clk_i(reg_intf.clk),
+				.rst_n_i(reg_intf.rstn),
+				.paddr_i(reg_intf.paddr),
+				.pwr_i(reg_intf.pwr),
+				.pen_i(reg_intf.pen),
+				.psel_i(reg_intf.psel),
+				.pwdata_i(reg_intf.pwdata),
+				.prdata_o(reg_intf.prdata),
+				.pready_o(reg_intf.pready),
+				.pslverr_o(reg_intf.pslverr),
+				.slv_en_o(reg_intf.slv_en),
+				.err_clr_o(reg_intf.err_clr),
+				.slv0_id_o(reg_intf.slv0_id),
+				.slv1_id_o(reg_intf.slv1_id),
+				.slv2_id_o(reg_intf.slv2_id),
+				.slv3_id_o(reg_intf.slv3_id),
+				.slv0_len_o(reg_intf.slv0_len),
+				.slv1_len_o(reg_intf.slv1_len),
+				.slv2_len_o(reg_intf.slv2_len),
+				.slv3_len_o(reg_intf.slv3_len),
+				.slv0_parity_err_i(reg_intf.slv0_parity_err),
+				.slv1_parity_err_i(reg_intf.slv1_parity_err),
+				.slv2_parity_err_i(reg_intf.slv2_parity_err),
+				.slv3_parity_err_i(reg_intf.slv3_parity_err),
+				.slv0_free_slot_i(reg_intf.slv0_free_slot),
+				.slv1_free_slot_i(reg_intf.slv1_free_slot),
+				.slv2_free_slot_i(reg_intf.slv2_free_slot),
+				.slv3_free_slot_i(reg_intf.slv3_free_slot));	
+	
+initial begin
+	forever begin
+		#10 clk = 0;
+		#10 clk = 1;
+	end
+end
+
+initial begin
+	rstn = 0;
+	#50 rstn = 1;
+end
+
+initial begin
+	uvm_config_db#(virtual reg_interface )::set(null, &quot;uvm_test_top.env&quot;, &quot;reg_vif&quot;, reg_intf);
+end
+
+initial begin
+	run_test(&quot;case0_test&quot;);
+end
+
+endmodule
+</code></pre><p>makefile:</p><pre><code>VCS = vcs -full64 -f tb.list -sverilog -debug_all\
+	  -timescale=&quot;1ns/1ps&quot; -l comp.md \
+	  +define+UVM_OBJECT_MUST_HAVE_CONSTRUCTOR\
+	  $(UVM_HOME)/src/dpi/uvm_dpi.cc -CFLAGS -DVCS\
+	  -cm line+cond+fsm+tgl \
+	  -LDFLAGS -rdynamic -P $(VERDI_HOME)/share/PLI/VCS/LINUX64/novas.tab \
+	  $(VERDI_HOME)/share/PLI/VCS/LINUX64/pli.a
+	  
+
+SIMV = ./simv -l sim.md +UVM_OBJECTION_TRACE -ucli -i ../scripts/dump_fsdb.tcl +fsdb+autoflush -cm line+cond+fsm+tgl
+
+RUN_VERDI = verdi -ssf apb.fsdb -l verdi.md -nologo -f tb.list
+
+RESULT = dve -full64 -covdir simv.vdb
+
+comp:
+	$(VCS)
+
+gui:
+	$(RUN_VERDI)
+
+clean:
+	mv ./makefile ../makefile
+	mv ./tb.list ../tb.list
+	rm -rf *
+	mv ../makefile ./makefile
+	mv ../tb.list ./tb.list
+
+run:
+	$(VCS)
+	$(SIMV)
+
+result:
+	$(RESULT)
+
+</code></pre><h1 id=5运行>5.运行</h1><p>运行</p><pre><code>make run
+</code></pre><h1 id=6查看覆盖率>6.查看覆盖率</h1><pre><code>make result
+</code></pre><p><img src=/images/mcdf/code_coverage.png alt=code_coverage>
+<img src=/images/mcdf/fun_coverage.png alt=fun_coverage></p></div><div class=footer><div class=tags><i class="fa fa-tags"></i><div class=links><a href=https://cslgbk.github.io/tags/uvm/>UVM</a>
+<a href=https://cslgbk.github.io/tags/mcdf/>MCDF</a>
+<a href=https://cslgbk.github.io/tags/rgm/>RGM</a></div></div></div></article></div><div id=comments-container><script defer src=https://commento.lednerb.de/js/commento.js></script><div id=commento></div></div></div><footer><div class=container><div class=recent-posts><strong></strong><ul><li><a href=https://cslgbk.github.io/posts/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/>自动化生成agent代码</a></li><li><a href=https://cslgbk.github.io/posts/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/>含寄存器模型验证结构搭建</a></li><li><a href=https://cslgbk.github.io/posts/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/>正态分布随机化item</a></li></ul></div><div class=categories><a href=/categories/><strong></strong></a><ul><li><a href=/categories/uvm>Uvm
+(3)</a></li><li><a href=/categories/python>Python
+(2)</a></li><li><a href=/categories/mcdf>Mcdf
+(1)</a></li><li><a href=/categories/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96>验证自动化
+(1)</a></li></ul></div><div class=right><div class=external-profiles><strong></strong><a href="https://qm.qq.com/cgi-bin/qm/qr?k=aa7aFYr9mvA2KDkQkX3v0Vf8z-KoDB0r" target=_blank><i class="fab fa-qq"></i></a>
+<a href=https://github.com/cslgbk target=_blank><i class="fab fa-github"></i></a></div></div></div></footer><div class=credits><div class=container><div class=copyright><a href=https://github.com/Lednerb target=_blank>&copy;
+2017
+by Lednerb</a></div><div class=author><a href=https://github.com/Lednerb/bilberry-hugo-theme target=_blank>Bilberry-Hugo</a></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><script type=text/x-mathjax-config>
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+</script><script type=text/javascript src=https://cslgbk.github.io/theme.js></script><div id=activate-algolia-search class=hidden><input type=hidden id=algolia-search-appId value=45CEN6X6AT>
+<input type=hidden id=algolia-search-apiKey value=16030625f1a4d0dd3b8aefd794fd4cf1>
+<input type=hidden id=algolia-search-indexName value=bilberry-hugo-theme>
+<input type=hidden id=algolia-search-noSearchResults></div></body></html>
