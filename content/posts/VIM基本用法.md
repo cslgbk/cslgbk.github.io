@@ -6,7 +6,7 @@ tags: ["vim"]
 categories: ["vim"]
 ---
 <font size=3>原文链接：https://blog.csdn.net/scaleqiao/article/details/45153379</font>
-
+<!--more-->
 # 文件命令
 ```
 vim file1 file2     //打开多个文件
