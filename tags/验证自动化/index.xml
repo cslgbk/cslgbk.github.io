@@ -1,24 +1,2 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>验证自动化 on bk&#39;s Blogs</title>
-    <link>https://cslgbk.github.io/tags/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96/</link>
-    <description>Recent content in 验证自动化 on bk&#39;s Blogs</description>
-    <generator>Hugo -- gohugo.io</generator>
-    <lastBuildDate>Sun, 16 May 2021 14:38:00 +0800</lastBuildDate>
-    
-	<atom:link href="https://cslgbk.github.io/tags/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
-    
-    
-    <item>
-      <title>自动化生成agent代码</title>
-      <link>https://cslgbk.github.io/posts/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/</link>
-      <pubDate>Sun, 16 May 2021 14:38:00 +0800</pubDate>
-      
-      <guid>https://cslgbk.github.io/posts/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/</guid>
-      <description>&lt;h1 id=&#34;1总体思路&#34;&gt;1.总体思路&lt;/h1&gt;
-&lt;p&gt;&lt;!-- raw HTML omitted --&gt;在搭建验证框架时经常要输入很多重复性的代码，有两种快速获得验证的方法，一种是复制原有的框架代码，在代码上面修改，一种是利用脚本语言快速生成代码。本文通过python脚本，快速生成agent的代码，提高工作效率。&lt;!-- raw HTML omitted --&gt;&lt;/p&gt;</description>
-    </item>
-    
-  </channel>
-</rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>验证自动化 - 标签 - BK's Blogs</title><link>https://cslgbk.github.io/tags/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96/</link><description>验证自动化 - 标签 - BK's Blogs</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>cslgbk@126.com (bk)</managingEditor><webMaster>cslgbk@126.com (bk)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 16 May 2021 14:38:00 +0800</lastBuildDate><atom:link href="https://cslgbk.github.io/tags/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96/" rel="self" type="application/rss+xml"/><item><title>自动化生成agent代码</title><link>https://cslgbk.github.io/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/</link><pubDate>Sun, 16 May 2021 14:38:00 +0800</pubDate><author>作者</author><guid>https://cslgbk.github.io/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/</guid><description><![CDATA[<h3 id="1总体思路">1.总体思路</h3>
+<p><font size=3/>在搭建验证框架时经常要输入很多重复性的代码，有两种快速获得验证的方法，一种是复制原有的框架代码，在代码上面修改，一种是利用脚本语言快速生成代码。本文通过python脚本，快速生成agent的代码，提高工作效率。</font></p>]]></description></item></channel></rss>

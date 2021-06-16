@@ -4,8 +4,8 @@
 
 <!--more-->
 
-# 1. 控制寄存器功能描述
-### 接口
+### 1. 控制寄存器功能描述
+#### 接口
 ![reg_if](/images/mcdf/reg_if.PNG)
 
 <font size=3>psel:APB总线选择信号</font>
@@ -36,7 +36,7 @@
 
 <font size=3>slvx_parity_err:通道x奇偶校验标志位</font>
 
-### 寄存器
+#### 寄存器
 <font size=3>last_st, cur_st：用于表示APB总线状态</font>
 
 <font size=3></font>
@@ -45,7 +45,7 @@
 
 <font size=3>ro_men：reg_if模块中只读寄存器</font>
 
-# 2.验证结构
+### 2.验证结构
 
 ![rgm_stru](/images/mcdf/v1_str.png)
 
@@ -55,7 +55,7 @@
 
 <font size=3>scoreboard在触发后，读取寄存器模型中更新的值，作为参考设计的值，通过后门访问，直接获取DUT中的真实值，对比后输出结果。</font>
 
-# 3.APB总线
+### 3.APB总线
 <font size=3>AMBA总线介绍可参考[此文档](http://res.diandianme.com/sdr/resource/6ajyt.pdf)</font>
 
 <font size=3>AMBA总线包含AHB（高级高性能总线）、ASB（高级系统总线）、APB（高级外设总线）。APB总线状态机和时序如下：</font>
@@ -64,7 +64,7 @@
 ![APB_Write](/images/mcdf/APB_Write.png)
 ![APB_Read](/images/mcdf/APB_Read.png)
 
-# 4.验证环境搭建
+### 4.验证环境搭建
 <font size=3>AMBA总线介绍可参考[此文档](http://res.diandianme.com/sdr/resource/6ajyt.pdf)</font>
 
 <font size=3>APB总线APB_pkg.sv：</font>
@@ -1267,14 +1267,14 @@ result:
 
 ```
 
-# 5.运行
+### 5.运行
 <font size=3>运行</font>
 
 ```
 make run
 ```
 
-# 6.查看覆盖率
+### 6.查看覆盖率
 ```
 make result
 ```
