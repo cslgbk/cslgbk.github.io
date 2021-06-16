@@ -9,7 +9,7 @@
 	url = https://github.com/rhnvrm/bodhi
 [submodule "themes/bodhi"]
 	path = themes/bodhi
-	url = https://github.com/rhnvrm/bodhi.
+	url = https://github.com/rhnvrm/bodhi
 
 [submodule "themes/LoveIt"]
 	path = themes/LoveIt
