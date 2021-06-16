@@ -1,1 +1,168 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml"><url><loc>https://cslgbk.github.io/</loc><lastmod>2021-06-06T20:30:47+08:00</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://cslgbk.github.io/en/"/><xhtml:link rel="alternate" hreflang="ch" href="https://cslgbk.github.io/"/></url><url><loc>https://cslgbk.github.io/categories/</loc><lastmod>2021-06-06T20:30:47+08:00</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://cslgbk.github.io/en/categories/"/><xhtml:link rel="alternate" hreflang="ch" href="https://cslgbk.github.io/categories/"/></url><url><loc>https://cslgbk.github.io/posts/</loc><lastmod>2021-06-06T20:30:47+08:00</lastmod></url><url><loc>https://cslgbk.github.io/tags/</loc><lastmod>2021-06-06T20:30:47+08:00</lastmod><xhtml:link rel="alternate" hreflang="en" href="https://cslgbk.github.io/en/tags/"/><xhtml:link rel="alternate" hreflang="ch" href="https://cslgbk.github.io/tags/"/></url><url><loc>https://cslgbk.github.io/tags/vim/</loc><lastmod>2021-06-06T20:30:47+08:00</lastmod></url><url><loc>https://cslgbk.github.io/categories/vim/</loc><lastmod>2021-06-06T20:30:47+08:00</lastmod></url><url><loc>https://cslgbk.github.io/posts/vim%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</loc><lastmod>2021-06-06T20:30:47+08:00</lastmod></url><url><loc>https://cslgbk.github.io/tags/python/</loc><lastmod>2021-05-16T14:38:00+08:00</lastmod></url><url><loc>https://cslgbk.github.io/categories/python/</loc><lastmod>2021-05-16T14:38:00+08:00</lastmod></url><url><loc>https://cslgbk.github.io/tags/uvm/</loc><lastmod>2021-05-16T14:38:00+08:00</lastmod></url><url><loc>https://cslgbk.github.io/categories/uvm/</loc><lastmod>2021-05-16T14:38:00+08:00</lastmod></url><url><loc>https://cslgbk.github.io/posts/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/</loc><lastmod>2021-05-16T14:38:00+08:00</lastmod></url><url><loc>https://cslgbk.github.io/tags/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96/</loc><lastmod>2021-05-16T14:38:00+08:00</lastmod></url><url><loc>https://cslgbk.github.io/categories/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96/</loc><lastmod>2021-05-16T14:38:00+08:00</lastmod></url><url><loc>https://cslgbk.github.io/tags/mcdf/</loc><lastmod>2021-04-21T16:00:48+08:00</lastmod></url><url><loc>https://cslgbk.github.io/categories/mcdf/</loc><lastmod>2021-04-21T16:00:48+08:00</lastmod></url><url><loc>https://cslgbk.github.io/tags/rgm/</loc><lastmod>2021-04-21T16:00:48+08:00</lastmod></url><url><loc>https://cslgbk.github.io/posts/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/</loc><lastmod>2021-04-21T16:00:48+08:00</lastmod></url><url><loc>https://cslgbk.github.io/tags/c/</loc><lastmod>2021-04-12T10:33:21+08:00</lastmod></url><url><loc>https://cslgbk.github.io/tags/dpi/</loc><lastmod>2021-04-12T10:33:21+08:00</lastmod></url><url><loc>https://cslgbk.github.io/posts/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/</loc><lastmod>2021-04-12T10:33:21+08:00</lastmod></url><url><loc>https://cslgbk.github.io/author/</loc><xhtml:link rel="alternate" hreflang="en" href="https://cslgbk.github.io/en/author/"/><xhtml:link rel="alternate" hreflang="ch" href="https://cslgbk.github.io/author/"/></url><url><loc>https://cslgbk.github.io/series/</loc><xhtml:link rel="alternate" hreflang="en" href="https://cslgbk.github.io/en/series/"/><xhtml:link rel="alternate" hreflang="ch" href="https://cslgbk.github.io/series/"/></url></urlset>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://cslgbk.github.io/</loc>
+    <lastmod>2021-06-06T20:30:47+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://cslgbk.github.io/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ch"
+                href="https://cslgbk.github.io/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/categories/</loc>
+    <lastmod>2021-06-06T20:30:47+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://cslgbk.github.io/en/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ch"
+                href="https://cslgbk.github.io/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/posts/</loc>
+    <lastmod>2021-06-06T20:30:47+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/tags/</loc>
+    <lastmod>2021-06-06T20:30:47+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://cslgbk.github.io/en/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ch"
+                href="https://cslgbk.github.io/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/tags/vim/</loc>
+    <lastmod>2021-06-06T20:30:47+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/categories/vim/</loc>
+    <lastmod>2021-06-06T20:30:47+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/posts/vim%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/</loc>
+    <lastmod>2021-06-06T20:30:47+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/tags/python/</loc>
+    <lastmod>2021-05-16T14:38:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/categories/python/</loc>
+    <lastmod>2021-05-16T14:38:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/tags/uvm/</loc>
+    <lastmod>2021-05-16T14:38:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/categories/uvm/</loc>
+    <lastmod>2021-05-16T14:38:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/posts/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/</loc>
+    <lastmod>2021-05-16T14:38:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/tags/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96/</loc>
+    <lastmod>2021-05-16T14:38:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/categories/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96/</loc>
+    <lastmod>2021-05-16T14:38:00+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/tags/mcdf/</loc>
+    <lastmod>2021-04-21T16:00:48+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/categories/mcdf/</loc>
+    <lastmod>2021-04-21T16:00:48+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/tags/rgm/</loc>
+    <lastmod>2021-04-21T16:00:48+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/posts/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2021-04-21T16:00:48+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/tags/c/</loc>
+    <lastmod>2021-04-12T10:33:21+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/tags/dpi/</loc>
+    <lastmod>2021-04-12T10:33:21+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/posts/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/</loc>
+    <lastmod>2021-04-12T10:33:21+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/author/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://cslgbk.github.io/en/author/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ch"
+                href="https://cslgbk.github.io/author/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/series/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://cslgbk.github.io/en/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="ch"
+                href="https://cslgbk.github.io/series/"
+                />
+  </url>
+  
+</urlset>

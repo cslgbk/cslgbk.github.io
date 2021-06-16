@@ -1,0 +1,2350 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><meta http-equiv=x-ua-compatible content="IE=edge, chrome=1"><title>含寄存器模型验证结构搭建 - BK's Blogs</title><meta name=Description content="BK‘s Blogs"><meta property="og:title" content="含寄存器模型验证结构搭建"><meta property="og:description" content="寄存器模型中存储了DUT寄存器中的地址和数据信息，方便寄存器的读写，简化参考模型，便于覆盖率收集等特点。本文以MCDF的控制寄存器为例搭建含有寄存器模型的验证结构。"><meta property="og:type" content="article"><meta property="og:url" content="https://cslgbk.github.io/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/"><meta property="og:image" content="https://cslgbk.github.io/t.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2021-04-21T16:00:48+08:00"><meta property="article:modified_time" content="2021-04-21T16:00:48+08:00"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://cslgbk.github.io/t.png"><meta name=twitter:title content="含寄存器模型验证结构搭建"><meta name=twitter:description content="寄存器模型中存储了DUT寄存器中的地址和数据信息，方便寄存器的读写，简化参考模型，便于覆盖率收集等特点。本文以MCDF的控制寄存器为例搭建含有寄存器模型的验证结构。"><meta name=application-name content="BK's Blogs"><meta name=apple-mobile-web-app-title content="BK's Blogs"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://cslgbk.github.io/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/><link rel=prev href=https://cslgbk.github.io/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/><link rel=next href=https://cslgbk.github.io/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"含寄存器模型验证结构搭建","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/cslgbk.github.io\/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA\/"},"image":["https:\/\/cslgbk.github.io\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"UVM, MCDF, RGM","wordcount":4347,"url":"https:\/\/cslgbk.github.io\/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA\/","datePublished":"2021-04-21T16:00:48+08:00","dateModified":"2021-04-21T16:00:48+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"bk","logo":"https:\/\/cslgbk.github.io\/t.png"},"author":{"@type":"Person","name":"bk"},"description":""}</script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'light'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'light'==='dark')&&document.body.setAttribute('theme','dark')</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="BK's Blogs">BK's Blogs</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/>所有文章 </a><a class=menu-item href=/tags/>标签 </a><a class=menu-item href=/categories/>分类 </a><a class=menu-item href=/categories/documentation/>文档 </a><a class=menu-item href=/about/>关于 </a><a class=menu-item href=https://github.com/dillonzq/LoveIt title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><a href=javascript:void(0); class="menu-item language" title=选择语言>简体中文<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/ selected>简体中文</option></select>
+</a><span class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fas fa-search fa-fw"></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin"></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题><i class="fas fa-adjust fa-fw"></i></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="BK's Blogs">BK's Blogs</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fas fa-search fa-fw"></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fas fa-times-circle fa-fw"></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin"></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/categories/documentation/ title>文档</a><a class=menu-item href=/about/ title>关于</a><a class=menu-item href=https://github.com/dillonzq/LoveIt title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
+<i class="fas fa-adjust fa-fw"></i>
+</a><a href=javascript:void(0); class=menu-item title=选择语言>简体中文<i class="fas fa-chevron-right fa-fw"></i>
+<select class=language-select onchange="location=this.value"><option value=/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/ selected>简体中文</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">含寄存器模型验证结构搭建</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=/ title=Author rel=" author" class=author><i class="fas fa-user-circle fa-fw"></i>bk</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/uvm/><i class="far fa-folder fa-fw"></i>UVM</a>&nbsp;<a href=/categories/mcdf/><i class="far fa-folder fa-fw"></i>MCDF</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-04-21>2021-04-21</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4347 字&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟&nbsp;<span id=/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/ class=leancloud_visitors data-flag-title=含寄存器模型验证结构搭建>
+<i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
+</span>&nbsp;</div></div><div class="details toc" id=toc-static kept><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fas fa-angle-right"></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><ul><li><a href=#接口>接口</a></li><li><a href=#寄存器>寄存器</a></li></ul></li></ul></nav></div></div><div class=content id=content><p>寄存器模型中存储了DUT寄存器中的地址和数据信息，方便寄存器的读写，简化参考模型，便于覆盖率收集等特点。本文以MCDF的控制寄存器为例搭建含有寄存器模型的验证结构。</p><h1 id=1-控制寄存器功能描述>1. 控制寄存器功能描述</h1><h3 id=接口>接口</h3><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/mcdf/reg_if.PNG data-srcset="/images/mcdf/reg_if.PNG, /images/mcdf/reg_if.PNG 1.5x, /images/mcdf/reg_if.PNG 2x" data-sizes=auto alt=/images/mcdf/reg_if.PNG title=reg_if></p><p><font size=3>psel:APB总线选择信号</font></p><p><font size=3>paddr:APB总线地址总线</font></p><p><font size=3>pwr:APB总线读写信号</font></p><p><font size=3>pwdata:APB总线写入数据总线</font></p><p><font size=3>pwdata:APB总线读取数据总线</font></p><p><font size=3>pen:APB总线使能信号</font></p><p><font size=3>pready:读写完成标志位</font></p><p><font size=3>pslverr:总线错误标准位</font></p><p><font size=3>error_clr:清除slave_node错误标志位</font></p><p><font size=3>slv_en:slave_node使能控制位</font></p><p><font size=3>slvx_id:通道x ID号</font></p><p><font size=3>slvx_len:通道x数据包长度</font></p><p><font size=3>slvx_free_slot:通道x可用fifo数量</font></p><p><font size=3>slvx_parity_err:通道x奇偶校验标志位</font></p><h3 id=寄存器>寄存器</h3><p><font size=3>last_st, cur_st：用于表示APB总线状态</font></p><p><font size=3></font></p><p><font size=3>ctrl_men：MCDF控制寄存器</font></p><p><font size=3>ro_men：reg_if模块中只读寄存器</font></p><h1 id=2验证结构>2.验证结构</h1><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/mcdf/v1_str.png data-srcset="/images/mcdf/v1_str.png, /images/mcdf/v1_str.png 1.5x, /images/mcdf/v1_str.png 2x" data-sizes=auto alt=/images/mcdf/v1_str.png title=rgm_stru></p><p><font size=3>控制寄存器模块可通过APB总线进行读取和配置，可将控制寄存器分为两部分进行验证，一部分是模拟外部总线访问设计模块，一部分是模拟设计内部信号观察控制寄存器的反应。APB_agent用于访问控制寄存器模块的APB总线，reg_agent用于模拟设计内部信号。</font></p><p><font size=3>APB_agent中APB_seq产生随机的读写命令，通过driver发送至DUT。monitor用于监测总线变化，监测数据通过predictor、adapter最终传入寄存器模型。寄存器模型在APB总线每次被读写时更新。当monitor监测到总线数据传输完成时，同时触发寄存器模型更新和scoreboard（先缓存至analysis fifo）.</font></p><p><font size=3>scoreboard在触发后，读取寄存器模型中更新的值，作为参考设计的值，通过后门访问，直接获取DUT中的真实值，对比后输出结果。</font></p><h1 id=3apb总线>3.APB总线</h1><p><font size=3>AMBA总线介绍可参考<a href=http://res.diandianme.com/sdr/resource/6ajyt.pdf target=_blank rel="noopener noreffer">此文档</a></font></p><p><font size=3>AMBA总线包含AHB（高级高性能总线）、ASB（高级系统总线）、APB（高级外设总线）。APB总线状态机和时序如下：</font></p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/mcdf/APB_Status.png data-srcset="/images/mcdf/APB_Status.png, /images/mcdf/APB_Status.png 1.5x, /images/mcdf/APB_Status.png 2x" data-sizes=auto alt=/images/mcdf/APB_Status.png title=APB_Status>
+<img class=lazyload src=/svg/loading.min.svg data-src=/images/mcdf/APB_Write.png data-srcset="/images/mcdf/APB_Write.png, /images/mcdf/APB_Write.png 1.5x, /images/mcdf/APB_Write.png 2x" data-sizes=auto alt=/images/mcdf/APB_Write.png title=APB_Write>
+<img class=lazyload src=/svg/loading.min.svg data-src=/images/mcdf/APB_Read.png data-srcset="/images/mcdf/APB_Read.png, /images/mcdf/APB_Read.png 1.5x, /images/mcdf/APB_Read.png 2x" data-sizes=auto alt=/images/mcdf/APB_Read.png title=APB_Read></p><h1 id=4验证环境搭建>4.验证环境搭建</h1><p><font size=3>AMBA总线介绍可参考<a href=http://res.diandianme.com/sdr/resource/6ajyt.pdf target=_blank rel="noopener noreffer">此文档</a></font></p><p><font size=3>APB总线APB_pkg.sv：</font></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span><span class=lnt>197
+</span><span class=lnt>198
+</span><span class=lnt>199
+</span><span class=lnt>200
+</span><span class=lnt>201
+</span><span class=lnt>202
+</span><span class=lnt>203
+</span><span class=lnt>204
+</span><span class=lnt>205
+</span><span class=lnt>206
+</span><span class=lnt>207
+</span><span class=lnt>208
+</span><span class=lnt>209
+</span><span class=lnt>210
+</span><span class=lnt>211
+</span><span class=lnt>212
+</span><span class=lnt>213
+</span><span class=lnt>214
+</span><span class=lnt>215
+</span><span class=lnt>216
+</span><span class=lnt>217
+</span><span class=lnt>218
+</span><span class=lnt>219
+</span><span class=lnt>220
+</span><span class=lnt>221
+</span><span class=lnt>222
+</span><span class=lnt>223
+</span><span class=lnt>224
+</span><span class=lnt>225
+</span><span class=lnt>226
+</span><span class=lnt>227
+</span><span class=lnt>228
+</span><span class=lnt>229
+</span><span class=lnt>230
+</span><span class=lnt>231
+</span><span class=lnt>232
+</span><span class=lnt>233
+</span><span class=lnt>234
+</span><span class=lnt>235
+</span><span class=lnt>236
+</span><span class=lnt>237
+</span><span class=lnt>238
+</span><span class=lnt>239
+</span><span class=lnt>240
+</span><span class=lnt>241
+</span><span class=lnt>242
+</span><span class=lnt>243
+</span><span class=lnt>244
+</span><span class=lnt>245
+</span><span class=lnt>246
+</span><span class=lnt>247
+</span><span class=lnt>248
+</span><span class=lnt>249
+</span><span class=lnt>250
+</span><span class=lnt>251
+</span><span class=lnt>252
+</span><span class=lnt>253
+</span><span class=lnt>254
+</span><span class=lnt>255
+</span><span class=lnt>256
+</span><span class=lnt>257
+</span><span class=lnt>258
+</span><span class=lnt>259
+</span><span class=lnt>260
+</span><span class=lnt>261
+</span><span class=lnt>262
+</span><span class=lnt>263
+</span><span class=lnt>264
+</span><span class=lnt>265
+</span><span class=lnt>266
+</span><span class=lnt>267
+</span><span class=lnt>268
+</span><span class=lnt>269
+</span><span class=lnt>270
+</span><span class=lnt>271
+</span><span class=lnt>272
+</span><span class=lnt>273
+</span><span class=lnt>274
+</span><span class=lnt>275
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-go data-lang=go><span class=s>`include &#34;uvm_macros.svh&#34;
+</span><span class=s>
+</span><span class=s>`</span><span class=nx>define</span> <span class=nx>APB_DAT</span> <span class=mi>32</span>
+<span class=s>`define APB_ADDR 8
+</span><span class=s>
+</span><span class=s>package APB_pkg;
+</span><span class=s>
+</span><span class=s>import uvm_pkg::*;
+</span><span class=s>
+</span><span class=s>class APB_item extends uvm_sequence_item;
+</span><span class=s>	rand bit[`</span><span class=nx>APB_ADDR</span><span class=o>-</span><span class=mi>1</span><span class=p>:</span><span class=mi>0</span><span class=p>]</span> <span class=nx>paddr</span><span class=p>;</span>
+	<span class=nx>rand</span> <span class=nx>bit</span><span class=p>[</span><span class=s>`APB_DAT-1:0]  pwdata;
+</span><span class=s>	rand bit[`</span><span class=nx>APB_DAT</span><span class=o>-</span><span class=mi>1</span><span class=p>:</span><span class=mi>0</span><span class=p>]</span>  <span class=nx>prdata</span><span class=p>;</span>
+	<span class=nx>rand</span> <span class=nx>bit</span> <span class=nx>pwr</span><span class=p>;</span>
+	
+	<span class=s>`uvm_object_utils_begin(APB_item)
+</span><span class=s>		`</span><span class=nf>uvm_field_int</span><span class=p>(</span><span class=nx>paddr</span><span class=p>,</span> <span class=nx>UVM_ALL_ON</span><span class=p>)</span>
+		<span class=s>`uvm_field_int(pwdata, UVM_ALL_ON)
+</span><span class=s>		`</span><span class=nf>uvm_field_int</span><span class=p>(</span><span class=nx>prdata</span><span class=p>,</span> <span class=nx>UVM_ALL_ON</span><span class=p>)</span>
+		<span class=s>`uvm_field_int(pwr, UVM_ALL_ON)
+</span><span class=s>	`</span><span class=nx>uvm_object_utils_end</span>
+	
+    <span class=cm>/*
+</span><span class=cm>	constraint addr_con	{
+</span><span class=cm>		paddr dist {8&#39;h00:/8,	
+</span><span class=cm>					8&#39;h04:/8,	
+</span><span class=cm>					8&#39;h08:/8,	
+</span><span class=cm>					8&#39;h0C:/8,
+</span><span class=cm>					8&#39;h80:/8,
+</span><span class=cm>					8&#39;h84:/8,
+</span><span class=cm>					8&#39;h88:/8,
+</span><span class=cm>					8&#39;h8C:/8,
+</span><span class=cm>					8&#39;h90:/8,
+</span><span class=cm>					8&#39;h94:/8,
+</span><span class=cm>					8&#39;h98:/8,
+</span><span class=cm>					8&#39;h9C:/8};
+</span><span class=cm>		}
+</span><span class=cm>        */</span>
+	
+	<span class=nx>function</span> <span class=nb>new</span><span class=p>(</span><span class=kt>string</span> <span class=nx>name</span> <span class=p>=</span> <span class=s>&#34; &#34;</span><span class=p>);</span>
+		<span class=nx>super</span><span class=p>.</span><span class=nb>new</span><span class=p>(</span><span class=nx>name</span><span class=p>);</span>   
+	<span class=nx>endfunction</span> <span class=p>:</span> <span class=nx>new</span>
+	
+<span class=nx>endclass</span>
+
+<span class=nx>class</span> <span class=nx>APB_seq</span> <span class=nx>extends</span> <span class=nx>uvm_sequence</span><span class=p>;</span>
+	<span class=s>`uvm_object_utils(APB_seq)
+</span><span class=s>	
+</span><span class=s>	function new(string name=&#34; &#34;);
+</span><span class=s>		super.new(name);
+</span><span class=s>	endfunction
+</span><span class=s>	
+</span><span class=s>	virtual task body();
+</span><span class=s>		APB_item tr;
+</span><span class=s>		#200
+</span><span class=s>		forever begin
+</span><span class=s>			`</span><span class=nf>uvm_do</span><span class=p>(</span><span class=nx>tr</span><span class=p>)</span>
+		<span class=nx>end</span>
+	<span class=nx>endtask</span>
+
+<span class=nx>endclass</span>
+
+<span class=nx>class</span> <span class=nx>APB_sqr</span> <span class=nx>extends</span> <span class=nx>uvm_sequencer</span><span class=err>#</span><span class=p>(</span><span class=nx>APB_item</span><span class=p>);</span>
+	<span class=s>`uvm_component_utils(APB_sqr)
+</span><span class=s>	
+</span><span class=s>	function new(string name=&#34;APB_sqr&#34;, uvm_component parent=null);
+</span><span class=s>		super.new(name,parent);
+</span><span class=s>	endfunction
+</span><span class=s>
+</span><span class=s>endclass
+</span><span class=s>	
+</span><span class=s>class APB_driver extends uvm_driver#(APB_item);
+</span><span class=s>	
+</span><span class=s>	`</span><span class=nf>uvm_component_utils</span><span class=p>(</span><span class=nx>APB_driver</span><span class=p>)</span>
+	
+	<span class=nx>function</span> <span class=nb>new</span><span class=p>(</span><span class=kt>string</span> <span class=nx>name</span> <span class=p>=</span> <span class=s>&#34;APB_driver&#34;</span><span class=p>,</span> <span class=nx>uvm_component</span> <span class=nx>parent</span><span class=p>);</span>
+		<span class=nx>super</span><span class=p>.</span><span class=nb>new</span><span class=p>(</span><span class=nx>name</span><span class=p>,</span> <span class=nx>parent</span><span class=p>);</span>
+	<span class=nx>endfunction</span>
+	
+	<span class=nx>virtual</span> <span class=nx>reg_interface</span> <span class=nx>APB_vif</span><span class=p>;</span>
+	
+	<span class=nx>function</span> <span class=nx>void</span> <span class=nf>set_interface</span><span class=p>(</span><span class=nx>virtual</span> <span class=nx>reg_interface</span> <span class=nx>reg_vif</span><span class=p>);</span>
+		<span class=nx>APB_vif</span> <span class=p>=</span> <span class=nx>reg_vif</span><span class=p>;</span>
+	<span class=nx>endfunction</span>
+	
+	<span class=nx>task</span> <span class=nf>main_phase</span><span class=p>(</span><span class=nx>uvm_phase</span> <span class=nx>phase</span><span class=p>);</span>
+		<span class=c1>//uvm_sequence_item tmp;
+</span><span class=c1></span>		<span class=nx>APB_item</span> <span class=nx>t</span><span class=p>;</span>
+		<span class=nf>APB_idle</span><span class=p>();</span>
+		<span class=c1>//@(APB_vif.rstn);
+</span><span class=c1></span>		<span class=nx>forever</span> <span class=nx>begin</span>
+			<span class=nx>seq_item_port</span><span class=p>.</span><span class=nf>get_next_item</span><span class=p>(</span><span class=nx>t</span><span class=p>);</span>
+			
+			<span class=k>if</span> <span class=p>(</span><span class=nx>t</span><span class=p>.</span><span class=nx>pwr</span> <span class=o>==</span> <span class=mi>0</span><span class=p>)</span> <span class=nx>begin</span>
+				<span class=nf>APB_read</span><span class=p>(</span><span class=nx>t</span><span class=p>);</span>
+			<span class=nx>end</span> 
+			<span class=k>if</span> <span class=p>(</span><span class=nx>t</span><span class=p>.</span><span class=nx>pwr</span> <span class=o>==</span> <span class=mi>1</span><span class=p>)</span> <span class=nx>begin</span>
+				<span class=nf>APB_write</span><span class=p>(</span><span class=nx>t</span><span class=p>);</span>
+			<span class=nx>end</span>
+			<span class=nx>seq_item_port</span><span class=p>.</span><span class=nf>item_done</span><span class=p>();</span>
+		<span class=nx>end</span>
+	<span class=nx>endtask</span>
+
+	<span class=nx>task</span> <span class=nf>APB_idle</span><span class=p>();</span>
+		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>psel</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=mi>0</span><span class=p>;</span>
+		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>pen</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=mi>0</span><span class=p>;</span>
+	<span class=nx>endtask</span>
+	
+	<span class=nx>task</span> <span class=nf>APB_write</span><span class=p>(</span><span class=nx>APB_item</span> <span class=nx>tmp</span><span class=p>);</span>
+		<span class=c1>//@(APB_vif.pslverr|APB_vif.pready);
+</span><span class=c1></span>		<span class=c1>//while(APB_vif.apb_driver.pslverr);
+</span><span class=c1></span>		<span class=err>@</span><span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>;</span>
+		<span class=k>if</span><span class=p>(</span> <span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>pready</span> <span class=p>)</span> <span class=k>return</span><span class=p>;</span>
+		<span class=nx>fork</span>
+		<span class=c1>//@(!(APB_vif.pslverr|APB_vif.pready));
+</span><span class=c1></span>		<span class=c1>//@(!APB_vif.pslverr);
+</span><span class=c1></span>		<span class=c1>//@(!APB_vif.pready);
+</span><span class=c1></span>		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>psel</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=mi>1</span><span class=p>;</span>       <span class=c1>//markdonwn问题， 实际为非阻塞赋值“&lt;=”
+</span><span class=c1></span>		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>pen</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=mi>0</span><span class=p>;</span>
+		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>paddr</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=nx>tmp</span><span class=p>.</span><span class=nx>paddr</span><span class=p>;</span>
+		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>pwdata</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=nx>tmp</span><span class=p>.</span><span class=nx>pwdata</span><span class=p>;</span>
+		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>pwr</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=nx>tmp</span><span class=p>.</span><span class=nx>pwr</span><span class=p>;</span>
+		<span class=nx>join</span>
+		
+		<span class=err>@</span><span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span> 
+		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>pen</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=mi>1</span><span class=p>;</span>
+		<span class=err>@</span><span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span> <span class=nx>fork</span>
+		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>pen</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=mi>0</span><span class=p>;</span>
+		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>psel</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=mi>0</span><span class=p>;</span>
+		<span class=nx>join</span>
+	<span class=nx>endtask</span>
+	
+	<span class=nx>task</span> <span class=nf>APB_read</span><span class=p>(</span><span class=nx>APB_item</span> <span class=nx>tmp</span><span class=p>);</span>
+		<span class=c1>//while(APB_vif.apb_driver.pslverr);
+</span><span class=c1></span>		
+		<span class=err>@</span><span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>;</span>
+		<span class=k>if</span> <span class=p>(</span><span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>pready</span><span class=p>)</span> <span class=k>return</span><span class=p>;</span>
+		<span class=nx>fork</span>
+		<span class=c1>//@(!(APB_vif.pslverr|APB_vif.pready));
+</span><span class=c1></span>		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>psel</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=mi>1</span><span class=p>;</span>
+		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>pen</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=mi>0</span><span class=p>;</span>
+		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>paddr</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=nx>tmp</span><span class=p>.</span><span class=nx>paddr</span><span class=p>;</span>
+		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>pwr</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=nx>tmp</span><span class=p>.</span><span class=nx>pwr</span><span class=p>;</span>
+		<span class=nx>join</span>
+		<span class=err>@</span><span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span> 
+		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>pen</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=mi>1</span><span class=p>;</span>
+		<span class=err>@</span><span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span> <span class=nx>fork</span>
+		<span class=nx>tmp</span><span class=p>.</span><span class=nx>prdata</span> <span class=p>=</span> <span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>prdata</span><span class=p>;</span>
+		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>pen</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=mi>0</span><span class=p>;</span>
+		<span class=nx>APB_vif</span><span class=p>.</span><span class=nx>apb_driver</span><span class=p>.</span><span class=nx>psel</span> <span class=p>&lt;</span> <span class=p>=</span> <span class=mi>0</span><span class=p>;</span>
+		<span class=nx>join</span>
+	<span class=nx>endtask</span>
+<span class=nx>endclass</span>
+	
+	
+<span class=nx>class</span> <span class=nx>APB_monitor</span> <span class=nx>extends</span> <span class=nx>uvm_monitor</span><span class=p>;</span>
+	<span class=s>`uvm_component_utils(APB_monitor)
+</span><span class=s>	
+</span><span class=s>	uvm_analysis_port#(APB_item) ap;
+</span><span class=s>	
+</span><span class=s>	APB_item tmp;
+</span><span class=s>	int s;
+</span><span class=s>	
+</span><span class=s>	virtual reg_interface reg_intf;
+</span><span class=s>	
+</span><span class=s>	function void set_interface(virtual reg_interface vif);
+</span><span class=s>		reg_intf = vif;
+</span><span class=s>	endfunction
+</span><span class=s>	
+</span><span class=s>	function new(string name=&#34;APB_monitor&#34;, uvm_component parent);
+</span><span class=s>		super.new(name, parent);
+</span><span class=s>		ap = new(&#34;mon_ap&#34;,this);
+</span><span class=s>		
+</span><span class=s>	endfunction
+</span><span class=s>	
+</span><span class=s>	task main_phase(uvm_phase phase);
+</span><span class=s>		
+</span><span class=s>		forever begin
+</span><span class=s>			@reg_intf.apb_sample;
+</span><span class=s>			// `</span><span class=nf>uvm_info</span><span class=p>(</span><span class=s>&#34;DEBUG&#34;</span><span class=p>,</span><span class=err>$</span><span class=nf>sformatf</span><span class=p>(</span><span class=s>&#34;psel:%h pen:%h&#34;</span><span class=p>,</span> <span class=nx>reg_intf</span><span class=p>.</span><span class=nx>apb_sample</span><span class=p>.</span><span class=nx>psel</span><span class=p>,</span> <span class=nx>reg_intf</span><span class=p>.</span><span class=nx>apb_sample</span><span class=p>.</span><span class=nx>pen</span><span class=p>),</span> <span class=nx>UVM_LOW</span><span class=p>);</span>
+			<span class=k>if</span> <span class=p>(</span><span class=nx>reg_intf</span><span class=p>.</span><span class=nx>apb_sample</span><span class=p>.</span><span class=nx>pslverr</span><span class=p>)</span> <span class=k>continue</span><span class=p>;</span>
+			<span class=k>if</span> <span class=p>(</span><span class=nx>s</span> <span class=o>==</span> <span class=mi>0</span><span class=p>)</span> <span class=nx>begin</span>
+				<span class=k>if</span> <span class=p>(</span><span class=nx>reg_intf</span><span class=p>.</span><span class=nx>apb_sample</span><span class=p>.</span><span class=nx>pready</span><span class=p>)</span> <span class=k>continue</span><span class=p>;</span>
+			<span class=nx>end</span>
+			
+			<span class=k>if</span> <span class=p>(</span><span class=nx>reg_intf</span><span class=p>.</span><span class=nx>apb_sample</span><span class=p>.</span><span class=nx>psel</span><span class=p>)</span> <span class=nx>begin</span>
+				<span class=nx>s</span> <span class=p>=</span> <span class=mi>1</span><span class=p>;</span>
+			
+				<span class=k>if</span> <span class=p>(</span><span class=nx>reg_intf</span><span class=p>.</span><span class=nx>apb_sample</span><span class=p>.</span><span class=nx>pen</span><span class=p>)</span> <span class=nx>begin</span>
+					<span class=k>if</span> <span class=p>(</span><span class=nx>s</span> <span class=o>!=</span> <span class=mi>2</span><span class=p>)</span> <span class=nx>begin</span>
+						<span class=nx>s</span> <span class=p>=</span> <span class=mi>2</span><span class=p>;</span>
+						<span class=nx>tmp</span> <span class=p>=</span> <span class=nb>new</span><span class=p>(</span><span class=s>&#34;APB_monitor&#34;</span><span class=p>);</span>
+						<span class=nx>tmp</span><span class=p>.</span><span class=nx>pwr</span> <span class=p>=</span> <span class=nx>reg_intf</span><span class=p>.</span><span class=nx>apb_sample</span><span class=p>.</span><span class=nx>pwr</span><span class=p>;</span>
+						<span class=nx>tmp</span><span class=p>.</span><span class=nx>paddr</span> <span class=p>=</span> <span class=nx>reg_intf</span><span class=p>.</span><span class=nx>apb_sample</span><span class=p>.</span><span class=nx>paddr</span><span class=p>;</span>
+						<span class=nx>tmp</span><span class=p>.</span><span class=nx>prdata</span> <span class=p>=</span><span class=nx>reg_intf</span><span class=p>.</span><span class=nx>apb_sample</span><span class=p>.</span><span class=nx>prdata</span><span class=p>;</span>
+						<span class=nx>tmp</span><span class=p>.</span><span class=nx>pwdata</span> <span class=p>=</span> <span class=nx>reg_intf</span><span class=p>.</span><span class=nx>apb_sample</span><span class=p>.</span><span class=nx>pwdata</span><span class=p>;</span>
+						<span class=nx>ap</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=nx>tmp</span><span class=p>);</span>
+					<span class=nx>end</span>
+				<span class=nx>end</span>
+			<span class=nx>end</span> <span class=k>else</span> <span class=nx>begin</span>
+				<span class=nx>s</span> <span class=p>=</span> <span class=mi>0</span><span class=p>;</span>
+			<span class=nx>end</span>
+			
+		<span class=nx>end</span>
+	<span class=nx>endtask</span>
+<span class=nx>endclass</span>
+
+
+<span class=nx>class</span> <span class=nx>APB_agent</span> <span class=nx>extends</span> <span class=nx>uvm_agent</span><span class=p>;</span>
+	<span class=s>`uvm_component_utils(APB_agent)
+</span><span class=s>	function new(string name, uvm_component parent);
+</span><span class=s>		super.new(name,parent);
+</span><span class=s>	endfunction
+</span><span class=s>	
+</span><span class=s>	APB_monitor monitor;
+</span><span class=s>	APB_driver driver;
+</span><span class=s>	APB_sqr sqr;
+</span><span class=s>	//reg_monitor reg_mon;
+</span><span class=s>	
+</span><span class=s>	function void build_phase(uvm_phase phase);
+</span><span class=s>		super.build_phase(phase);
+</span><span class=s>		monitor = APB_monitor::type_id::create(&#34;APB_monitor&#34;,this);
+</span><span class=s>		driver = APB_driver::type_id::create(&#34;APB_driver&#34;,this);
+</span><span class=s>		sqr = APB_sqr::type_id::create(&#34;APB_sqr&#34;,this);
+</span><span class=s>//		reg_mon = reg_monitor::type_id::create(&#34;reg_mon&#34;,this);
+</span><span class=s>	endfunction
+</span><span class=s>	
+</span><span class=s>	function void connect_phase(uvm_phase phase);
+</span><span class=s>		super.connect_phase(phase);
+</span><span class=s>		driver.seq_item_port.connect(sqr.seq_item_export);
+</span><span class=s>	endfunction
+</span><span class=s>	
+</span><span class=s>	function void set_interface(virtual reg_interface reg_vif);
+</span><span class=s>		driver.set_interface(reg_vif);
+</span><span class=s>		monitor.set_interface(reg_vif);
+</span><span class=s>//		reg_mon.set_interface(reg_vif);
+</span><span class=s>	endfunction
+</span><span class=s>	
+</span><span class=s>endclass
+</span><span class=s>
+</span><span class=s>
+</span><span class=s>class rm2reg_adapter extends uvm_reg_adapter;
+</span><span class=s>	`</span><span class=nf>uvm_object_utils</span><span class=p>(</span><span class=nx>rm2reg_adapter</span><span class=p>)</span>
+	<span class=nx>function</span> <span class=nb>new</span><span class=p>(</span><span class=kt>string</span> <span class=nx>name</span><span class=p>=</span><span class=s>&#34;rm2reg_adapter&#34;</span><span class=p>);</span>
+		<span class=nx>super</span><span class=p>.</span><span class=nb>new</span><span class=p>(</span><span class=nx>name</span><span class=p>);</span>
+	<span class=nx>endfunction</span>
+	
+	<span class=nx>function</span> <span class=nx>uvm_sequence_item</span> <span class=nf>reg2bus</span><span class=p>(</span><span class=kd>const</span> <span class=nx>ref</span> <span class=nx>uvm_reg_bus_op</span> <span class=nx>rw</span><span class=p>);</span>
+		<span class=nx>APB_item</span> <span class=nx>tmp</span> <span class=p>=</span> <span class=nx>APB_item</span><span class=p>::</span><span class=nx>type_id</span><span class=p>::</span><span class=nf>create</span><span class=p>(</span><span class=s>&#34;reg2bus_item&#34;</span><span class=p>);</span>
+		<span class=nx>tmp</span><span class=p>.</span><span class=nx>pwr</span> <span class=p>=</span> <span class=p>(</span><span class=nx>rw</span><span class=p>.</span><span class=nx>kind</span> <span class=o>==</span> <span class=nx>UVM_WRITE</span><span class=p>)</span> <span class=err>?</span> <span class=mi>1</span><span class=p>:</span><span class=mi>0</span><span class=p>;</span>
+		<span class=nx>tmp</span><span class=p>.</span><span class=nx>paddr</span> <span class=p>=</span> <span class=nx>rw</span><span class=p>.</span><span class=nx>addr</span><span class=p>;</span>
+		<span class=nx>tmp</span><span class=p>.</span><span class=nx>pwdata</span> <span class=p>=</span> <span class=nx>rw</span><span class=p>.</span><span class=nx>data</span><span class=p>;</span>
+		<span class=k>return</span> <span class=nx>tmp</span><span class=p>;</span>
+	<span class=nx>endfunction</span>
+	
+	<span class=nx>function</span> <span class=nx>void</span> <span class=nf>bus2reg</span><span class=p>(</span><span class=nx>uvm_sequence_item</span> <span class=nx>bus_item</span><span class=p>,</span> <span class=nx>ref</span> <span class=nx>uvm_reg_bus_op</span> <span class=nx>rw</span><span class=p>);</span>
+		<span class=nx>APB_item</span> <span class=nx>tmp</span><span class=p>;</span>
+		<span class=k>if</span> <span class=p>(!</span><span class=err>$</span><span class=nf>cast</span><span class=p>(</span><span class=nx>tmp</span><span class=p>,</span> <span class=nx>bus_item</span><span class=p>))</span> <span class=nx>begin</span>
+			<span class=err>`</span><span class=nf>uvm_fatal</span><span class=p>(</span><span class=s>&#34;ADAPTER_ERROR_BUS2REG&#34;</span><span class=p>,</span><span class=s>&#34;cast error!&#34;</span><span class=p>)</span>
+			<span class=k>return</span><span class=p>;</span>
+		<span class=nx>end</span>
+		
+		<span class=nx>rw</span><span class=p>.</span><span class=nx>kind</span> <span class=p>=</span> <span class=p>(</span><span class=nx>tmp</span><span class=p>.</span><span class=nx>pwr</span> <span class=o>==</span> <span class=mi>1</span><span class=p>)</span> <span class=err>?</span> <span class=nx>UVM_WRITE</span> <span class=p>:</span> <span class=nx>UVM_READ</span><span class=p>;</span>
+		<span class=nx>rw</span><span class=p>.</span><span class=nx>addr</span> <span class=p>=</span> <span class=nx>tmp</span><span class=p>.</span><span class=nx>paddr</span><span class=p>;</span>
+		<span class=nx>rw</span><span class=p>.</span><span class=nx>data</span> <span class=p>=</span> <span class=p>(</span><span class=nx>tmp</span><span class=p>.</span><span class=nx>pwr</span> <span class=o>==</span> <span class=mi>1</span><span class=p>)</span> <span class=err>?</span> <span class=nx>tmp</span><span class=p>.</span><span class=nx>pwdata</span><span class=p>:</span><span class=nx>tmp</span><span class=p>.</span><span class=nx>prdata</span><span class=p>;</span>
+		<span class=nx>rw</span><span class=p>.</span><span class=nx>status</span> <span class=p>=</span> <span class=nx>UVM_IS_OK</span><span class=p>;</span>
+		<span class=c1>//$display(&#34;rw&#34;);
+</span><span class=c1></span>		<span class=c1>//$display(rw);
+</span><span class=c1></span>	<span class=nx>endfunction</span>
+	
+<span class=nx>endclass</span>
+
+<span class=nx>endpackage</span>
+
+
+</code></pre></td></tr></table></div></div><p><font size=3>reg_if_pkg.sv:</font></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>`include &#34;uvm_macros.svh&#34;
+
+import uvm_pkg::*;
+
+class reg_status_tran extends uvm_sequence_item;
+	
+	rand bit slv0_parity_err;
+	rand bit slv1_parity_err;
+	rand bit slv2_parity_err;
+	rand bit slv3_parity_err;
+
+	rand bit[5:0] slv0_free_slot;
+	rand bit[5:0] slv1_free_slot;
+	rand bit[5:0] slv2_free_slot;
+	rand bit[5:0] slv3_free_slot;
+	
+	function new(string name=&#34;reg_status_tran&#34;);
+		super.new(name);
+	endfunction
+	
+	`uvm_object_utils_begin(reg_status_tran)
+		
+		`uvm_field_int(slv0_parity_err, UVM_ALL_ON)
+		`uvm_field_int(slv1_parity_err, UVM_ALL_ON)
+		`uvm_field_int(slv2_parity_err, UVM_ALL_ON)
+		`uvm_field_int(slv3_parity_err, UVM_ALL_ON)
+		
+		`uvm_field_int(slv0_free_slot, UVM_ALL_ON)
+		`uvm_field_int(slv1_free_slot, UVM_ALL_ON)
+		`uvm_field_int(slv2_free_slot, UVM_ALL_ON)
+		`uvm_field_int(slv3_free_slot, UVM_ALL_ON)
+		
+	`uvm_object_utils_end
+	
+endclass
+
+class reg_status_seq extends uvm_sequence#(reg_status_tran);
+	
+	`uvm_object_utils(reg_status_seq)
+	
+	function new(string name=&#34;reg_status_seq&#34;);
+		super.new(name);
+	endfunction
+	
+	reg_status_tran tr;
+	virtual task body();
+		`uvm_do_with(tr, {	slv0_free_slot == 10;
+							slv0_parity_err == 0;
+							slv1_free_slot == 10;
+							slv1_parity_err == 0;
+							slv2_free_slot == 10;
+							slv2_parity_err == 0;
+							slv3_free_slot == 10;
+							slv3_parity_err == 0;})
+		# 2000;
+	endtask
+	
+endclass
+
+class reg_sqr extends uvm_sequencer#(reg_status_tran);
+	
+	`uvm_component_utils(reg_sqr)
+	
+	function new(string name=&#34;reg_sqr&#34;, uvm_component parent=null);
+		super.new(name,parent);
+	endfunction
+	
+endclass
+
+class reg_drv extends uvm_driver#(reg_status_tran);
+	
+	`uvm_component_utils(reg_drv)
+	
+	function new(string name=&#34;drv&#34;, uvm_component parent = null);
+		super.new(name, parent);
+	endfunction
+	
+	virtual reg_interface reg_vif;
+	
+	function set_interface(virtual reg_interface reg_vif);
+		this.reg_vif = reg_vif;
+	endfunction 
+	
+	task main_phase(uvm_phase phase);
+		reg_status_tran tr;
+		
+		forever begin
+			seq_item_port.get_next_item(tr);
+			driver_status(tr);
+			seq_item_port.item_done();
+		end
+	endtask
+		
+	task driver_status(reg_status_tran tr);
+		@reg_vif.reg_driver;
+		reg_vif.reg_driver.slv0_parity_err &lt; = tr.slv0_parity_err;   
+		reg_vif.reg_driver.slv1_parity_err &lt; = tr.slv1_parity_err;
+		reg_vif.reg_driver.slv2_parity_err &lt; = tr.slv2_parity_err;
+		reg_vif.reg_driver.slv3_parity_err &lt; = tr.slv3_parity_err;
+		
+		reg_vif.reg_driver.slv0_free_slot &lt; = tr.slv0_free_slot;
+		reg_vif.reg_driver.slv1_free_slot &lt; = tr.slv1_free_slot;
+		reg_vif.reg_driver.slv2_free_slot &lt; = tr.slv2_free_slot;
+		reg_vif.reg_driver.slv3_free_slot &lt; = tr.slv3_free_slot;
+	endtask
+	
+endclass
+
+class reg_if_agent extends uvm_agent;
+	
+	`uvm_component_utils(reg_if_agent)
+	
+	function new(string name=&#34;reg_if_agent&#34;, uvm_component parent = null);
+		super.new(name, parent);
+	endfunction 
+	
+	reg_sqr sqr;
+	reg_drv drv;
+	
+	
+	function void build_phase(uvm_phase phase);
+		super.build_phase(phase);
+		
+		sqr = reg_sqr::type_id::create(&#34;reg_sqr&#34;, this);
+		drv = reg_drv::type_id::create(&#34;reg_drv&#34;, this);
+		
+	endfunction
+	
+	function void connect_phase(uvm_phase phase);
+		super.connect_phase(phase);
+		drv.seq_item_port.connect(sqr.seq_item_export);
+	endfunction 
+	
+	function void set_interface(virtual reg_interface reg_vif);
+		drv.set_interface(reg_vif);
+	endfunction 
+	
+endclass
+
+</code></pre></td></tr></table></div></div><p><font size=3>采用时钟块，避免信号之间竞争 reg_interface.sv:</font></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>interface reg_interface(input clk, input rstn);
+	
+logic  [7:0]       paddr;
+logic              pwr;
+logic              pen;
+logic              psel;
+logic  [31:0]      pwdata;
+logic  [31:0]      prdata;	
+	
+logic             pready;
+logic             pslverr; 
+
+clocking apb_sample @(posedge clk);
+	default input #1 output #1;
+	input paddr;
+	input pwr;
+	input pen;
+	input psel;
+	input pwdata;
+	input prdata;
+	input pready;
+	input pslverr;
+endclocking
+
+clocking apb_driver @(posedge clk);
+	default input #1 output #1;
+	output psel;
+	output pen;
+	output pwr;
+	output paddr;
+	output pwdata;
+	input pready;
+	input pslverr;
+	input prdata;
+endclocking
+
+logic [3:0]       slv_en;  
+logic [3:0]       err_clr;
+logic [7:0]       slv0_id;
+logic [7:0]       slv1_id;
+logic [7:0]       slv2_id;
+logic [7:0]       slv3_id;
+
+logic [7:0]       slv0_len;
+logic [7:0]       slv1_len;
+logic [7:0]       slv2_len;
+logic [7:0]       slv3_len;
+
+logic              slv0_parity_err;
+logic              slv1_parity_err;
+logic              slv2_parity_err;
+logic              slv3_parity_err;
+
+logic  [5:0]       slv0_free_slot;
+logic  [5:0]       slv1_free_slot;
+logic  [5:0]       slv2_free_slot;
+logic  [5:0]       slv3_free_slot;
+
+clocking reg_listen @(posedge clk);
+	default input #1 output  #1;
+	
+	input pslverr;
+	input pready;
+	
+	input slv_en;
+	input err_clr;
+	input slv0_id;
+	input slv1_id;
+	input slv2_id;
+	input slv3_id;
+	
+	input slv0_len;
+	input slv1_len;
+	input slv2_len;
+	input slv3_len;
+	
+	input slv0_parity_err;
+	input slv1_parity_err;
+	input slv2_parity_err;
+	input slv3_parity_err;
+	
+	input slv0_free_slot;
+	input slv1_free_slot;
+	input slv2_free_slot;
+	input slv3_free_slot;
+	
+endclocking
+
+clocking reg_driver @(posedge clk);
+	default input #1 output #1;
+	
+	output slv0_parity_err;
+	output slv1_parity_err;
+	output slv2_parity_err;
+	output slv3_parity_err;
+	
+	output slv0_free_slot;
+	output slv1_free_slot;
+	output slv2_free_slot;
+	output slv3_free_slot;
+	
+endclocking
+
+endinterface
+
+</code></pre></td></tr></table></div></div><p><font size=3>寄存器模型reg_rm.sv:</font></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span><span class=lnt>197
+</span><span class=lnt>198
+</span><span class=lnt>199
+</span><span class=lnt>200
+</span><span class=lnt>201
+</span><span class=lnt>202
+</span><span class=lnt>203
+</span><span class=lnt>204
+</span><span class=lnt>205
+</span><span class=lnt>206
+</span><span class=lnt>207
+</span><span class=lnt>208
+</span><span class=lnt>209
+</span><span class=lnt>210
+</span><span class=lnt>211
+</span><span class=lnt>212
+</span><span class=lnt>213
+</span><span class=lnt>214
+</span><span class=lnt>215
+</span><span class=lnt>216
+</span><span class=lnt>217
+</span><span class=lnt>218
+</span><span class=lnt>219
+</span><span class=lnt>220
+</span><span class=lnt>221
+</span><span class=lnt>222
+</span><span class=lnt>223
+</span><span class=lnt>224
+</span><span class=lnt>225
+</span><span class=lnt>226
+</span><span class=lnt>227
+</span><span class=lnt>228
+</span><span class=lnt>229
+</span><span class=lnt>230
+</span><span class=lnt>231
+</span><span class=lnt>232
+</span><span class=lnt>233
+</span><span class=lnt>234
+</span><span class=lnt>235
+</span><span class=lnt>236
+</span><span class=lnt>237
+</span><span class=lnt>238
+</span><span class=lnt>239
+</span><span class=lnt>240
+</span><span class=lnt>241
+</span><span class=lnt>242
+</span><span class=lnt>243
+</span><span class=lnt>244
+</span><span class=lnt>245
+</span><span class=lnt>246
+</span><span class=lnt>247
+</span><span class=lnt>248
+</span><span class=lnt>249
+</span><span class=lnt>250
+</span><span class=lnt>251
+</span><span class=lnt>252
+</span><span class=lnt>253
+</span><span class=lnt>254
+</span><span class=lnt>255
+</span><span class=lnt>256
+</span><span class=lnt>257
+</span><span class=lnt>258
+</span><span class=lnt>259
+</span><span class=lnt>260
+</span><span class=lnt>261
+</span><span class=lnt>262
+</span><span class=lnt>263
+</span><span class=lnt>264
+</span><span class=lnt>265
+</span><span class=lnt>266
+</span><span class=lnt>267
+</span><span class=lnt>268
+</span><span class=lnt>269
+</span><span class=lnt>270
+</span><span class=lnt>271
+</span><span class=lnt>272
+</span><span class=lnt>273
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>`include &#34;uvm_macros.svh&#34;
+
+import uvm_pkg::*;
+
+class slv_en extends uvm_reg;
+	`uvm_object_utils(slv_en)
+	
+	function new(string name = &#34;slv_en&#34;);
+		super.new(name, 32, UVM_NO_COVERAGE);
+	endfunction
+	
+	uvm_reg_field reserved;
+	
+	rand uvm_reg_field slv3_en;
+	rand uvm_reg_field slv2_en;
+	rand uvm_reg_field slv1_en;
+	rand uvm_reg_field slv0_en;
+	
+	function build();
+		reserved = uvm_reg_field::type_id::create(&#34;reserved&#34;);
+		slv3_en = uvm_reg_field::type_id::create(&#34;slv3_en&#34;);
+		slv2_en = uvm_reg_field::type_id::create(&#34;slv2_en&#34;);
+		slv1_en = uvm_reg_field::type_id::create(&#34;slv1_en&#34;);
+		slv0_en = uvm_reg_field::type_id::create(&#34;slv0_en&#34;);
+		reserved.configure(this, 28, 4, &#34;RO&#34;, 0, 28&#39;h0, 1, 0, 0);
+		slv3_en.configure(this, 1, 3, &#34;RW&#34;, 0, 0, 1, 1, 0);
+		slv2_en.configure(this, 1, 2, &#34;RW&#34;, 0, 0, 1, 1, 0);
+		slv1_en.configure(this, 1, 1, &#34;RW&#34;, 0, 0, 1, 1, 0);
+		slv0_en.configure(this, 1, 0, &#34;RW&#34;, 0, 0, 1, 1, 0);
+	endfunction
+endclass
+
+
+class parity_err_clr extends uvm_reg;
+	`uvm_object_utils(parity_err_clr)
+	rand uvm_reg_field reserved;
+	rand uvm_reg_field parity_err_clr_3;
+	rand uvm_reg_field parity_err_clr_2;
+	rand uvm_reg_field parity_err_clr_1;
+	rand uvm_reg_field parity_err_clr_0;
+	
+	function new(name=&#34;parity_err_clr&#34;);
+		super.new(name, 32, UVM_NO_COVERAGE);
+	endfunction
+	
+	virtual function build();
+		reserved = uvm_reg_field::type_id::create(&#34;reserved&#34;);
+		parity_err_clr_3 = uvm_reg_field::type_id::create(&#34;parity_err_3&#34;);
+		parity_err_clr_2 = uvm_reg_field::type_id::create(&#34;parity_err_2&#34;);
+		parity_err_clr_1 = uvm_reg_field::type_id::create(&#34;parity_err_1&#34;);
+		parity_err_clr_0 = uvm_reg_field::type_id::create(&#34;parity_err_0&#34;);
+		
+		reserved.configure(this, 28, 4, &#34;RO&#34;, 0, 28&#39;h0, 1, 0, 0);
+		parity_err_clr_3.configure(this, 1, 3, &#34;RW&#34;, 0, 0, 1, 1, 0);
+		parity_err_clr_2.configure(this, 1, 2, &#34;RW&#34;, 0, 0, 1, 1, 0);
+		parity_err_clr_1.configure(this, 1, 1, &#34;RW&#34;, 0, 0, 1, 1, 0);
+		parity_err_clr_0.configure(this, 1, 0, &#34;RW&#34;, 0, 0, 1, 1, 0);
+	endfunction
+endclass
+
+class slv_id extends uvm_reg;
+	`uvm_object_utils(slv_id)
+	
+	function new(string name=&#34;slv_id&#34;);
+		super.new(name, 32, UVM_NO_COVERAGE);
+	endfunction
+	
+	rand uvm_reg_field slv3_id;
+	rand uvm_reg_field slv2_id;
+	rand uvm_reg_field slv1_id;
+	rand uvm_reg_field slv0_id;
+	
+	function build();
+		slv3_id = uvm_reg_field::type_id::create(&#34;slv3_id&#34;);
+		slv2_id = uvm_reg_field::type_id::create(&#34;slv2_id&#34;);
+		slv1_id = uvm_reg_field::type_id::create(&#34;slv1_id&#34;);
+		slv0_id = uvm_reg_field::type_id::create(&#34;slv0_id&#34;);
+		
+		slv3_id.configure(this, 8, 24, &#34;RW&#34;, 0, 8&#39;h0, 1, 1, 0);
+		slv2_id.configure(this, 8, 16, &#34;RW&#34;, 0, 8&#39;h0, 1, 1, 0);
+		slv1_id.configure(this, 8, 8,  &#34;RW&#34;, 0, 8&#39;h0, 1, 1, 0);
+		slv0_id.configure(this, 8, 0,  &#34;RW&#34;, 0, 8&#39;h0, 1, 1, 0);
+	endfunction
+	
+endclass
+
+class slv_len extends uvm_reg;
+	`uvm_object_utils(slv_len)
+	
+	function new(string name=&#34;slv_len&#34;);
+		super.new(name, 32, UVM_NO_COVERAGE);
+	endfunction
+	
+	rand uvm_reg_field slv3_len;
+	rand uvm_reg_field slv2_len;
+	rand uvm_reg_field slv1_len;
+	rand uvm_reg_field slv0_len;
+	
+	function build();
+		
+		slv3_len = uvm_reg_field::type_id::create(&#34;slv3_len&#34;);
+		
+		slv2_len = uvm_reg_field::type_id::create(&#34;slv2_len&#34;);
+		
+		slv1_len = uvm_reg_field::type_id::create(&#34;slv1_len&#34;);
+		
+		slv0_len = uvm_reg_field::type_id::create(&#34;slv0_len&#34;);
+		
+		slv3_len.configure(this, 8, 24, &#34;RW&#34;, 0, 8&#39;h0, 1, 1, 0);
+		slv2_len.configure(this, 8, 16, &#34;RW&#34;, 0, 8&#39;h0, 1, 1, 0);
+		slv1_len.configure(this, 8, 8,  &#34;RW&#34;, 0, 8&#39;h0, 1, 1, 0);
+		slv0_len.configure(this, 8, 0,  &#34;RW&#34;, 0, 8&#39;h0, 1, 1, 0);
+	endfunction
+	
+endclass
+
+class slv_free_slot extends uvm_reg;
+	`uvm_object_utils(slv_free_slot)
+	function new(string name=&#34;slv_free_slot&#34;);
+		super.new(name, 32, UVM_NO_COVERAGE);
+	endfunction
+
+	rand uvm_reg_field reserved;
+	rand uvm_reg_field free_slot;
+	
+	function build();
+		reserved = uvm_reg_field::type_id::create(&#34;reserved&#34;);
+		free_slot = uvm_reg_field::type_id::create(&#34;free_slot&#34;);
+		
+		reserved.configure(this, 26, 6, &#34;RO&#34;, 0, 26&#39;h0, 1, 0, 0);
+		free_slot.configure(this, 6, 0, &#34;RW&#34;, 0, 6&#39;h0, 1, 1, 0);
+	endfunction
+	
+endclass
+
+class slv_parity_err extends uvm_reg;
+	`uvm_object_utils(slv_parity_err)
+	
+	function new(string name=&#34;slv_parity_err&#34;);
+		super.new(name, 32, UVM_NO_COVERAGE);
+	endfunction
+	
+	rand uvm_reg_field reserved;
+	rand uvm_reg_field parity_err;
+	
+	function build();
+		reserved = uvm_reg_field::type_id::create(&#34;reserved&#34;);
+		parity_err = uvm_reg_field::type_id::create(&#34;parity_err&#34;);
+		
+		reserved.configure(this, 31, 1, &#34;RO&#34;, 0, 31&#39;h0, 1, 0, 0);
+		parity_err.configure(this, 1, 0, &#34;RW&#34;, 0, 0, 1, 1, 0);
+	endfunction
+	
+endclass
+
+class reg_rgm extends uvm_reg_block;
+	`uvm_object_utils(reg_rgm)
+	
+	function new(string name = &#34;reg_rgm&#34;);
+		super.new(name, UVM_NO_COVERAGE);
+	endfunction
+	
+	rand slv_en slv_en_reg;
+	rand parity_err_clr parity_err_clr_reg;
+	rand slv_id	slv_id_reg;
+	rand slv_len slv_len_reg;
+	
+	rand slv_free_slot slv0_free_slot_reg;
+	rand slv_free_slot slv1_free_slot_reg;
+	rand slv_free_slot slv2_free_slot_reg;
+	rand slv_free_slot slv3_free_slot_reg;
+	
+	rand slv_parity_err slv0_parity_err_reg;
+	rand slv_parity_err slv1_parity_err_reg;
+	rand slv_parity_err slv2_parity_err_reg;
+	rand slv_parity_err slv3_parity_err_reg;
+	
+	uvm_reg_map map;
+	
+	function build();
+		
+		slv_en_reg = slv_en::type_id::create(&#34;slv_en_reg&#34;);
+		slv_en_reg.configure(this);
+		slv_en_reg.build();
+		
+		parity_err_clr_reg = parity_err_clr::type_id::create(&#34;parity_err_clr_reg&#34;);
+		parity_err_clr_reg.configure(this);
+		parity_err_clr_reg.build();
+		
+		slv_id_reg=slv_id::type_id::create(&#34;slv_id_reg&#34;);
+		slv_id_reg.configure(this);
+		slv_id_reg.build();
+		
+		slv_len_reg = slv_len::type_id::create(&#34;slv_len_reg&#34;);
+		slv_len_reg.configure(this);
+		slv_len_reg.build();
+		
+		slv0_free_slot_reg = slv_free_slot::type_id::create(&#34;slv0_free_slot_reg&#34;);
+		slv0_free_slot_reg.configure(this);
+		slv0_free_slot_reg.build();
+		
+		slv1_free_slot_reg = slv_free_slot::type_id::create(&#34;slv1_free_slot_reg&#34;);
+		slv1_free_slot_reg.configure(this);
+		slv1_free_slot_reg.build();
+
+		slv2_free_slot_reg = slv_free_slot::type_id::create(&#34;slv2_free_slot_reg&#34;);
+		slv2_free_slot_reg.configure(this);
+		slv2_free_slot_reg.build();
+		
+		slv3_free_slot_reg = slv_free_slot::type_id::create(&#34;slv3_free_slot_reg&#34;);
+		slv3_free_slot_reg.configure(this);
+		slv3_free_slot_reg.build();
+		
+		slv0_parity_err_reg = slv_parity_err::type_id::create(&#34;slv0_parity_err_reg&#34;);
+		slv0_parity_err_reg.configure(this);
+		slv0_parity_err_reg.build();
+		
+		slv1_parity_err_reg = slv_parity_err::type_id::create(&#34;slv1_parity_err_reg&#34;);
+		slv1_parity_err_reg.configure(this);
+		slv1_parity_err_reg.build();
+		
+		slv2_parity_err_reg = slv_parity_err::type_id::create(&#34;slv2_parity_err_reg&#34;);
+		slv2_parity_err_reg.configure(this);
+		slv2_parity_err_reg.build();
+		
+		slv3_parity_err_reg = slv_parity_err::type_id::create(&#34;slv3_parity_err_reg&#34;);
+		slv3_parity_err_reg.configure(this);
+		slv3_parity_err_reg.build();
+		
+		map = create_map(&#34;reg_map&#34;, &#39;h0, 4, UVM_LITTLE_ENDIAN);
+		
+		add_hdl_path(&#34;reg_if_tb.reg_tb&#34;);
+		
+		map.add_reg(slv_en_reg, 8&#39;h00, &#34;RW&#34;);
+		slv_en_reg.add_hdl_path_slice(&#34;ctrl_mem[0]&#34;, 0 ,32);
+		
+		map.add_reg(parity_err_clr_reg, 8&#39;h04, &#34;RW&#34;);
+		parity_err_clr_reg.add_hdl_path_slice(&#34;ctrl_mem[1]&#34;, 0, 32);
+		
+		map.add_reg(slv_id_reg, 8&#39;h08, &#34;RW&#34;);
+		slv_id_reg.add_hdl_path_slice(&#34;ctrl_mem[2]&#34;, 0, 32);
+		
+		map.add_reg(slv_len_reg, 8&#39;h0C, &#34;RW&#34;);
+		slv_len_reg.add_hdl_path_slice(&#34;ctrl_mem[3]&#34;, 0, 32);
+		
+		map.add_reg(slv0_free_slot_reg, 8&#39;h80, &#34;RO&#34;);
+		slv0_free_slot_reg.add_hdl_path_slice(&#34;ro_mem[0]&#34;, 0, 32);
+		
+		map.add_reg(slv1_free_slot_reg, 8&#39;h84, &#34;RO&#34;);
+		slv1_free_slot_reg.add_hdl_path_slice(&#34;ro_mem[1]&#34;, 0, 32);
+		
+		map.add_reg(slv2_free_slot_reg, 8&#39;h88, &#34;RO&#34;);
+		slv2_free_slot_reg.add_hdl_path_slice(&#34;ro_mem[2]&#34;, 0, 32);
+		
+		map.add_reg(slv3_free_slot_reg, 8&#39;h8C, &#34;RO&#34;);
+		slv3_free_slot_reg.add_hdl_path_slice(&#34;ro_mem[3]&#34;, 0, 32);
+		
+		map.add_reg(slv0_parity_err_reg, 8&#39;h90, &#34;RO&#34;);
+		slv0_parity_err_reg.add_hdl_path_slice(&#34;ro_mem[4]&#34;, 0, 32);
+		
+		map.add_reg(slv1_parity_err_reg, 8&#39;h94, &#34;RO&#34;);
+		slv1_parity_err_reg.add_hdl_path_slice(&#34;ro_mem[5]&#34;, 0, 32);
+		
+		map.add_reg(slv2_parity_err_reg, 8&#39;h98, &#34;RO&#34;);
+		slv2_parity_err_reg.add_hdl_path_slice(&#34;ro_mem[6]&#34;, 0, 32);
+		
+		map.add_reg(slv3_parity_err_reg, 8&#39;h9C, &#34;RO&#34;);
+		slv3_parity_err_reg.add_hdl_path_slice(&#34;ro_mem[7]&#34;, 0, 32);
+		
+		lock_model();
+	endfunction
+	
+endclass
+</code></pre></td></tr></table></div></div><p><font size=3>环境连接关系reg_test.sv:</font></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>  1
+</span><span class=lnt>  2
+</span><span class=lnt>  3
+</span><span class=lnt>  4
+</span><span class=lnt>  5
+</span><span class=lnt>  6
+</span><span class=lnt>  7
+</span><span class=lnt>  8
+</span><span class=lnt>  9
+</span><span class=lnt> 10
+</span><span class=lnt> 11
+</span><span class=lnt> 12
+</span><span class=lnt> 13
+</span><span class=lnt> 14
+</span><span class=lnt> 15
+</span><span class=lnt> 16
+</span><span class=lnt> 17
+</span><span class=lnt> 18
+</span><span class=lnt> 19
+</span><span class=lnt> 20
+</span><span class=lnt> 21
+</span><span class=lnt> 22
+</span><span class=lnt> 23
+</span><span class=lnt> 24
+</span><span class=lnt> 25
+</span><span class=lnt> 26
+</span><span class=lnt> 27
+</span><span class=lnt> 28
+</span><span class=lnt> 29
+</span><span class=lnt> 30
+</span><span class=lnt> 31
+</span><span class=lnt> 32
+</span><span class=lnt> 33
+</span><span class=lnt> 34
+</span><span class=lnt> 35
+</span><span class=lnt> 36
+</span><span class=lnt> 37
+</span><span class=lnt> 38
+</span><span class=lnt> 39
+</span><span class=lnt> 40
+</span><span class=lnt> 41
+</span><span class=lnt> 42
+</span><span class=lnt> 43
+</span><span class=lnt> 44
+</span><span class=lnt> 45
+</span><span class=lnt> 46
+</span><span class=lnt> 47
+</span><span class=lnt> 48
+</span><span class=lnt> 49
+</span><span class=lnt> 50
+</span><span class=lnt> 51
+</span><span class=lnt> 52
+</span><span class=lnt> 53
+</span><span class=lnt> 54
+</span><span class=lnt> 55
+</span><span class=lnt> 56
+</span><span class=lnt> 57
+</span><span class=lnt> 58
+</span><span class=lnt> 59
+</span><span class=lnt> 60
+</span><span class=lnt> 61
+</span><span class=lnt> 62
+</span><span class=lnt> 63
+</span><span class=lnt> 64
+</span><span class=lnt> 65
+</span><span class=lnt> 66
+</span><span class=lnt> 67
+</span><span class=lnt> 68
+</span><span class=lnt> 69
+</span><span class=lnt> 70
+</span><span class=lnt> 71
+</span><span class=lnt> 72
+</span><span class=lnt> 73
+</span><span class=lnt> 74
+</span><span class=lnt> 75
+</span><span class=lnt> 76
+</span><span class=lnt> 77
+</span><span class=lnt> 78
+</span><span class=lnt> 79
+</span><span class=lnt> 80
+</span><span class=lnt> 81
+</span><span class=lnt> 82
+</span><span class=lnt> 83
+</span><span class=lnt> 84
+</span><span class=lnt> 85
+</span><span class=lnt> 86
+</span><span class=lnt> 87
+</span><span class=lnt> 88
+</span><span class=lnt> 89
+</span><span class=lnt> 90
+</span><span class=lnt> 91
+</span><span class=lnt> 92
+</span><span class=lnt> 93
+</span><span class=lnt> 94
+</span><span class=lnt> 95
+</span><span class=lnt> 96
+</span><span class=lnt> 97
+</span><span class=lnt> 98
+</span><span class=lnt> 99
+</span><span class=lnt>100
+</span><span class=lnt>101
+</span><span class=lnt>102
+</span><span class=lnt>103
+</span><span class=lnt>104
+</span><span class=lnt>105
+</span><span class=lnt>106
+</span><span class=lnt>107
+</span><span class=lnt>108
+</span><span class=lnt>109
+</span><span class=lnt>110
+</span><span class=lnt>111
+</span><span class=lnt>112
+</span><span class=lnt>113
+</span><span class=lnt>114
+</span><span class=lnt>115
+</span><span class=lnt>116
+</span><span class=lnt>117
+</span><span class=lnt>118
+</span><span class=lnt>119
+</span><span class=lnt>120
+</span><span class=lnt>121
+</span><span class=lnt>122
+</span><span class=lnt>123
+</span><span class=lnt>124
+</span><span class=lnt>125
+</span><span class=lnt>126
+</span><span class=lnt>127
+</span><span class=lnt>128
+</span><span class=lnt>129
+</span><span class=lnt>130
+</span><span class=lnt>131
+</span><span class=lnt>132
+</span><span class=lnt>133
+</span><span class=lnt>134
+</span><span class=lnt>135
+</span><span class=lnt>136
+</span><span class=lnt>137
+</span><span class=lnt>138
+</span><span class=lnt>139
+</span><span class=lnt>140
+</span><span class=lnt>141
+</span><span class=lnt>142
+</span><span class=lnt>143
+</span><span class=lnt>144
+</span><span class=lnt>145
+</span><span class=lnt>146
+</span><span class=lnt>147
+</span><span class=lnt>148
+</span><span class=lnt>149
+</span><span class=lnt>150
+</span><span class=lnt>151
+</span><span class=lnt>152
+</span><span class=lnt>153
+</span><span class=lnt>154
+</span><span class=lnt>155
+</span><span class=lnt>156
+</span><span class=lnt>157
+</span><span class=lnt>158
+</span><span class=lnt>159
+</span><span class=lnt>160
+</span><span class=lnt>161
+</span><span class=lnt>162
+</span><span class=lnt>163
+</span><span class=lnt>164
+</span><span class=lnt>165
+</span><span class=lnt>166
+</span><span class=lnt>167
+</span><span class=lnt>168
+</span><span class=lnt>169
+</span><span class=lnt>170
+</span><span class=lnt>171
+</span><span class=lnt>172
+</span><span class=lnt>173
+</span><span class=lnt>174
+</span><span class=lnt>175
+</span><span class=lnt>176
+</span><span class=lnt>177
+</span><span class=lnt>178
+</span><span class=lnt>179
+</span><span class=lnt>180
+</span><span class=lnt>181
+</span><span class=lnt>182
+</span><span class=lnt>183
+</span><span class=lnt>184
+</span><span class=lnt>185
+</span><span class=lnt>186
+</span><span class=lnt>187
+</span><span class=lnt>188
+</span><span class=lnt>189
+</span><span class=lnt>190
+</span><span class=lnt>191
+</span><span class=lnt>192
+</span><span class=lnt>193
+</span><span class=lnt>194
+</span><span class=lnt>195
+</span><span class=lnt>196
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>`include &#34;uvm_macros.svh&#34;
+import uvm_pkg::*;
+import APB_pkg::*;
+
+
+class APB_scoreboard extends uvm_scoreboard;
+	`uvm_component_utils(APB_scoreboard)
+	
+	APB_item tmp;
+	reg_rgm rm;
+	uvm_reg reg_tmp;
+	
+	int dat_exp;
+	int actual;
+	uvm_status_e s;
+	
+	uvm_blocking_get_port#(APB_item) scb_p;
+	
+	function new(string name=&#34;apb_scb&#34;, uvm_component parent = null);
+		super.new(name, parent);
+		scb_p = new(&#34;scb&#34;, this);
+	endfunction
+	
+	virtual task main_phase(uvm_phase phase);
+		
+		super.main_phase(phase);
+		forever begin
+			scb_p.get(tmp);
+			reg_tmp = rm.map.get_reg_by_offset(tmp.paddr);
+				
+			if (reg_tmp == null) begin
+				`uvm_info(&#34;BUS ERROR!&#34;, $sformatf(&#34;\taddr:%0h cannot find&#34;, tmp.paddr), UVM_LOW)
+					
+			end else begin
+				dat_exp = reg_tmp.get_mirrored_value();
+				reg_tmp.peek(s, actual);
+				
+				if (actual == dat_exp) begin
+					`uvm_info(&#34;SCB_PASS&#34;,$sformatf(&#34;\tpwr:%h addr:%h actual:%h, exp: %h&#34;, tmp.pwr, tmp.paddr, actual, dat_exp), UVM_LOW)
+				end else begin
+					
+					`uvm_info(&#34;SCB_ERR&#34;,$sformatf(&#34;\tpwr:%h addr:%h actual:%h, exp: %h&#34;, tmp.pwr, tmp.paddr, actual, dat_exp), UVM_LOW)
+				end
+			end
+		end
+	endtask
+	
+endclass
+
+class reg_if_coverage extends uvm_subscriber#(APB_item);
+	
+	`uvm_component_utils(reg_if_coverage)
+	
+	reg_rgm rm;
+	
+	covergroup reg_cg;
+		
+		coverpoint rm.slv_en_reg.slv0_en.value {bins len[]={0, 1};}	
+		coverpoint rm.slv_en_reg.slv1_en.value {bins len[]={0, 1};}
+		coverpoint rm.slv_en_reg.slv2_en.value {bins len[]={0, 1};}
+		coverpoint rm.slv_en_reg.slv3_en.value {bins len[]={0, 1};}
+		
+		coverpoint rm.parity_err_clr_reg.parity_err_clr_0.value {bins len[]={0, 1};}
+		coverpoint rm.parity_err_clr_reg.parity_err_clr_1.value {bins len[]={0, 1};}
+		coverpoint rm.parity_err_clr_reg.parity_err_clr_2.value {bins len[]={0, 1};}
+		coverpoint rm.parity_err_clr_reg.parity_err_clr_3.value {bins len[]={0, 1};}
+		
+		coverpoint rm.slv_id_reg.slv0_id.value;
+		coverpoint rm.slv_id_reg.slv1_id.value;
+		coverpoint rm.slv_id_reg.slv2_id.value;
+		coverpoint rm.slv_id_reg.slv3_id.value;
+		
+		coverpoint rm.slv_len_reg.slv0_len.value;
+		coverpoint rm.slv_len_reg.slv1_len.value;
+		coverpoint rm.slv_len_reg.slv2_len.value;
+		coverpoint rm.slv_len_reg.slv3_len.value;
+		
+		coverpoint rm.slv0_free_slot_reg.free_slot.value;
+		coverpoint rm.slv1_free_slot_reg.free_slot.value;
+		coverpoint rm.slv2_free_slot_reg.free_slot.value;
+		coverpoint rm.slv3_free_slot_reg.free_slot.value;
+		
+	endgroup
+	
+	function new(string name=&#34;reg_if_coverage&#34;, uvm_component parent=null);
+		super.new(name,parent);
+		reg_cg = new();
+	endfunction
+	
+	function void build_phase(uvm_phase phase);
+		
+	endfunction 
+	
+	function void write(T t);
+		reg_cg.sample();
+	endfunction
+
+	function void set_interface(reg_rgm rgm);
+		this.rm = rgm;
+	endfunction
+	
+endclass
+
+class APB_env extends uvm_env;
+	
+	APB_agent apb_agent;
+	rm2reg_adapter reg_adapter;
+	reg_rgm reg_rm;
+	APB_scoreboard scb;
+	reg_if_agent reg_agent;
+	reg_if_coverage reg_cg;
+	
+	virtual reg_interface reg_vif;
+	
+	uvm_reg_predictor #(APB_item) reg_predictor;
+	uvm_tlm_analysis_fifo#(APB_item) scb_fifo;
+	
+	`uvm_component_utils(APB_env)
+	
+	function new(string name=&#34;APB_env&#34;, uvm_component parent);
+		super.new(name,parent);
+	endfunction
+	
+	function void build_phase(uvm_phase phase);
+		
+		if(!uvm_config_db#(virtual reg_interface)::get(this, &#34;&#34;, &#34;reg_vif&#34;, reg_vif)) begin
+			`uvm_fatal(&#34;CONFIG_DB_ERROR&#34;, &#34;reg_vif&#34;)
+		end
+		
+		apb_agent = APB_agent::type_id::create(&#34;apb_agent&#34;,this);
+		
+		reg_adapter = rm2reg_adapter::type_id::create(&#34;reg_adapter&#34;,this);
+		uvm_config_db#(reg_rgm)::get(this,&#34;&#34;,&#34;reg_rm&#34;,reg_rm);
+		reg_predictor = uvm_reg_predictor#(APB_item)::type_id::create(&#34;reg_predictor&#34;,this);
+		reg_predictor.map = reg_rm.default_map;
+		reg_predictor.adapter = reg_adapter;
+		
+		scb = APB_scoreboard::type_id::create(&#34;APB_scb&#34;, this);
+		scb_fifo = new(&#34;scb_fifo&#34;);
+		
+		reg_agent = reg_if_agent::type_id::create(&#34;reg_agent&#34;, this);
+		
+		reg_cg = reg_if_coverage::type_id::create(&#34;reg_cg&#34;, this);
+		reg_cg.set_interface(reg_rm);
+		
+		
+	endfunction
+	
+	function void connect_phase(uvm_phase phase);
+		
+		apb_agent.set_interface(reg_vif);
+		reg_agent.set_interface(reg_vif);
+		
+		scb.rm = reg_rm;
+		reg_rm.default_map.set_sequencer(apb_agent.sqr, reg_adapter);
+		apb_agent.monitor.ap.connect(reg_predictor.bus_in);
+		
+		apb_agent.monitor.ap.connect(scb_fifo.analysis_export);
+		scb.scb_p.connect(scb_fifo.blocking_get_export);
+		
+		reg_agent.drv.seq_item_port.connect(reg_agent.sqr.seq_item_export);
+		
+		apb_agent.monitor.ap.connect(reg_cg.analysis_export);
+		
+	endfunction
+endclass
+
+class base_test extends uvm_test;
+	
+	`uvm_component_utils(base_test)
+	
+	reg_rgm reg_rm;
+	APB_env env;
+	uvm_status_e s;
+	bit[31:0] dat;
+	
+	reg_status_seq reg_status;
+	
+	function new(string name=&#34;base_test&#34;, uvm_component parent=null);
+		super.new(name,parent);
+	endfunction
+	
+	function void build_phase(uvm_phase phase);
+		reg_rm = reg_rgm::type_id::create(&#34;reg_rm&#34;,this);
+		reg_rm.build();
+		reg_rm.default_map.set_auto_predict(0);
+		reg_rm.lock_model();
+		reg_rm.reset();
+		
+		uvm_config_db#(reg_rgm)::set(this,&#34;env&#34;,&#34;reg_rm&#34;,reg_rm);
+		env = APB_env::type_id::create(&#34;env&#34;,this);
+		
+	endfunction
+	
+endclass
+
+</code></pre></td></tr></table></div></div><p><font size=3>测试用例case.sv:</font></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>`include &#34;uvm_macros.svh&#34;
+
+import uvm_pkg::*;
+import APB_pkg::*;
+
+class case0_seq extends APB_seq;
+		
+	`uvm_object_utils(case0_seq)
+	
+	function new(string name =&#34;case0_seq&#34;);
+		super.new(name);
+	endfunction
+	
+	APB_item t;
+	
+	
+	
+	task body();
+		#100;
+		repeat(100000) begin
+			//`uvm_info(&#34;CASE0&#34;,&#34;Start...&#34;,UVM_LOW)
+			`uvm_do(t)
+		end
+	endtask
+	
+endclass
+
+class case1_seq extends APB_seq;
+		
+	`uvm_object_utils(case1_seq)
+	
+	function new(string name =&#34;case1_seq&#34;);
+		super.new(name);
+	endfunction
+	
+	APB_item t;
+	
+	task body();
+		#100;
+		repeat(100000) begin
+			//`uvm_info(&#34;CASE0&#34;,&#34;Start...&#34;,UVM_LOW)
+			`uvm_do_with(t, {paddr==8&#39;h8c;})
+		end
+	endtask
+	
+endclass
+
+
+class case0_test extends base_test;
+	
+	`uvm_component_utils(case0_test)
+	
+	function new(string name=&#34;case0_test&#34;, uvm_component parent=null);
+		super.new(name, parent);
+	endfunction
+	
+	function void build_phase(uvm_phase phase);
+		super.build_phase(phase);
+		`uvm_info(&#34;CASE0&#34;,&#34;Building&#34;,UVM_LOW)
+	endfunction
+	
+	case0_seq c;
+	reg_status_seq r;
+	
+	task main_phase(uvm_phase phase);
+		phase.raise_objection(this);
+		
+		c = case0_seq::type_id::create(&#34;case0&#34;);
+		r = reg_status_seq::type_id::create(&#34;status&#34;);
+		fork
+		#20 c.start(env.apb_agent.sqr);
+		r.start(env.reg_agent.sqr);
+		join
+		
+		phase.drop_objection(this);
+	endtask
+	
+endclass
+</code></pre></td></tr></table></div></div><p><font size=3>测试tb.sv:</font></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>`include &#34;uvm_macros.svh&#34;
+
+import uvm_pkg::*;
+
+module reg_if_tb();
+
+reg clk;
+reg rstn;
+
+reg_interface reg_intf(clk,rstn);
+
+reg_if reg_tb(	.clk_i(reg_intf.clk),
+				.rst_n_i(reg_intf.rstn),
+				.paddr_i(reg_intf.paddr),
+				.pwr_i(reg_intf.pwr),
+				.pen_i(reg_intf.pen),
+				.psel_i(reg_intf.psel),
+				.pwdata_i(reg_intf.pwdata),
+				.prdata_o(reg_intf.prdata),
+				.pready_o(reg_intf.pready),
+				.pslverr_o(reg_intf.pslverr),
+				.slv_en_o(reg_intf.slv_en),
+				.err_clr_o(reg_intf.err_clr),
+				.slv0_id_o(reg_intf.slv0_id),
+				.slv1_id_o(reg_intf.slv1_id),
+				.slv2_id_o(reg_intf.slv2_id),
+				.slv3_id_o(reg_intf.slv3_id),
+				.slv0_len_o(reg_intf.slv0_len),
+				.slv1_len_o(reg_intf.slv1_len),
+				.slv2_len_o(reg_intf.slv2_len),
+				.slv3_len_o(reg_intf.slv3_len),
+				.slv0_parity_err_i(reg_intf.slv0_parity_err),
+				.slv1_parity_err_i(reg_intf.slv1_parity_err),
+				.slv2_parity_err_i(reg_intf.slv2_parity_err),
+				.slv3_parity_err_i(reg_intf.slv3_parity_err),
+				.slv0_free_slot_i(reg_intf.slv0_free_slot),
+				.slv1_free_slot_i(reg_intf.slv1_free_slot),
+				.slv2_free_slot_i(reg_intf.slv2_free_slot),
+				.slv3_free_slot_i(reg_intf.slv3_free_slot));	
+	
+initial begin
+	forever begin
+		#10 clk = 0;
+		#10 clk = 1;
+	end
+end
+
+initial begin
+	rstn = 0;
+	#50 rstn = 1;
+end
+
+initial begin
+	uvm_config_db#(virtual reg_interface )::set(null, &#34;uvm_test_top.env&#34;, &#34;reg_vif&#34;, reg_intf);
+end
+
+initial begin
+	run_test(&#34;case0_test&#34;);
+end
+
+endmodule
+</code></pre></td></tr></table></div></div><p><font size=3>makefile:</font></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>VCS = vcs -full64 -f tb.list -sverilog -debug_all\
+	  -timescale=&#34;1ns/1ps&#34; -l comp.md \
+	  +define+UVM_OBJECT_MUST_HAVE_CONSTRUCTOR\
+	  $(UVM_HOME)/src/dpi/uvm_dpi.cc -CFLAGS -DVCS\
+	  -cm line+cond+fsm+tgl \
+	  -LDFLAGS -rdynamic -P $(VERDI_HOME)/share/PLI/VCS/LINUX64/novas.tab \
+	  $(VERDI_HOME)/share/PLI/VCS/LINUX64/pli.a
+	  
+
+SIMV = ./simv -l sim.md +UVM_OBJECTION_TRACE -ucli -i ../scripts/dump_fsdb.tcl +fsdb+autoflush -cm line+cond+fsm+tgl
+
+RUN_VERDI = verdi -ssf apb.fsdb -l verdi.md -nologo -f tb.list
+
+RESULT = dve -full64 -covdir simv.vdb
+
+comp:
+	$(VCS)
+
+gui:
+	$(RUN_VERDI)
+
+clean:
+	mv ./makefile ../makefile
+	mv ./tb.list ../tb.list
+	rm -rf *
+	mv ../makefile ./makefile
+	mv ../tb.list ./tb.list
+
+run:
+	$(VCS)
+	$(SIMV)
+
+result:
+	$(RESULT)
+
+</code></pre></td></tr></table></div></div><h1 id=5运行>5.运行</h1><p><font size=3>运行</font></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>make run
+</code></pre></td></tr></table></div></div><h1 id=6查看覆盖率>6.查看覆盖率</h1><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre class=chroma><code class=language-fallback data-lang=fallback>make result
+</code></pre></td></tr></table></div></div><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/mcdf/code_coverage.png data-srcset="/images/mcdf/code_coverage.png, /images/mcdf/code_coverage.png 1.5x, /images/mcdf/code_coverage.png 2x" data-sizes=auto alt=/images/mcdf/code_coverage.png title=code_coverage>
+<img class=lazyload src=/svg/loading.min.svg data-src=/images/mcdf/fun_coverage.png data-srcset="/images/mcdf/fun_coverage.png, /images/mcdf/fun_coverage.png 1.5x, /images/mcdf/fun_coverage.png 2x" data-sizes=auto alt=/images/mcdf/fun_coverage.png title=fun_coverage></p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>更新于 2021-04-21</span></div><div class=post-info-license></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/index.md target=_blank>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://cslgbk.github.io/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/ data-title=含寄存器模型验证结构搭建 data-hashtags=UVM,MCDF,RGM><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://cslgbk.github.io/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/ data-hashtag=UVM><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://cslgbk.github.io/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/ data-title=含寄存器模型验证结构搭建><i class="fab fa-hacker-news fa-fw"></i></a><a href=javascript:void(0); title="分享到 Line" data-sharer=line data-url=https://cslgbk.github.io/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/ data-title=含寄存器模型验证结构搭建><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://cslgbk.github.io/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/ data-title=含寄存器模型验证结构搭建 data-ralateuid=xxxx><i class="fab fa-weibo fa-fw"></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/uvm/>UVM</a>,&nbsp;<a href=/tags/mcdf/>MCDF</a>,&nbsp;<a href=/tags/rgm/>RGM</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span></section></div><div class=post-nav><a href=/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/ class=prev rel=prev title=正态分布随机化item><i class="fas fa-angle-left fa-fw"></i>正态分布随机化item</a>
+<a href=/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/ class=next rel=next title=自动化生成agent代码>自动化生成agent代码<i class="fas fa-angle-right fa-fw"></i></a></div></div><div id=comments><div id=valine class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.83.1">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a></div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2019 - 2021</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>bk</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部><i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title=查看评论><i class="fas fa-comment fa-fw"></i></a></div><link rel=stylesheet href=/lib/valine/valine.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:10},comment:{valine:{appId:"QGzwQXOqs5JOhN4RGPOkR2mR-MdYXbMMI",appKey:"WBmoGyJtbqUswvfLh6L8iEBr",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!1,highlight:!0,lang:"zh-cn",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://leancloud.hugoloveit.com",visitor:!0}},search:{algoliaAppID:"PASDMWALPK",algoliaIndex:"index.zh-cn",algoliaSearchKey:"b42948e51daaa93df92381c8e2ac0f93",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:50,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>
