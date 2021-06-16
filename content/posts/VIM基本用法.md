@@ -49,4 +49,5 @@ N                   //向前查找一个
 :s/old/new/g        //在整个文本中将old替换成new
 :%s/^/xxx/g         //在文本每行行首加入xxx
 :%s/$/xxx/g         //在文本每行行末加入xxx
+:n1,n2s/old/new/g   //在文本第n1，n2范围进行替换
 ```
