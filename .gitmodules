@@ -11,3 +11,6 @@
 	path = themes/bodhi
 	url = https://github.com/rhnvrm/bodhi.
 
+[submodule "themes/LoveIt"]
+	path = themes/LoveIt
+	url = https://github.com/dillonzq/LoveIt.git
