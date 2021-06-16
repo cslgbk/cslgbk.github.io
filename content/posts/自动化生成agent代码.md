@@ -6,10 +6,10 @@ tags: ["UVM", "验证自动化", "python"]
 categories: ["UVM", "python", "验证自动化"]
 ---
 
-# 1.总体思路
+### 1.总体思路
 <font size=3/>在搭建验证框架时经常要输入很多重复性的代码，有两种快速获得验证的方法，一种是复制原有的框架代码，在代码上面修改，一种是利用脚本语言快速生成代码。本文通过python脚本，快速生成agent的代码，提高工作效率。</font>
 <!--more-->
-# 2.python脚本
+### 2.python脚本
 <font size=3/>利用open、write函数创建SV文件，写入UVM框架代码。</font>
 
 <font size=3/>code_gen.py:</font>
@@ -117,7 +117,7 @@ f.write("\nendpackage\n")
 f.close()
 ```
 
-# 3.生成结果
+### 3.生成结果
 ```
 python3 ./code_gen.py
 ```
