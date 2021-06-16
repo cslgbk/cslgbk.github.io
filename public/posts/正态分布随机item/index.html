@@ -1,0 +1,566 @@
+
+  
+<!doctype html>
+<html class="no-js" lang="ch">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="siteBaseUrl" content="https://cslgbk.github.io/">
+    <meta name="author" content="Lednerb">
+    <meta name="description" content="Bilberry Premium Theme for Hugo.">
+    <meta name="keywords" content="blog,personal,responsive,search,font awesome,pages,posts,multilingual,highlight.js,syntax highlighting,premium,shortcuts">
+    <meta name="generator" content="Hugo 0.66.0" />
+    <title>
+        
+           
+               正态分布随机化item &vert; bk&#39;s Blogs
+           
+        
+    </title>
+    <meta name="description" content="正态分布随机化item - Bilberry Premium Theme for Hugo.">
+    <meta itemprop="name" content="正态分布随机化item">
+    <meta itemprop="description" content="正态分布随机化item - Bilberry Premium Theme for Hugo.">
+    <meta property="og:title" content="正态分布随机化item">
+    <meta property="og:description" content="正态分布随机化item - Bilberry Premium Theme for Hugo.">
+    <meta property="og:image" content="https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?size=200">
+    <meta property="og:url" content="https://cslgbk.github.io/posts/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/">
+    <meta property="og:site_name" content="bk&#39;s Blogs">
+    <meta property="og:type" content="article">
+
+    
+
+
+    <script src="/modernizr-simple.js"></script>
+
+    
+    <link href="/posts/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/" rel="alternate" type="application/rss+xml" title="bk&#39;s Blogs" />
+    <link href="/posts/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/" rel="feed" type="application/rss+xml" title="bk&#39;s Blogs" />
+    
+
+    
+
+    <link rel="stylesheet" href="https://cslgbk.github.io/theme.css">
+
+    
+
+    
+        
+    
+</head>
+
+<body class="bilberry-hugo-theme">
+
+    
+    <nav>
+
+    <div class="container">
+        <ul class="topnav">
+            
+        </ul>
+
+        
+            <div id="search-box" class="search">
+                <i class="fas fa-search"></i>
+                <input id="search" type="text" placeholder="">
+            </div>
+        
+    </div>
+</nav>
+
+
+    
+    <header>
+
+        <div class="container">
+            <div class="logo">
+                <a href="/" class="logo">
+                    
+                        <img src="/t.jpg" alt="">
+                    
+
+                    <span class="overlay"><i class="fa fa-home"></i></span>
+                </a>
+            </div>
+            <div class="titles">
+                <h3 class="title">
+                    <a href="/">
+                        bk&#39;s Blogs
+                    </a>
+                </h3>
+
+                
+                    <span class="subtitle">日积月累</span>
+                
+            </div>
+
+            
+
+            
+                <div class="toggler">
+            
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                </div>
+            </div>
+    </header>
+
+
+    <div class="main container">
+        
+    <div class="article-wrapper u-cf single">
+        
+            <a class="bubble" href="https://cslgbk.github.io/posts/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/">
+    <i class="fas fa-fw fa-pencil-alt"></i>
+</a>
+
+<article class="default article">
+    
+
+    <div class="content">
+    <h1 class="article-title">
+        <a href="https://cslgbk.github.io/posts/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/">
+            正态分布随机化item
+        </a>
+    </h1>
+
+    <div class="meta">
+        
+            
+                <span class="date moment">2021-04-12</span>
+            
+        
+
+        
+
+        
+            <span class="categories">
+                
+                    
+                    
+                        <a href="https://cslgbk.github.io/categories/uvm/">UVM</a>
+                    
+                
+                    
+                    
+                        <a href="https://cslgbk.github.io/categories/python/">python</a>
+                    
+                
+            </span>
+        
+
+        
+    </div>
+
+    
+        
+
+        <h1 id="1总体思路">1.总体思路</h1>
+<p><!-- raw HTML omitted -->通过正态分布generator产生数据传递item，最终通过driver将数据打印至日志文件，利用python脚本绘制分布图，检验产生数据是否正确<!-- raw HTML omitted --></p>
+<p><!-- raw HTML omitted -->产生正态分布数据有两种方法，第一种是在利用SV中的权重分布模拟正态函数分布，第二种是利用DPI接口实现正态函数。考虑到实现难易程度，选择后者。总体框架如下图所示。<!-- raw HTML omitted -->
+<!-- raw HTML omitted -->
+<img src="/images/else/normal_str.png" alt="str">
+<!-- raw HTML omitted --></p>
+<h1 id="2在c中实现正态分布函数">2.在C中实现正态分布函数</h1>
+<p><!-- raw HTML omitted -->实现正态分布函数有两种方法，一种是采用泰勒展开式，计算出最终值，一种是通过中心-极限定理得出正态分布。正态函数的泰勒展开式 -_-|| &hellip; 一般采用中心-极限定理比较方便。
+中心-极限定理的大致解释，每次从这些总体中随机抽取 n 个抽样，一共抽 m 次。 然后把这 m 组抽样分别求出平均值。 这些平均值的分布接近正态分布。<!-- raw HTML omitted --></p>
+<pre><code class="language-C代码" data-lang="C代码">    #include&lt;svdpi.h&gt;           //dpi头文件，仿真器自带
+    #include&lt;stdlib.h&gt;
+    unsigned int get_normal()
+    {
+        unsigned int dat=0;     //产生数据
+        unsigned char i;        
+        unsigned int seed;      //随机种子
+        seed = rand();
+        srand(seed);
+        for (i=0;i&lt;10;i++)
+        {
+            dat += rand()%99;   //0~99随机数求和
+        }
+        return dat/i;           //返回平均值
+    }
+
+</code></pre><h1 id="3uvm搭建">3.UVM搭建</h1>
+<p>测试平台由代码：</p>
+<pre><code>`include &quot;uvm_macros.svh&quot;
+
+import &quot;DPI-C&quot; function bit [31:0] get_normal();  //导入C函数
+import uvm_pkg::*;
+	
+class my_trans extends uvm_sequence_item;        //定义my_trans
+	bit [31:0] dat;
+	
+	`uvm_object_utils_begin(my_trans)
+		`uvm_field_int(dat,UVM_ALL_ON)
+	`uvm_object_utils_end
+	
+	function new(string name =&quot; &quot;);
+		super.new(name);
+		dat = get_normal();
+	endfunction 
+	
+	virtual function void do_print(uvm_printer printer);
+		// TODO Auto-generated function stub
+		//super.do_print(printer);
+		//printer.print_field(&quot;dat&quot;, dat, $bits(dat), UVM_DEC);
+	endfunction : do_print
+endclass
+
+class my_sequence extends uvm_sequence;         //定义my_sequence
+	`uvm_object_utils(my_sequence)
+	
+	function new(string name = &quot;my_sequence&quot;);
+		super.new(name);	
+	endfunction 
+	
+	task body();
+		my_trans dat_trans;
+		repeat(100000) begin
+			#1
+			`uvm_do(dat_trans)
+		end
+	endtask	
+endclass
+
+class my_sequencer extends uvm_sequencer#(.REQ(my_trans),.RSP(my_trans));     //定义my_sequencer
+	`uvm_component_utils(my_sequencer)
+	function new(string name = &quot;my_sequencer&quot;, uvm_component parent);
+		super.new(name,parent);
+	endfunction 
+	
+endclass
+
+class my_driver extends uvm_driver#(.REQ(my_trans),.RSP(my_trans));   //定义my_driver
+	`uvm_component_utils(my_driver)
+
+	function new(string name, uvm_component parent);
+		super.new(name,parent);	
+	endfunction 
+	
+	virtual  task main_phase(uvm_phase phase);
+		REQ req;
+		uvm_default_printer.knobs.default_radix=UVM_DEC;
+		forever begin
+			seq_item_port.get_next_item(req);
+			req.print();
+			seq_item_port.item_done();
+		end
+	endtask
+endclass
+
+class my_env extends uvm_env;           //定义my_env
+	`uvm_component_utils(my_env)
+	
+	my_sequencer sqr;
+	my_driver drv;
+	
+	function new(string name, uvm_component parent);
+		super.new(name, parent);
+	endfunction 
+
+	virtual function  void build_phase(uvm_phase phase);
+		super.build_phase(phase);
+		drv = my_driver::type_id::create(&quot;drv&quot;, this);
+		sqr = my_sequencer::type_id::create(&quot;sqr&quot;, this);
+	endfunction
+
+	virtual function void connect_phase(uvm_phase phase);
+		super.connect_phase(phase);
+		drv.seq_item_port.connect(sqr.seq_item_export);
+	endfunction
+endclass 
+	
+class test0 extends uvm_test;
+	my_env env;
+	`uvm_component_utils(test0)
+	function new(string name, uvm_component parent = null);
+		super.new(name,parent);
+	endfunction 
+
+	virtual function  void build_phase(uvm_phase phase);
+		super.build_phase(phase);
+		env = my_env::type_id::create(&quot;env&quot;, this);
+	endfunction : build_phase
+	
+		virtual task main_phase(uvm_phase phase);
+		my_sequence dat_seq;
+		super.main_phase(phase);
+		phase.raise_objection(this);
+			dat_seq = my_sequence::type_id::create(&quot;dat_seq&quot;);
+			dat_seq.start(env.sqr);
+		phase.drop_objection(this);
+		endtask : main_phase
+	
+endclass
+
+</code></pre><p><!-- raw HTML omitted -->testbench:<!-- raw HTML omitted --></p>
+<pre><code>module tb;
+initial begin
+	run_test(&quot;test0&quot;);
+end
+endmodule 
+</code></pre><h1 id="4-利用python脚本提取数据查看结果">4. 利用python脚本提取数据，查看结果</h1>
+<p><!-- raw HTML omitted -->VCS最终打印数据：<!-- raw HTML omitted --></p>
+<pre><code>--------------------------------
+Name       Type      Size  Value
+--------------------------------
+dat_trans  my_trans  -     @572 
+  dat      integral  32    'd43 
+--------------------------------
+</code></pre><p><!-- raw HTML omitted -->利用python脚本提取dat的数值：<!-- raw HTML omitted --></p>
+<pre><code>import matplotlib
+import matplotlib.pyplot as plt
+
+f = open(&quot;sim.log&quot;)
+
+line = f.readlines()
+dat=[]
+for tmp in line:
+    s  = tmp.split()
+    for i in range(0,len(s)-1):
+        if s[i] == &quot; &quot;:
+            s.pop(i)
+    if len(s) &gt; 3:
+        if s[0]==&quot;dat&quot;:
+            if s[1] == &quot;integral&quot;:
+                dat.append(int(s[3][2:])) # 提取数据
+
+
+plt.hist(dat,100,(0,99))
+plt.show()
+</code></pre><h1 id="5-makefile文件编写">5. makefile文件编写</h1>
+<p><!-- raw HTML omitted -->vcs仿真器makefile：<!-- raw HTML omitted --></p>
+<pre><code>VCS = vcs -f tb.list +vc ../tb/gen.c\
+		-full64 -debug_all -sverilog -timescale=&quot;1ns/1ps&quot; -l log.txt \
+		+vpi \
+		+define+UVM_OBJECT_MUST_HAVE_CONSTRUCTOR \
+		$(UVM_HOME)/src/dpi/uvm_dpi.cc -CFLAGS -DVCS
+
+SIM = ./simv -l sim.log +UVM_TIMEOUT=100000000
+
+DISP = python3 analyze_dat.py
+
+gui:
+	$(SIM) -gui 
+
+comp:
+	$(VCS)
+	
+sim:
+	$(SIM)
+	
+disp:
+	$(DISP)
+
+run:
+	$(VCS)
+	$(SIM) 
+	$(DISP)
+
+clean:
+	cp makefile ../makefile
+	cp tb.list ../tb.list
+	cp analyze_dat.py ../analyze_dat.py
+	rm -rf *
+	mv ../makefile makefile
+	mv ../tb.list tb.list
+	mv ../analyze_dat.py analyze_dat.py
+</code></pre><h1 id="6-运行结果">6. 运行结果</h1>
+<p><!-- raw HTML omitted -->make运行<!-- raw HTML omitted --></p>
+<pre><code>make run
+</code></pre><p><!-- raw HTML omitted -->最终结果：<!-- raw HTML omitted --></p>
+<p><img src="/images/else/normal_dat.png" alt="result"></p>
+    
+</div>
+
+    
+<div class="footer">
+
+
+    
+        <div class="tags">
+            <i class="fa fa-tags"></i>
+            <div class="links">
+                
+                    
+                    
+                    <a href="https://cslgbk.github.io/tags/uvm/">UVM</a>
+                    
+                
+                    
+                    
+                    <a href="https://cslgbk.github.io/tags/dpi/">DPI</a>
+                    
+                
+                    
+                    
+                    <a href="https://cslgbk.github.io/tags/c/">C</a>
+                    
+                
+                    
+                    
+                    <a href="https://cslgbk.github.io/tags/python/">python</a>
+                    
+                
+            </div>
+        </div>
+    
+
+    
+</div>
+
+</article>
+
+        
+    </div>
+
+    
+        <div id="comments-container">
+            
+            
+    <script defer src="https://commento.lednerb.de/js/commento.js"></script>
+    <div id="commento"></div>
+
+
+        </div>
+    
+
+    </div>
+
+    
+<footer>
+    <div class="container">
+
+        
+        <div class="recent-posts">
+            <strong></strong>
+            <ul>
+                
+                
+                    <li>
+                        <a href="https://cslgbk.github.io/posts/vim%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/">vim基本用法</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://cslgbk.github.io/posts/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/">自动化生成agent代码</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://cslgbk.github.io/posts/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/">含寄存器模型验证结构搭建</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://cslgbk.github.io/posts/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/">正态分布随机化item</a>
+                    </li>
+                
+            </ul>
+        </div>
+        
+
+        
+        <div class="categories">
+            <a href="/categories/"><strong></strong></a>
+            <ul>
+                
+                <li>
+                    <a href="/categories/uvm">Uvm
+                        (3)</a>
+                </li>
+                
+                <li>
+                    <a href="/categories/python">Python
+                        (2)</a>
+                </li>
+                
+                <li>
+                    <a href="/categories/mcdf">Mcdf
+                        (1)</a>
+                </li>
+                
+                <li>
+                    <a href="/categories/vim">Vim
+                        (1)</a>
+                </li>
+                
+                <li>
+                    <a href="/categories/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96">验证自动化
+                        (1)</a>
+                </li>
+                
+            </ul>
+        </div>
+        
+
+        <div class="right">
+            
+            <div class="external-profiles">
+                <strong></strong>
+
+                
+                <a href="https://qm.qq.com/cgi-bin/qm/qr?k=aa7aFYr9mvA2KDkQkX3v0Vf8z-KoDB0r" target="_blank"><i class="fab fa-qq"></i></a>
+                
+                <a href="https://github.com/cslgbk" target="_blank"><i class="fab fa-github"></i></a>
+                
+            </div>
+            
+
+            
+        </div>
+    </div>
+</footer>
+
+
+<div class="credits">
+    <div class="container">
+        <div class="copyright">
+            <a href="https://github.com/Lednerb" target="_blank">
+                &copy;
+                
+                2017
+                
+                by Lednerb
+            </a>
+            
+        </div>
+        <div class="author">
+            <a href="https://github.com/Lednerb/bilberry-hugo-theme"
+                target="_blank">Bilberry-Hugo</a>
+        </div>
+    </div>
+</div>
+
+
+    
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [['$','$'], ['\\(','\\)']]}
+        });
+</script>
+
+    
+
+
+    <script type="text/javascript" src="https://cslgbk.github.io/theme.js"></script>
+
+    
+    
+    
+
+    
+    <div id="activate-algolia-search" class="hidden">
+  <input type="hidden" id="algolia-search-appId" value="45CEN6X6AT">
+  <input type="hidden" id="algolia-search-apiKey" value="16030625f1a4d0dd3b8aefd794fd4cf1">
+  <input type="hidden" id="algolia-search-indexName" value="bilberry-hugo-theme">
+  <input type="hidden" id="algolia-search-noSearchResults" value="">
+
+  
+</div>
+
+    
+</body>
+
+</html>

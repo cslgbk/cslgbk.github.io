@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on bk&#39;s Blogs</title>
+    <link>https://cslgbk.github.io/categories/</link>
+    <description>Recent content in Categories on bk&#39;s Blogs</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <lastBuildDate>Sun, 06 Jun 2021 20:30:47 +0800</lastBuildDate>
+    
+	<atom:link href="https://cslgbk.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>vim</title>
+      <link>https://cslgbk.github.io/categories/vim/</link>
+      <pubDate>Sun, 06 Jun 2021 20:30:47 +0800</pubDate>
+      
+      <guid>https://cslgbk.github.io/categories/vim/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>python</title>
+      <link>https://cslgbk.github.io/categories/python/</link>
+      <pubDate>Sun, 16 May 2021 14:38:00 +0800</pubDate>
+      
+      <guid>https://cslgbk.github.io/categories/python/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>UVM</title>
+      <link>https://cslgbk.github.io/categories/uvm/</link>
+      <pubDate>Sun, 16 May 2021 14:38:00 +0800</pubDate>
+      
+      <guid>https://cslgbk.github.io/categories/uvm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>验证自动化</title>
+      <link>https://cslgbk.github.io/categories/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96/</link>
+      <pubDate>Sun, 16 May 2021 14:38:00 +0800</pubDate>
+      
+      <guid>https://cslgbk.github.io/categories/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MCDF</title>
+      <link>https://cslgbk.github.io/categories/mcdf/</link>
+      <pubDate>Wed, 21 Apr 2021 16:00:48 +0800</pubDate>
+      
+      <guid>https://cslgbk.github.io/categories/mcdf/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

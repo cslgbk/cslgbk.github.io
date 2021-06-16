@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://cslgbk.github.io/en/author/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ch"
+                href="https://cslgbk.github.io/author/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://cslgbk.github.io/en/author/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/en/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ch"
+                href="https://cslgbk.github.io/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://cslgbk.github.io/en/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/en/categories/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ch"
+                href="https://cslgbk.github.io/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://cslgbk.github.io/en/categories/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/en/series/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ch"
+                href="https://cslgbk.github.io/series/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://cslgbk.github.io/en/series/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://cslgbk.github.io/en/tags/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="ch"
+                href="https://cslgbk.github.io/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://cslgbk.github.io/en/tags/"
+                />
+  </url>
+  
+</urlset>
