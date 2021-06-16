@@ -61,4 +61,4 @@ Disallow: /
 User-agent: ZoominfoBot
 Disallow: /
 
-Sitemap: https://cslgbk.github.io/en/sitemap.xml
+Sitemap: https://cslgbk.github.io/sitemap.xml
