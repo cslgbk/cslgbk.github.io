@@ -87,7 +87,7 @@ enableEmoji = true
         pre = "<i class='fab fa-github fa-fw'></i>"
         post = ""
         name = ""
-        url = "https://github.com/dillonzq/LoveIt"
+        url = "https://github.com/cslgbk"
         title = "GitHub"
         weight = 6
     [languages.zh-cn.params]
@@ -158,7 +158,7 @@ enableEmoji = true
           paginate = 6
       # 主页的社交信息设置
       [languages.zh-cn.params.social]
-        GitHub = "xxxx"
+        GitHub = "cslgbk"
         Linkedin = ""
         Twitter = ""
         Instagram = ""
@@ -178,7 +178,7 @@ enableEmoji = true
         FreeCodeCamp = ""
         Bitbucket = ""
         Stackoverflow = ""
-        Weibo = "xxxx"
+        Weibo = ""
         Odnoklassniki = ""
         VK = ""
         Flickr = ""
@@ -196,13 +196,13 @@ enableEmoji = true
         Hackernews = ""
         Kickstarter = ""
         Patreon = ""
-        Steam = "xxxx"
+        Steam = ""
         Twitch = ""
         Strava = ""
         Skype = ""
         Whatsapp = ""
-        Zhihu = "xxxx"
-        Douban = "xxxx"
+        Zhihu = ""
+        Douban = ""
         Angellist = ""
         Slidershare = ""
         Jsfiddle = ""
@@ -215,13 +215,13 @@ enableEmoji = true
         Researchgate = ""
         Mastodon = ""
         Thingiverse = ""
-        Devto = "xxxx"
+        Devto = ""
         Gitea = ""
         XMPP = ""
         Matrix = ""
-        Bilibili = "xxxx"
-        Email = "xxxx@xxxx.com"
-        RSS = true
+        Bilibili = ""
+        Email = "cslgbk@126.com"
+        RSS = false
 
   
 
@@ -482,7 +482,7 @@ enableEmoji = true
         visitor = true
         recordIP = true
         highlight = true
-        enableQQ = false
+        enableQQ = true
         serverURLs = "https://leancloud.hugoloveit.com"
         # emoji data file name, default is "google.yml"
         # ("apple.yml", "google.yml", "facebook.yml", "twitter.yml")
@@ -591,7 +591,7 @@ enableEmoji = true
   # Analytics config
   # 网站分析配置
   [params.analytics]
-    enable = false
+    enable = true
     # Google Analytics
     [params.analytics.google]
       id = ""

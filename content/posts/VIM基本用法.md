@@ -57,3 +57,21 @@ N                   //向前查找一个
 U                   //撤销
 <ctrl>+r            //重做
 ```
+
+### 块操作
+```
+<ctrl+v>            //进入块操作
+```
+
+### 好用的vim插件
+<font size=3>NERDtree   侧栏显示文件数</font>
+
+<font size=3>maolokai   比较舒适的配色方案</font>
+
+<font size=3>Ctrlp      快速搜索文件</font>
+
+<font size=3>supertab   tab键补全</font>
+
+<font size=3>powerline  状态栏</font>
+
+<font size=3>taglist    侧栏tags列表</font>
