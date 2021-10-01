@@ -2,9 +2,11 @@
 
 
 ### 1.断言类型
-<font size=3/>立即断言(Immediate Assertion)</font>
-<font size=3/>并发断言(Concurrent Assertion)</font>
-<font size=3/>递归断言(Deferred Assertion)</font>
+&bull; <font size=3/>立即断言(Immediate Assertion)</font>
+
+&bull; <font size=3/>并发断言(Concurrent Assertion)</font>
+
+&bull; <font size=3/>递归断言(Deferred Assertion)</font>
 
 ### 2.立即断言
 &bull; <font size=3/>执行不消耗时间</font>
