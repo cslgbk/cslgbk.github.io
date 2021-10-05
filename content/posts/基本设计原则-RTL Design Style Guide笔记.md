@@ -7,18 +7,19 @@ categories: ["RTL Design Style"]
 ---
 
 ### RTL基本设计原则
-&bull; RTL命名惯例
+* RTL命名惯例
 
-&bull; 同步设计
+* 同步设计
 
-&bull; 复位
+* 复位
 
-&bull; 时钟
+* 时钟
 
-&bull; 异步电路处理
+* 异步电路处理
 
-&bull; 层次化设计
+* 层次化设计
 
+<!--more-->
 
 ### 1.RTL命名惯例
 
