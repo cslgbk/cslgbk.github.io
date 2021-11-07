@@ -1,7 +1,7 @@
 ---
 title: "Synchronous design - RTL Design Style Guide"
 date: 2021-11-07T18:37:19+08:00
-draft: true
+draft: false
 tags: ["RTL"]
 categories: ["RTL Design Style"]
 ---
