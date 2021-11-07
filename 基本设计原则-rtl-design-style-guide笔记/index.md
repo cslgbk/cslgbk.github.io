@@ -91,6 +91,7 @@
 [7] parameter 赋值时应用"'h, 'o, 'b, 'd"标明进制
 
 [8] parameter 赋值时应标明数据位宽
+
 ![""](/images/RTL_DESIGN_STYLE/1-5.png)
 ### 1.5 有时钟的系统命名
 
@@ -101,13 +102,13 @@
 [3] 命名中应体现时钟
 
 [4] 命名中应体现寄存器
+
 ![""](/images/RTL_DESIGN_STYLE/1-6.png)
 
 {{<admonition note "">}}
 * 命名时应将信号分为：时钟信号、复位信号、使能信号等。
 * 对于时钟、复位、使能信号应当使用特殊的标识，如"CLK, RST, EN"等
 * 为了区分寄存器和组合逻辑，可以在寄存器名字后面添加"_R"或"_r"
-<br>
-    <font color=red>ABSOLUTE, cell, celltype, edif, DELAY, HOLD, IOPATH, NET, VIEW, SETUP</font>
+
 {{</admonition>}}
 
