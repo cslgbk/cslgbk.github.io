@@ -69,12 +69,49 @@ categories: ["RTL Design Style"]
 
 !["hierarchy_naming"](/images/RTL_DESIGN_STYLE/naming.png)
 
-### 1.3 信号名应当有意义
+### 1.3 信号命名
 
+[1] 命名应区别内部信号和端口
+
+[2] 信号命名应便于理解
+
+[3] 命名应控制在2-40个字符之间，最好是24个字符以下
+
+![""](/images/RTL_DESIGN_STYLE/1-3.png)
 
 ### 1.4 include file、 parameter、 `define 命名规则
 
+[1] 对于被include的文件，应以 ".h, .inc, .ht, .vh, .tsk"等作为后缀
 
-### 1.5 时钟命名
+[2] parameter命名应有单独的命名规范（如"P_"作为前缀）
 
+[3] 不同模块中的parameter命名应当不同
 
+[4] 仅仅在一个模块中使用`define
+
+[5] parameter中应当包含层次结构的信息
+
+[6] 固定的数值不能连接到输出端口，不推荐将固定数值连接到输入端口。（一般情况下，固定数值连接到端口不会产生问题。在综合优化的时候会导致冗余。logic equivelancy checks过程中可能会出现问题。）
+
+[7] parameter 赋值时应用"'h, 'o, 'b, 'd"标明进制
+
+[8] parameter 赋值时应标明数据位宽
+![""](/images/RTL_DESIGN_STYLE/1-5.png)
+### 1.5 有时钟的系统命名
+
+[1] 如果端口是寄存器输出，建议命名中标记时钟
+
+[2] 使用"CLK, CK"给时钟命名， "RST_X, RESET_X"给复位信号命名, "EN"给使能信号命名
+
+[3] 命名中应体现时钟
+
+[4] 命名中应体现寄存器
+![""](/images/RTL_DESIGN_STYLE/1-6.png)
+
+{{<admonition note "">}}
+* 命名时应将信号分为：时钟信号、复位信号、使能信号等。
+* 对于时钟、复位、使能信号应当使用特殊的标识，如"CLK, RST, EN"等
+* 为了区分寄存器和组合逻辑，可以在寄存器名字后面添加"_R"或"_r"
+<br>
+    <font color=red>ABSOLUTE, cell, celltype, edif, DELAY, HOLD, IOPATH, NET, VIEW, SETUP</font>
+{{</admonition>}}
