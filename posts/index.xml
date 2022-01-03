@@ -1,4 +1,15 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - BK's Blogs</title><link>https://cslgbk.github.io/posts/</link><description>所有文章 | BK's Blogs</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>cslgbk@126.com (bk)</managingEditor><webMaster>cslgbk@126.com (bk)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 07 Nov 2021 18:37:19 +0800</lastBuildDate><atom:link href="https://cslgbk.github.io/posts/" rel="self" type="application/rss+xml"/><item><title>Synchronous design - RTL Design Style Guide</title><link>https://cslgbk.github.io/synchronous-design-rtl-design-style-guide/</link><pubDate>Sun, 07 Nov 2021 18:37:19 +0800</pubDate><author>作者</author><guid>https://cslgbk.github.io/synchronous-design-rtl-design-style-guide/</guid><description>同步设计 [1] 设计时尽可能使用时钟的一个沿 [2] 不使用基本逻辑单元（与门、或门、非门等）搭建锁存器和触发器 [3] 组合逻辑中不得使用反馈信号（避免comb</description></item><item><title>RTL基本设计原则-RTL Design Style Guide笔记</title><link>https://cslgbk.github.io/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 04 Oct 2021 21:48:04 +0800</pubDate><author>作者</author><guid>https://cslgbk.github.io/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0/</guid><description><![CDATA[<h3 id="rtl基本设计原则">RTL基本设计原则</h3>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>所有文章 - BK's Blogs</title><link>https://cslgbk.github.io/posts/</link><description>所有文章 | BK's Blogs</description><generator>Hugo -- gohugo.io</generator><language>zh-CN</language><managingEditor>cslgbk@126.com (bk)</managingEditor><webMaster>cslgbk@126.com (bk)</webMaster><copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright><lastBuildDate>Sun, 07 Nov 2021 19:02:56 +0800</lastBuildDate><atom:link href="https://cslgbk.github.io/posts/" rel="self" type="application/rss+xml"/><item><title>Initial Reset RTL Design Style Guide</title><link>https://cslgbk.github.io/initial-reset-rtl-design-style-guide/</link><pubDate>Sun, 07 Nov 2021 19:02:56 +0800</pubDate><author>作者</author><guid>https://cslgbk.github.io/initial-reset-rtl-design-style-guide/</guid><description><![CDATA[<h3 id="复位">复位</h3>
+<ul>
+<li>
+<p>使用异步复位</p>
+</li>
+<li>
+<p>复位信号冒险</p>
+</li>
+<li>
+<p>外部噪声对复位信号的影响</p>
+</li>
+</ul>]]></description></item><item><title>Synchronous design - RTL Design Style Guide</title><link>https://cslgbk.github.io/synchronous-design-rtl-design-style-guide/</link><pubDate>Sun, 07 Nov 2021 18:37:19 +0800</pubDate><author>作者</author><guid>https://cslgbk.github.io/synchronous-design-rtl-design-style-guide/</guid><description>&lt;h3 id="同步设计">同步设计&lt;/h3></description></item><item><title>RTL基本设计原则-RTL Design Style Guide笔记</title><link>https://cslgbk.github.io/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0/</link><pubDate>Mon, 04 Oct 2021 21:48:04 +0800</pubDate><author>作者</author><guid>https://cslgbk.github.io/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0/</guid><description><![CDATA[<h3 id="rtl基本设计原则">RTL基本设计原则</h3>
 <ul>
 <li>
 <p>RTL命名惯例</p>

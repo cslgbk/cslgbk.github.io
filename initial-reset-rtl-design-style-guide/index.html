@@ -4,60 +4,42 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=robots content="noodp">
 <meta http-equiv=x-ua-compatible content="IE=edge, chrome=1">
-<title>RTL基本设计原则-RTL Design Style Guide笔记 - BK's Blogs</title><meta name=Description content="BK‘s Blogs"><meta property="og:title" content="RTL基本设计原则-RTL Design Style Guide笔记">
-<meta property="og:description" content="RTL基本设计原则
+<title>Initial Reset RTL Design Style Guide - BK's Blogs</title><meta name=Description content="BK‘s Blogs"><meta property="og:title" content="Initial Reset   RTL Design Style Guide">
+<meta property="og:description" content="复位
 
 
-RTL命名惯例
+使用异步复位
 
 
-同步设计
+复位信号冒险
 
 
-复位
-
-
-时钟
-
-
-异步电路处理
-
-
-层次化设计
+外部噪声对复位信号的影响
 
 ">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://cslgbk.github.io/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0/"><meta property="og:image" content="https://cslgbk.github.io/t.png"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2021-10-04T21:48:04+08:00">
-<meta property="article:modified_time" content="2021-10-04T21:48:04+08:00">
+<meta property="og:url" content="https://cslgbk.github.io/initial-reset-rtl-design-style-guide/"><meta property="og:image" content="https://cslgbk.github.io/t.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-11-07T19:02:56+08:00">
+<meta property="article:modified_time" content="2022-01-04T00:07:44+08:00">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://cslgbk.github.io/t.png">
-<meta name=twitter:title content="RTL基本设计原则-RTL Design Style Guide笔记">
-<meta name=twitter:description content="RTL基本设计原则
+<meta name=twitter:title content="Initial Reset   RTL Design Style Guide">
+<meta name=twitter:description content="复位
 
 
-RTL命名惯例
+使用异步复位
 
 
-同步设计
+复位信号冒险
 
 
-复位
-
-
-时钟
-
-
-异步电路处理
-
-
-层次化设计
+外部噪声对复位信号的影响
 
 ">
 <meta name=application-name content="BK's Blogs">
 <meta name=apple-mobile-web-app-title content="BK's Blogs"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://cslgbk.github.io/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0/><link rel=prev href=https://cslgbk.github.io/%E7%AB%8B%E5%8D%B3%E6%96%AD%E8%A8%80-immediate-assertion-%E7%AC%94%E8%AE%B0/><link rel=next href=https://cslgbk.github.io/synchronous-design-rtl-design-style-guide/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"RTL基本设计原则-RTL Design Style Guide笔记","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/cslgbk.github.io\/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0\/"},"image":["https:\/\/cslgbk.github.io\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"RTL","wordcount":1263,"url":"https:\/\/cslgbk.github.io\/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0\/","datePublished":"2021-10-04T21:48:04+08:00","dateModified":"2021-10-04T21:48:04+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"bk","logo":"https:\/\/cslgbk.github.io\/t.png"},"author":{"@type":"Person","name":"bk"},"description":""}</script></head>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://cslgbk.github.io/initial-reset-rtl-design-style-guide/><link rel=prev href=https://cslgbk.github.io/synchronous-design-rtl-design-style-guide/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Initial Reset   RTL Design Style Guide","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/cslgbk.github.io\/initial-reset-rtl-design-style-guide\/"},"image":["https:\/\/cslgbk.github.io\/images\/Apple-Devices-Preview.png"],"genre":"posts","wordcount":843,"url":"https:\/\/cslgbk.github.io\/initial-reset-rtl-design-style-guide\/","datePublished":"2021-11-07T19:02:56+08:00","dateModified":"2022-01-04T00:07:44+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"bk","logo":"https:\/\/cslgbk.github.io\/t.png"},"author":{"@type":"Person","name":"bk"},"description":""}</script></head>
 <body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'light'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'light'==='dark')&&document.body.setAttribute('theme','dark')</script>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
 <div class=header-wrapper>
@@ -123,10 +105,10 @@ RTL命名惯例
 <div class=container><div class=toc id=toc-auto>
 <h2 class=toc-title>目录</h2>
 <div class=toc-content id=toc-content-auto></div>
-</div><article class="page single"><h1 class="single-title animated flipInX">RTL基本设计原则-RTL Design Style Guide笔记</h1><div class=post-meta>
-<div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw"></i>bk</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/rtl-design-style/><i class="far fa-folder fa-fw"></i>RTL Design Style</a></span></div>
-<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-10-04>2021-10-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1263 字&nbsp;
-<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟&nbsp;<span id=/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0/ class=leancloud_visitors data-flag-title="RTL基本设计原则-RTL Design Style Guide笔记">
+</div><article class="page single"><h1 class="single-title animated flipInX">Initial Reset RTL Design Style Guide</h1><div class=post-meta>
+<div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw"></i>bk</a></span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-11-07>2021-11-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 843 字&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;<span id=/initial-reset-rtl-design-style-guide/ class=leancloud_visitors data-flag-title="Initial Reset   RTL Design Style Guide">
 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
 </span>&nbsp;</div>
 </div><div class="details toc" id=toc-static kept>
@@ -138,106 +120,106 @@ RTL命名惯例
 <ul>
 <li>
 <ul>
-<li><a href=#rtl基本设计原则>RTL基本设计原则</a></li>
-<li><a href=#1rtl命名惯例>1.RTL命名惯例</a>
-<ul>
-<li><a href=#11-基本命名惯例>1.1 基本命名惯例</a></li>
-</ul>
-</li>
-<li><a href=#12-层次化命名惯例>1.2 层次化命名惯例</a></li>
-<li><a href=#13-信号命名>1.3 信号命名</a></li>
-<li><a href=#14-include-file-parameter-define-命名规则>1.4 include file、 parameter、 `define 命名规则</a></li>
-<li><a href=#15-有时钟的系统命名>1.5 有时钟的系统命名</a></li>
+<li><a href=#复位>复位</a></li>
+<li><a href=#11-使用异步信号复位>1.1 使用异步信号复位</a></li>
+<li><a href=#12-复位信号冒险>1.2 复位信号冒险</a></li>
+<li><a href=#13-外部噪声对复位信号的影响>1.3 外部噪声对复位信号的影响</a></li>
 </ul>
 </li>
 </ul>
 </nav></div>
-</div><div class=content id=content><h3 id=rtl基本设计原则>RTL基本设计原则</h3>
+</div><div class=content id=content><h3 id=复位>复位</h3>
 <ul>
 <li>
-<p>RTL命名惯例</p>
+<p>使用异步复位</p>
 </li>
 <li>
-<p>同步设计</p>
+<p>复位信号冒险</p>
 </li>
 <li>
-<p>复位</p>
-</li>
-<li>
-<p>时钟</p>
-</li>
-<li>
-<p>异步电路处理</p>
-</li>
-<li>
-<p>层次化设计</p>
+<p>外部噪声对复位信号的影响</p>
 </li>
 </ul>
-<h3 id=1rtl命名惯例>1.RTL命名惯例</h3>
-<h4 id=11-基本命名惯例>1.1 基本命名惯例</h4>
-<p>[1] 文件名应与模块名同名。</p>
-<p>[2] 命名只能使用字符数组和下划线，并且命名以字符开头。</p>
-<p>[3] SystemVerilog 和 VHDL中的关键字不允许在命名时使用。</p>
-<p>[4] &ldquo;VDD&rdquo;,&ldquo;VSS&rdquo;,&ldquo;VCC&rdquo;,&ldquo;GND&rdquo;,&ldquo;VREF"等命名要杜绝使用。</p>
-<p>[5] 不要通过大小写区分不同的命名.</p>
-<p>[6] 命名不能以&rdquo;_&ldquo;结尾，应杜绝在命名中连续使用下划线.</p>
-<p>[7] 可以加一些特定的符号以便于区分逻辑的极性，如"rst_n"等.</p>
-<p>[8] 模式例化时命名应当和模块名有关联，同一模块多次例化时可以用"模块名_数量"的方式命名.</p>
-<p>[9] 在设计顶层中，模块和端口的命名不应超过16个字符，并且不能通过大小写对模块和端口进行区分.</p>
-<p>[10] 不要使用和库中相同的名称例化模块.</p>
-<p><div class="details admonition note open">
-<div class="details-summary admonition-title">
-<i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+<h3 id=11-使用异步信号复位>1.1 使用异步信号复位</h3>
+<p>[1] RTL同步复位代码综合时可能会导致复位失败</p>
+<p>[2] 异步复位更安全
+-异步复位综合后的复位信号更方便布局
+-同步复位在在门级仿真时，寄存器的值可能是x</p>
+<p>[3] 除了复位，不要使用复位信号做其他事情</p>
+<p>[4] 如果使用同步复位，建议创建一个含有复位端的模块。</p>
+<p>[5] 不要使用异步复位（reset）和置位(set)</p>
+<div align=center>
+<p><img class=lazyload src=/svg/loading.min.svg data-src=/images/RTL_DESIGN_STYLE/1-3-1.png data-srcset="/images/RTL_DESIGN_STYLE/1-3-1.png, /images/RTL_DESIGN_STYLE/1-3-1.png 1.5x, /images/RTL_DESIGN_STYLE/1-3-1.png 2x" data-sizes=auto alt=/images/RTL_DESIGN_STYLE/1-3-1.png title=&amp;ldquo;同步复位由于综合时被优化导致无法实现复位功能&amp;rdquo;></p>
+<p>同步复位由于综合时被优化导致无法实现复位功能</p>
+<p><img class=lazyload src=/svg/loading.min.svg data-src=/images/RTL_DESIGN_STYLE/1-3-3.png data-srcset="/images/RTL_DESIGN_STYLE/1-3-3.png, /images/RTL_DESIGN_STYLE/1-3-3.png 1.5x, /images/RTL_DESIGN_STYLE/1-3-3.png 2x" data-sizes=auto alt=/images/RTL_DESIGN_STYLE/1-3-3.png title=&amp;ldquo;创建一个含有复位端的模块避免同步复位被优化&amp;rdquo;></p>
+<p>创建一个含有复位端的模块避免同步复位被优化</p>
 </div>
-<div class=details-content>
-<div class=admonition-content><ul>
-<li>当工程比较复杂时，可以将树状层次结构的模块放在同一文件中.</li>
-<li>处理语法关键字，应当尽量避免EDIF,SDF中的关键字，如：
-<br>
-<font color=red>ABSOLUTE, cell, celltype, edif, DELAY, HOLD, IOPATH, NET, VIEW, SETUP</font></li>
-</ul>
-</div>
-</div>
-</div>
-<br></p>
-<h3 id=12-层次化命名惯例>1.2 层次化命名惯例</h3>
-<p>[1] 模块名和例化名应当控制在2-32个字符之间。</p>
-<p>[2] 在每个模块名前最好加上层次化标识符。</p>
-<p>[3] 上一级的层次化标识符应当应用到所有子模块中。</p>
-<p>[4] 模块的输出端口应当采用 &ldquo;<hierarchy identification character>_<xxxx>&ldquo;形式</p>
-<p>[5] 端口命名应当不同于内部信号的命名</p>
-<p>[6] 输出端口命名应该和连接的信号名字相同，输入端口命名应当和上一级线网相同。</p>
-<p><img class=lazyload src=/svg/loading.min.svg data-src=/images/RTL_DESIGN_STYLE/naming.png data-srcset="/images/RTL_DESIGN_STYLE/naming.png, /images/RTL_DESIGN_STYLE/naming.png 1.5x, /images/RTL_DESIGN_STYLE/naming.png 2x" data-sizes=auto alt=/images/RTL_DESIGN_STYLE/naming.png title=&amp;ldquo;hierarchy_naming&amp;rdquo;></p>
-<h3 id=13-信号命名>1.3 信号命名</h3>
-<p>[1] 命名应区别内部信号和端口</p>
-<p>[2] 信号命名应便于理解</p>
-<p>[3] 命名应控制在2-40个字符之间，最好是24个字符以下</p>
-<p><img class=lazyload src=/svg/loading.min.svg data-src=/images/RTL_DESIGN_STYLE/1-3.png data-srcset="/images/RTL_DESIGN_STYLE/1-3.png, /images/RTL_DESIGN_STYLE/1-3.png 1.5x, /images/RTL_DESIGN_STYLE/1-3.png 2x" data-sizes=auto alt=/images/RTL_DESIGN_STYLE/1-3.png title=&amp;quot;&amp;quot;></p>
-<h3 id=14-include-file-parameter-define-命名规则>1.4 include file、 parameter、 `define 命名规则</h3>
-<p>[1] 对于被include的文件，应以 &ldquo;.h, .inc, .ht, .vh, .tsk"等作为后缀</p>
-<p>[2] parameter命名应有单独的命名规范（如"P_&ldquo;作为前缀）</p>
-<p>[3] 不同模块中的parameter命名应当不同</p>
-<p>[4] 仅仅在一个模块中使用`define</p>
-<p>[5] parameter中应当包含层次结构的信息</p>
-<p>[6] 固定的数值不能连接到输出端口，不推荐将固定数值连接到输入端口。（一般情况下，固定数值连接到端口不会产生问题。在综合优化的时候会导致冗余。logic equivelancy checks过程中可能会出现问题。）</p>
-<p>[7] parameter 赋值时应用&rdquo;&lsquo;h, &lsquo;o, &lsquo;b, &rsquo;d"标明进制</p>
-<p>[8] parameter 赋值时应标明数据位宽</p>
-<p><img class=lazyload src=/svg/loading.min.svg data-src=/images/RTL_DESIGN_STYLE/1-5.png data-srcset="/images/RTL_DESIGN_STYLE/1-5.png, /images/RTL_DESIGN_STYLE/1-5.png 1.5x, /images/RTL_DESIGN_STYLE/1-5.png 2x" data-sizes=auto alt=/images/RTL_DESIGN_STYLE/1-5.png title=&amp;quot;&amp;quot;></p>
-<h3 id=15-有时钟的系统命名>1.5 有时钟的系统命名</h3>
-<p>[1] 如果端口是寄存器输出，建议命名中标记时钟</p>
-<p>[2] 使用"CLK, CK"给时钟命名， &ldquo;RST_X, RESET_X"给复位信号命名, &ldquo;EN"给使能信号命名</p>
-<p>[3] 命名中应体现时钟</p>
-<p>[4] 命名中应体现寄存器</p>
-<p><img class=lazyload src=/svg/loading.min.svg data-src=/images/RTL_DESIGN_STYLE/1-6.png data-srcset="/images/RTL_DESIGN_STYLE/1-6.png, /images/RTL_DESIGN_STYLE/1-6.png 1.5x, /images/RTL_DESIGN_STYLE/1-6.png 2x" data-sizes=auto alt=/images/RTL_DESIGN_STYLE/1-6.png title=&amp;quot;&amp;quot;></p>
 <div class="details admonition note open">
 <div class="details-summary admonition-title">
 <i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
 </div>
 <div class=details-content>
 <div class=admonition-content><ul>
-<li>命名时应将信号分为：时钟信号、复位信号、使能信号等。</li>
-<li>对于时钟、复位、使能信号应当使用特殊的标识，如"CLK, RST, EN"等</li>
-<li>为了区分寄存器和组合逻辑，可以在寄存器名字后面添加"_R"或"_r"</li>
+<li>如果使用同步复位，综合优化后，可能会导致触发器的Q端不经过复位信号控制，导致无法复位。</li>
+<li>如果需要使用同步复位，建议单独创建一个带复位段的触发器，并且综合时该模块必须grouped together, 以避免被优化。</li>
+</ul>
+</div>
+</div>
+</div>
+<div align=center>
+<p><img class=lazyload src=/svg/loading.min.svg data-src=/images/RTL_DESIGN_STYLE/1-3-2.png data-srcset="/images/RTL_DESIGN_STYLE/1-3-2.png, /images/RTL_DESIGN_STYLE/1-3-2.png 1.5x, /images/RTL_DESIGN_STYLE/1-3-2.png 2x" data-sizes=auto alt=/images/RTL_DESIGN_STYLE/1-3-2.png title=&amp;ldquo;这种情况异步复位在时序检查时会被忽略&amp;rdquo;></p>
+<p>复位信号在处理后会有被忽略的风险</p>
+</div>
+<h3 id=12-复位信号冒险>1.2 复位信号冒险</h3>
+<p>[1] 不要用组合逻辑产生复位，一方面组合逻辑可能会被综合工具，另一方面可能会产生毛刺</p>
+<p>[2] 不要直接将外部信号直接接入复位端（因为无法避免外部信号产生毛刺或噪声）。</p>
+<p>[3] 需要各位注意复位电路的时序，避免产生冒险。</p>
+<div align=center>
+<p><img class=lazyload src=/svg/loading.min.svg data-src=/images/RTL_DESIGN_STYLE/1-3-4.png data-srcset="/images/RTL_DESIGN_STYLE/1-3-4.png, /images/RTL_DESIGN_STYLE/1-3-4.png 1.5x, /images/RTL_DESIGN_STYLE/1-3-4.png 2x" data-sizes=auto alt=/images/RTL_DESIGN_STYLE/1-3-4.png title=&amp;ldquo;组合逻辑在综合后可能产生毛刺&amp;rdquo;></p>
+<p>组合逻辑在综合后可能产生毛刺</p>
+</div>
+<h3 id=13-外部噪声对复位信号的影响>1.3 外部噪声对复位信号的影响</h3>
+<p>[1] 外部输入复位如果上升缓慢，将会造成电路不稳定。（亚稳态）</p>
+<p>[2] 复位信号必须同步或者抗噪声处理。</p>
+<p>[3] 除了将复位信号同步外，应该添加一些其他的噪声处理电路。</p>
+<div align=center>
+<p><img class=lazyload src=/svg/loading.min.svg data-src=/images/RTL_DESIGN_STYLE/1-3-5.png data-srcset="/images/RTL_DESIGN_STYLE/1-3-5.png, /images/RTL_DESIGN_STYLE/1-3-5.png 1.5x, /images/RTL_DESIGN_STYLE/1-3-5.png 2x" data-sizes=auto alt=/images/RTL_DESIGN_STYLE/1-3-5.png title=&amp;ldquo;复位信号的同步处理和抗噪声处理&amp;rdquo;></p>
+<p>复位信号的同步处理和抗噪声处理</p>
+</div>
+<div class="details admonition note open">
+<div class="details-summary admonition-title">
+<i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+</div>
+<div class=details-content>
+<div class=admonition-content>复位信号经过同步处理后可以避免亚稳态，或者通过3-5个触发器滤波保证复位信号稳定。</div>
+</div>
+</div>
+<div align=center>
+<p><img class=lazyload src=/svg/loading.min.svg data-src=/images/RTL_DESIGN_STYLE/1-3-6.png data-srcset="/images/RTL_DESIGN_STYLE/1-3-6.png, /images/RTL_DESIGN_STYLE/1-3-6.png 1.5x, /images/RTL_DESIGN_STYLE/1-3-6.png 2x" data-sizes=auto alt=/images/RTL_DESIGN_STYLE/1-3-6.png title=&amp;ldquo;使用外部复位电路（电阻+电容）使延长复位信号建立时间&amp;rdquo;></p>
+<p>使用外部复位电路（电阻+电容）使延长复位信号建立时间</p>
+</div>
+<div class="details admonition note open">
+<div class="details-summary admonition-title">
+<i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+</div>
+<div class=details-content>
+<div class=admonition-content>同步释放复位信号需要时钟，因此在时钟产生前，复位信号必须处于复位电平，直到时钟稳定。通常采用电阻串联电容，延长复位信号的复位电平。</div>
+</div>
+</div>
+<div align=center>
+<p><img class=lazyload src=/svg/loading.min.svg data-src=/images/RTL_DESIGN_STYLE/1-3-7.png data-srcset="/images/RTL_DESIGN_STYLE/1-3-7.png, /images/RTL_DESIGN_STYLE/1-3-7.png 1.5x, /images/RTL_DESIGN_STYLE/1-3-7.png 2x" data-sizes=auto alt=/images/RTL_DESIGN_STYLE/1-3-7.png title=&amp;ldquo;通过pad布局减少复位端口的噪声&amp;rdquo;></p>
+<p>通过pad布局减少复位端口的噪声</p>
+<p><img class=lazyload src=/svg/loading.min.svg data-src=/images/RTL_DESIGN_STYLE/1-3-8.png data-srcset="/images/RTL_DESIGN_STYLE/1-3-8.png, /images/RTL_DESIGN_STYLE/1-3-8.png 1.5x, /images/RTL_DESIGN_STYLE/1-3-8.png 2x" data-sizes=auto alt=/images/RTL_DESIGN_STYLE/1-3-8.png title=&amp;ldquo;通过延时电路减少噪声干扰&amp;rdquo;></p>
+<p>通过延时电路减少噪声干扰</p>
+</div>
+<div class="details admonition note open">
+<div class="details-summary admonition-title">
+<i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
+</div>
+<div class=details-content>
+<div class=admonition-content><ul>
+<li>使用施密特触发器、pad布局或者给复位信号添加延时单元都可以降低噪声的干扰。</li>
+<li>在使用延时单元时，如果输入的复位信号为1（0复位，1释放），当复位端口出现噪声，导致复位端口为0，但是由于延时单元输出为1，复位信号还是能稳定为1，这样可以提高电路的稳定性。</li>
 </ul>
 </div>
 </div>
@@ -245,27 +227,27 @@ RTL命名惯例
 <div class=post-info>
 <div class=post-info-line>
 <div class=post-info-mod>
-<span>更新于 2021-10-04</span>
+<span>更新于 2022-01-04&nbsp;<a class=git-hash href=https://github.com/dillonzq/LoveIt/commit/aa2ae5953e593810a26a041b18f17c302b599d99 target=_blank title="commit by cslgbk(cslgbk@126.com) aa2ae5953e593810a26a041b18f17c302b599d99: mxmx">
+<i class="fas fa-hashtag fa-fw"></i>aa2ae59</a></span>
 </div>
 <div class=post-info-license></div>
 </div>
 <div class=post-info-line>
 <div class=post-info-md><span>
-<a class=link-to-markdown href=/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0/index.md target=_blank>阅读原始文档</a>
+<a class=link-to-markdown href=/initial-reset-rtl-design-style-guide/index.md target=_blank>阅读原始文档</a>
 </span></div>
 <div class=post-info-share>
-<span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://cslgbk.github.io/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0/ data-title="RTL基本设计原则-RTL Design Style Guide笔记" data-hashtags=RTL><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://cslgbk.github.io/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0/ data-hashtag=RTL><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://cslgbk.github.io/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0/ data-title="RTL基本设计原则-RTL Design Style Guide笔记"><i class="fab fa-hacker-news fa-fw"></i></a><a href=javascript:void(0); title="分享到 Line" data-sharer=line data-url=https://cslgbk.github.io/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0/ data-title="RTL基本设计原则-RTL Design Style Guide笔记"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://cslgbk.github.io/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0/ data-title="RTL基本设计原则-RTL Design Style Guide笔记"><i class="fab fa-weibo fa-fw"></i></a></span>
+<span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://cslgbk.github.io/initial-reset-rtl-design-style-guide/ data-title="Initial Reset   RTL Design Style Guide"><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://cslgbk.github.io/initial-reset-rtl-design-style-guide/><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://cslgbk.github.io/initial-reset-rtl-design-style-guide/ data-title="Initial Reset   RTL Design Style Guide"><i class="fab fa-hacker-news fa-fw"></i></a><a href=javascript:void(0); title="分享到 Line" data-sharer=line data-url=https://cslgbk.github.io/initial-reset-rtl-design-style-guide/ data-title="Initial Reset   RTL Design Style Guide"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://cslgbk.github.io/initial-reset-rtl-design-style-guide/ data-title="Initial Reset   RTL Design Style Guide"><i class="fab fa-weibo fa-fw"></i></a></span>
 </div>
 </div>
 </div>
 <div class=post-info-more>
-<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/rtl/>RTL</a></section>
+<section class=post-tags></section>
 <section>
 <span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span>
 </section>
 </div>
-<div class=post-nav><a href=/%E7%AB%8B%E5%8D%B3%E6%96%AD%E8%A8%80-immediate-assertion-%E7%AC%94%E8%AE%B0/ class=prev rel=prev title="立即断言 Immediate Assertion笔记"><i class="fas fa-angle-left fa-fw"></i>立即断言 Immediate Assertion笔记</a>
-<a href=/synchronous-design-rtl-design-style-guide/ class=next rel=next title="Synchronous design - RTL Design Style Guide">Synchronous design - RTL Design Style Guide<i class="fas fa-angle-right fa-fw"></i></a></div>
+<div class=post-nav><a href=/synchronous-design-rtl-design-style-guide/ class=prev rel=prev title="Synchronous design - RTL Design Style Guide"><i class="fas fa-angle-left fa-fw"></i>Synchronous design - RTL Design Style Guide</a></div>
 </div>
 <div id=comments><div id=valine class=comment></div><noscript>
 Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.
