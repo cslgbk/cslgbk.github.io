@@ -2,6 +2,8 @@
 title: "Initial Reset   RTL Design Style Guide"
 date: 2021-11-07T19:02:56+08:00
 draft: false
+tags: ["RTL"]
+categories: ["RTL Design Style"]
 ---
 
 ### 复位
