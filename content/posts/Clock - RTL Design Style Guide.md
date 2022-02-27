@@ -1,5 +1,5 @@
 ---
-title: "Clock   RTL Design Style Guide"
+title: "Clock - RTL Design Style Guide"
 date: 2022-02-24T23:44:05+08:00
 draft: false
 tags: ["RTL"]
