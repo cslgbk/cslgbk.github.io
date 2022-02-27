@@ -1,4 +1,4 @@
-# Clock   RTL Design Style Guide
+# Clock - RTL Design Style Guide
 
 
 ### 时钟
