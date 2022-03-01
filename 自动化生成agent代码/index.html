@@ -19,14 +19,12 @@
 <meta name=application-name content="BK's Blogs">
 <meta name=apple-mobile-web-app-title content="BK's Blogs"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://cslgbk.github.io/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/><link rel=prev href=https://cslgbk.github.io/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/><link rel=next href=https://cslgbk.github.io/vim%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"自动化生成agent代码","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/cslgbk.github.io\/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81\/"},"image":["https:\/\/cslgbk.github.io\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"UVM, 验证自动化, python","wordcount":879,"url":"https:\/\/cslgbk.github.io\/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81\/","datePublished":"2021-05-16T14:38:00+08:00","dateModified":"2021-05-16T14:38:00+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"bk","logo":"https:\/\/cslgbk.github.io\/t.png"},"author":{"@type":"Person","name":"bk"},"description":""}</script></head>
-<body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem('theme')?localStorage.getItem('theme')==='dark':'light'==='auto'?window.matchMedia('(prefers-color-scheme: dark)').matches:'light'==='dark')&&document.body.setAttribute('theme','dark')</script>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://cslgbk.github.io/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/><link rel=prev href=https://cslgbk.github.io/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/><link rel=next href=https://cslgbk.github.io/vim%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"自动化生成agent代码","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/cslgbk.github.io\/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81\/"},"image":["https:\/\/cslgbk.github.io\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"UVM, 验证自动化, python","wordcount":878,"url":"https:\/\/cslgbk.github.io\/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81\/","datePublished":"2021-05-16T14:38:00+08:00","dateModified":"2021-05-16T14:38:00+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"bk","logo":"https:\/\/cslgbk.github.io\/t.png"},"author":{"@type":"Person","name":"bk"},"description":""}</script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"light"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"light"==="dark")&&document.body.setAttribute("theme","dark")</script>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
 <div class=header-wrapper>
 <div class=header-title>
 <a href=/ title="BK's Blogs">BK's Blogs</a>
-</div>
-<div class=menu>
+</div><div class=menu>
 <div class=menu-inner><a class=menu-item href=/posts/> 所有文章 </a><a class=menu-item href=/tags/> 标签 </a><a class=menu-item href=/categories/> 分类 </a><a class=menu-item href=/categories/documentation/> 文档 </a><a class=menu-item href=/about/> 关于 </a><a class=menu-item href=https://github.com/cslgbk title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
 <input type=text placeholder=搜索文章标题或内容... id=search-input-desktop>
 <a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索>
@@ -41,20 +39,14 @@
 </span><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
 <i class="fas fa-adjust fa-fw"></i>
 </a>
-</div>
-</div>
-</div>
-</header><header class=mobile id=header-mobile>
+</div></div></div></header><header class=mobile id=header-mobile>
 <div class=header-container>
 <div class=header-wrapper>
 <div class=header-title>
 <a href=/ title="BK's Blogs">BK's Blogs</a>
-</div>
-<div class=menu-toggle id=menu-toggle-mobile>
+</div><div class=menu-toggle id=menu-toggle-mobile>
 <span></span><span></span><span></span>
-</div>
-</div>
-<div class=menu id=menu-mobile><div class=search-wrapper>
+</div></div><div class=menu id=menu-mobile><div class=search-wrapper>
 <div class="search mobile" id=search-mobile>
 <input type=text placeholder=搜索文章标题或内容... id=search-input-mobile>
 <a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索>
@@ -66,53 +58,28 @@
 <span class="search-button search-loading" id=search-loading-mobile>
 <i class="fas fa-spinner fa-fw fa-spin"></i>
 </span>
-</div>
-<a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>
+</div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>
 取消
 </a>
 </div><a class=menu-item href=/posts/ title>所有文章</a><a class=menu-item href=/tags/ title>标签</a><a class=menu-item href=/categories/ title>分类</a><a class=menu-item href=/categories/documentation/ title>文档</a><a class=menu-item href=/about/ title>关于</a><a class=menu-item href=https://github.com/cslgbk title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=javascript:void(0); class="menu-item theme-switch" title=切换主题>
 <i class="fas fa-adjust fa-fw"></i>
-</a></div>
-</div>
-</header>
-<div class="search-dropdown desktop">
-<div id=search-dropdown-desktop></div>
-</div>
-<div class="search-dropdown mobile">
-<div id=search-dropdown-mobile></div>
-</div>
-<main class=main>
+</a></div></div></header><div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div></div><main class=main>
 <div class=container><div class=toc id=toc-auto>
-<h2 class=toc-title>目录</h2>
-<div class=toc-content id=toc-content-auto></div>
-</div><article class="page single"><h1 class="single-title animated flipInX">自动化生成agent代码</h1><div class=post-meta>
-<div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw"></i>bk</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/uvm/><i class="far fa-folder fa-fw"></i>UVM</a>&nbsp;<a href=/categories/python/><i class="far fa-folder fa-fw"></i>python</a>&nbsp;<a href=/categories/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96/><i class="far fa-folder fa-fw"></i>验证自动化</a></span></div>
-<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-05-16>2021-05-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 879 字&nbsp;
+<h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">自动化生成agent代码</h1><div class=post-meta>
+<div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw"></i>bk</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/uvm/><i class="far fa-folder fa-fw"></i>UVM</a>&nbsp;<a href=/categories/python/><i class="far fa-folder fa-fw"></i>python</a>&nbsp;<a href=/categories/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96/><i class="far fa-folder fa-fw"></i>验证自动化</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-05-16>2021-05-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 878 字&nbsp;
 <i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟&nbsp;<span id=/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/ class=leancloud_visitors data-flag-title=自动化生成agent代码>
 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
-</span>&nbsp;</div>
-</div><div class="details toc" id=toc-static kept>
+</span>&nbsp;</div></div><div class="details toc" id=toc-static kept>
 <div class="details-summary toc-title">
 <span>目录</span>
 <span><i class="details-icon fas fa-angle-right"></i></span>
-</div>
-<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+</div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
 <ul>
 <li>
 <ul>
-<li><a href=#1总体思路>1.总体思路</a></li>
-<li><a href=#2python脚本>2.python脚本</a></li>
-<li><a href=#3生成结果>3.生成结果</a></li>
-</ul>
-</li>
-</ul>
-</nav></div>
-</div><div class=content id=content><h3 id=1总体思路>1.总体思路</h3>
-<p><font size=3/>在搭建验证框架时经常要输入很多重复性的代码，有两种快速获得验证的方法，一种是复制原有的框架代码，在代码上面修改，一种是利用脚本语言快速生成代码。本文通过python脚本，快速生成agent的代码，提高工作效率。</font></p>
-<h3 id=2python脚本>2.python脚本</h3>
-<p><font size=3/>利用open、write函数创建SV文件，写入UVM框架代码。</font></p>
-<p><font size=3/>code_gen.py:</font></p>
-<div class=highlight><div class=chroma>
+<li><a href=#1总体思路>1.总体思路</a></li><li><a href=#2python脚本>2.python脚本</a></li><li><a href=#3生成结果>3.生成结果</a></li></ul></li></ul></nav></div></div><div class=content id=content><h3 id=1总体思路>1.总体思路</h3><p><font size=3/>在搭建验证框架时经常要输入很多重复性的代码，有两种快速获得验证的方法，一种是复制原有的框架代码，在代码上面修改，一种是利用脚本语言快速生成代码。本文通过python脚本，快速生成agent的代码，提高工作效率。</font></p><h3 id=2python脚本>2.python脚本</h3><p><font size=3/>利用open、write函数创建SV文件，写入UVM框架代码。</font></p><p><font size=3/>code_gen.py:</font></p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>  1
 </span><span class=lnt>  2
@@ -214,121 +181,113 @@
 </span><span class=lnt> 98
 </span><span class=lnt> 99
 </span><span class=lnt>100
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=err>#</span><span class=nx>coding</span><span class=p>=</span><span class=nx>utf</span><span class=o>-</span><span class=mi>8</span>
-
-<span class=kn>import</span> <span class=nx>sys</span>
-
-<span class=nx>name</span> <span class=p>=</span> <span class=nf>input</span><span class=p>(</span><span class=s>&#34;input agentname:\n&#34;</span><span class=p>)</span>
-
-<span class=nx>f</span> <span class=p>=</span> <span class=nf>open</span><span class=p>(</span><span class=nx>name</span><span class=o>+</span><span class=s>&#34;_pkg.sv&#34;</span><span class=p>,</span> <span class=err>&#39;</span><span class=nx>w</span><span class=o>+</span><span class=err>&#39;</span><span class=p>,</span> <span class=nx>encoding</span><span class=p>=</span><span class=s>&#34;utf-8&#34;</span><span class=p>)</span>
-
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;`include \&#34;uvm_macros.svh\&#34;\n\n&#34;</span><span class=p>)</span>
-
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;package &#34;</span><span class=o>+</span><span class=nx>name</span><span class=o>+</span><span class=s>&#34;_pkg;\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;import uvm_pkg::*;\n\n&#34;</span><span class=p>)</span>
-<span class=nx>name_trans</span> <span class=p>=</span> <span class=nx>name</span> <span class=o>+</span> <span class=s>&#34;_trans&#34;</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;class &#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34; extends uvm_sequence_item;\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tfunction new(string name=\&#34;&#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34;\&#34;);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tsuper.new(name);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t//输入变量\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\trand ;\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\trand ;\n&#34;</span><span class=p>)</span>
-
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t`uvm_object_utils_begin(&#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34;)\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t`uvm_field_\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t`uvm_field_\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t`uvm_object_utils_end\n&#34;</span><span class=p>)</span>
-
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\nendclass\n&#34;</span><span class=p>)</span>
-
-<span class=nx>name_seq</span> <span class=p>=</span> <span class=nx>name</span><span class=o>+</span><span class=s>&#34;_seq&#34;</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\nclass &#34;</span><span class=o>+</span><span class=nx>name_seq</span><span class=o>+</span><span class=s>&#34; extends uvm_sequence;\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t`uvm_object_utils(&#34;</span><span class=o>+</span><span class=nx>name_seq</span><span class=o>+</span><span class=s>&#34;)\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tfunction new(string name=\&#34;&#34;</span><span class=o>+</span><span class=nx>name_seq</span><span class=o>+</span><span class=s>&#34;\&#34;);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tsuper.new(name);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tvirtual task body();\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t&#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34; tr;\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\trepeat(10) begin\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t\t`uvm_do(tr)\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tend\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tendtask\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;endclass\n\n&#34;</span><span class=p>)</span>
-<span class=nx>name_sqr</span> <span class=p>=</span> <span class=nx>name</span><span class=o>+</span><span class=s>&#34;_sqr&#34;</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;class &#34;</span><span class=o>+</span><span class=nx>name_sqr</span><span class=o>+</span><span class=s>&#34; extends uvm_sequencer#(&#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34;);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t`uvm_component_utils(&#34;</span><span class=o>+</span><span class=nx>name_sqr</span><span class=o>+</span><span class=s>&#34;)\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tfunction new(string name=\&#34;&#34;</span><span class=o>+</span><span class=nx>name_sqr</span><span class=o>+</span><span class=s>&#34;\&#34;, uvm_component parent=null);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tsuper.new(name, parent);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;endclass\n\n&#34;</span><span class=p>)</span>
-<span class=nx>name_drv</span> <span class=p>=</span> <span class=nx>name</span><span class=o>+</span><span class=s>&#34;_drv&#34;</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;class &#34;</span><span class=o>+</span><span class=nx>name_drv</span><span class=o>+</span><span class=s>&#34; extends uvm_driver#(&#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34;);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t`uvm_component_utils(&#34;</span><span class=o>+</span><span class=nx>name_drv</span><span class=o>+</span><span class=s>&#34;);\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tfunction new(string name=\&#34;&#34;</span><span class=o>+</span><span class=nx>name_drv</span><span class=o>+</span><span class=s>&#34;\&#34;, uvm_component parent=null);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tsuper.new(name,parent);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t function void set_interface();\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t//设置接口\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t&#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34; tmp;\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\ttask main_phase(uvm_phase phase);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tforever begin\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t\tseq_item_port.get_next_item(tmp);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t\t//驱动\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t\tseq_item_port.item_done();\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tend\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendtask\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;endclass\n\n&#34;</span><span class=p>)</span>
-<span class=nx>name_mon</span> <span class=p>=</span> <span class=nx>name</span> <span class=o>+</span> <span class=s>&#34;_mom&#34;</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;class &#34;</span><span class=o>+</span><span class=nx>name_mon</span><span class=o>+</span><span class=s>&#34; extends uvm_monitor#(&#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34;);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t`uvm_component_utils(&#34;</span><span class=o>+</span><span class=nx>name_mon</span><span class=o>+</span><span class=s>&#34;)\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tuvm_analysis_port#(&#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34;) ap;\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tfunction new(string name=\&#34;&#34;</span><span class=o>+</span><span class=nx>name_mon</span><span class=o>+</span><span class=s>&#34;\&#34;, uvm_component parent=null);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tsuper.new(name, parent);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tap = new(\&#34;ap_mon\&#34;,this);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\ttask main_phase(uvm_phase phase);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t//驱动\n\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendtask\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;endclass\n\n&#34;</span><span class=p>)</span>
-<span class=nx>name_agnt</span> <span class=p>=</span> <span class=nx>name</span><span class=o>+</span><span class=s>&#34;_agent&#34;</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;class &#34;</span><span class=o>+</span><span class=nx>name_agnt</span><span class=o>+</span><span class=s>&#34; extends uvm_agent;\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t`uvm_component_utils(&#34;</span><span class=o>+</span><span class=nx>name_agnt</span><span class=o>+</span><span class=s>&#34;)\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tfunction new(string name=\&#34;&#34;</span><span class=o>+</span><span class=nx>name_agnt</span><span class=o>+</span><span class=s>&#34;\&#34;, uvm_component parent=null);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tsuper.new(name, parent);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t&#34;</span><span class=o>+</span><span class=nx>name_drv</span><span class=o>+</span><span class=s>&#34; drv;\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t&#34;</span><span class=o>+</span><span class=nx>name_mon</span><span class=o>+</span><span class=s>&#34; mon;\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t&#34;</span><span class=o>+</span><span class=nx>name_sqr</span><span class=o>+</span><span class=s>&#34; sqr;\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tfunction void build_phase(uvm_phase phase);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tdrv = &#34;</span><span class=o>+</span><span class=nx>name_drv</span><span class=o>+</span><span class=s>&#34;::type_id::create(\&#34;&#34;</span><span class=o>+</span><span class=nx>name_drv</span><span class=o>+</span><span class=s>&#34;\&#34;, this);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tmon = &#34;</span><span class=o>+</span><span class=nx>name_mon</span><span class=o>+</span><span class=s>&#34;::type_id::create(\&#34;&#34;</span><span class=o>+</span><span class=nx>name_mon</span><span class=o>+</span><span class=s>&#34;\&#34;, this);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tsqr = &#34;</span><span class=o>+</span><span class=nx>name_sqr</span><span class=o>+</span><span class=s>&#34;::type_id::create(\&#34;&#34;</span><span class=o>+</span><span class=nx>name_sqr</span><span class=o>+</span><span class=s>&#34;\&#34;, this);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tfunction void connect_phase(uvm_phase phase);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tsuper.connect_phase(phase);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tdrv.seq_item_port.connect(sqr.seq_item_export);\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;endclass\n&#34;</span><span class=p>)</span>
-<span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\nendpackage\n&#34;</span><span class=p>)</span>
-
-<span class=nx>f</span><span class=p>.</span><span class=nb>close</span><span class=p>()</span>
-</code></pre></td></tr></table>
-</div>
-</div><h3 id=3生成结果>3.生成结果</h3>
-<div class=highlight><div class=chroma>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=err>#</span><span class=nx>coding</span><span class=p>=</span><span class=nx>utf</span><span class=o>-</span><span class=mi>8</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=kn>import</span> <span class=nx>sys</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>name</span> <span class=p>=</span> <span class=nf>input</span><span class=p>(</span><span class=s>&#34;input agentname:\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>f</span> <span class=p>=</span> <span class=nf>open</span><span class=p>(</span><span class=nx>name</span><span class=o>+</span><span class=s>&#34;_pkg.sv&#34;</span><span class=p>,</span> <span class=err>&#39;</span><span class=nx>w</span><span class=o>+</span><span class=err>&#39;</span><span class=p>,</span> <span class=nx>encoding</span><span class=p>=</span><span class=s>&#34;utf-8&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;`include \&#34;uvm_macros.svh\&#34;\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;package &#34;</span><span class=o>+</span><span class=nx>name</span><span class=o>+</span><span class=s>&#34;_pkg;\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;import uvm_pkg::*;\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>name_trans</span> <span class=p>=</span> <span class=nx>name</span> <span class=o>+</span> <span class=s>&#34;_trans&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;class &#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34; extends uvm_sequence_item;\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tfunction new(string name=\&#34;&#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34;\&#34;);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tsuper.new(name);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t//输入变量\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\trand ;\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\trand ;\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t`uvm_object_utils_begin(&#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34;)\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t`uvm_field_\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t`uvm_field_\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t`uvm_object_utils_end\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\nendclass\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>name_seq</span> <span class=p>=</span> <span class=nx>name</span><span class=o>+</span><span class=s>&#34;_seq&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\nclass &#34;</span><span class=o>+</span><span class=nx>name_seq</span><span class=o>+</span><span class=s>&#34; extends uvm_sequence;\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t`uvm_object_utils(&#34;</span><span class=o>+</span><span class=nx>name_seq</span><span class=o>+</span><span class=s>&#34;)\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tfunction new(string name=\&#34;&#34;</span><span class=o>+</span><span class=nx>name_seq</span><span class=o>+</span><span class=s>&#34;\&#34;);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tsuper.new(name);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tvirtual task body();\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t&#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34; tr;\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\trepeat(10) begin\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t\t`uvm_do(tr)\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tend\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tendtask\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;endclass\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>name_sqr</span> <span class=p>=</span> <span class=nx>name</span><span class=o>+</span><span class=s>&#34;_sqr&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;class &#34;</span><span class=o>+</span><span class=nx>name_sqr</span><span class=o>+</span><span class=s>&#34; extends uvm_sequencer#(&#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34;);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t`uvm_component_utils(&#34;</span><span class=o>+</span><span class=nx>name_sqr</span><span class=o>+</span><span class=s>&#34;)\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tfunction new(string name=\&#34;&#34;</span><span class=o>+</span><span class=nx>name_sqr</span><span class=o>+</span><span class=s>&#34;\&#34;, uvm_component parent=null);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tsuper.new(name, parent);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;endclass\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>name_drv</span> <span class=p>=</span> <span class=nx>name</span><span class=o>+</span><span class=s>&#34;_drv&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;class &#34;</span><span class=o>+</span><span class=nx>name_drv</span><span class=o>+</span><span class=s>&#34; extends uvm_driver#(&#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34;);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t`uvm_component_utils(&#34;</span><span class=o>+</span><span class=nx>name_drv</span><span class=o>+</span><span class=s>&#34;);\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tfunction new(string name=\&#34;&#34;</span><span class=o>+</span><span class=nx>name_drv</span><span class=o>+</span><span class=s>&#34;\&#34;, uvm_component parent=null);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tsuper.new(name,parent);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t function void set_interface();\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t//设置接口\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t&#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34; tmp;\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\ttask main_phase(uvm_phase phase);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tforever begin\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t\tseq_item_port.get_next_item(tmp);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t\t//驱动\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t\tseq_item_port.item_done();\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tend\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendtask\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;endclass\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>name_mon</span> <span class=p>=</span> <span class=nx>name</span> <span class=o>+</span> <span class=s>&#34;_mom&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;class &#34;</span><span class=o>+</span><span class=nx>name_mon</span><span class=o>+</span><span class=s>&#34; extends uvm_monitor#(&#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34;);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t`uvm_component_utils(&#34;</span><span class=o>+</span><span class=nx>name_mon</span><span class=o>+</span><span class=s>&#34;)\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tuvm_analysis_port#(&#34;</span><span class=o>+</span><span class=nx>name_trans</span><span class=o>+</span><span class=s>&#34;) ap;\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tfunction new(string name=\&#34;&#34;</span><span class=o>+</span><span class=nx>name_mon</span><span class=o>+</span><span class=s>&#34;\&#34;, uvm_component parent=null);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tsuper.new(name, parent);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tap = new(\&#34;ap_mon\&#34;,this);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\ttask main_phase(uvm_phase phase);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\t//驱动\n\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendtask\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;endclass\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>name_agnt</span> <span class=p>=</span> <span class=nx>name</span><span class=o>+</span><span class=s>&#34;_agent&#34;</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;class &#34;</span><span class=o>+</span><span class=nx>name_agnt</span><span class=o>+</span><span class=s>&#34; extends uvm_agent;\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t`uvm_component_utils(&#34;</span><span class=o>+</span><span class=nx>name_agnt</span><span class=o>+</span><span class=s>&#34;)\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tfunction new(string name=\&#34;&#34;</span><span class=o>+</span><span class=nx>name_agnt</span><span class=o>+</span><span class=s>&#34;\&#34;, uvm_component parent=null);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tsuper.new(name, parent);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t&#34;</span><span class=o>+</span><span class=nx>name_drv</span><span class=o>+</span><span class=s>&#34; drv;\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t&#34;</span><span class=o>+</span><span class=nx>name_mon</span><span class=o>+</span><span class=s>&#34; mon;\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t&#34;</span><span class=o>+</span><span class=nx>name_sqr</span><span class=o>+</span><span class=s>&#34; sqr;\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tfunction void build_phase(uvm_phase phase);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tdrv = &#34;</span><span class=o>+</span><span class=nx>name_drv</span><span class=o>+</span><span class=s>&#34;::type_id::create(\&#34;&#34;</span><span class=o>+</span><span class=nx>name_drv</span><span class=o>+</span><span class=s>&#34;\&#34;, this);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tmon = &#34;</span><span class=o>+</span><span class=nx>name_mon</span><span class=o>+</span><span class=s>&#34;::type_id::create(\&#34;&#34;</span><span class=o>+</span><span class=nx>name_mon</span><span class=o>+</span><span class=s>&#34;\&#34;, this);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tsqr = &#34;</span><span class=o>+</span><span class=nx>name_sqr</span><span class=o>+</span><span class=s>&#34;::type_id::create(\&#34;&#34;</span><span class=o>+</span><span class=nx>name_sqr</span><span class=o>+</span><span class=s>&#34;\&#34;, this);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tfunction void connect_phase(uvm_phase phase);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tsuper.connect_phase(phase);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\t\tdrv.seq_item_port.connect(sqr.seq_item_export);\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\tendfunction\n\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;endclass\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nf>write</span><span class=p>(</span><span class=s>&#34;\nendpackage\n&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>f</span><span class=p>.</span><span class=nb>close</span><span class=p>()</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=3生成结果>3.生成结果</h3><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>1
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>python3 ./code_gen.py
-</code></pre></td></tr></table>
-</div>
-</div><p><font size=3/>生成文件test_pkg:</font></p>
-<div class=highlight><div class=chroma>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>python3 ./code_gen.py
+</span></span></code></pre></td></tr></table></div></div><p><font size=3/>生成文件test_pkg:</font></p><div class=highlight><div class=chroma>
 <table class=lntable><tr><td class=lntd>
 <pre tabindex=0 class=chroma><code><span class=lnt>  1
 </span><span class=lnt>  2
@@ -439,159 +398,137 @@
 </span><span class=lnt>107
 </span><span class=lnt>108
 </span><span class=lnt>109
-</span><span class=lnt>110
-</span></code></pre></td>
-<td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=s>`include &#34;uvm_macros.svh&#34;
-</span><span class=s>
-</span><span class=s>package test_pkg;
-</span><span class=s>
-</span><span class=s>import uvm_pkg::*;
-</span><span class=s>
-</span><span class=s>class test_trans extends uvm_sequence_item;
-</span><span class=s>	function new(string name=&#34;test_trans&#34;);
-</span><span class=s>		super.new(name);
-</span><span class=s>	endfunction
-</span><span class=s>
-</span><span class=s>	//输入变量
-</span><span class=s>	rand ;
-</span><span class=s>	rand ;
-</span><span class=s>	`</span><span class=nf>uvm_object_utils_begin</span><span class=p>(</span><span class=nx>test_trans</span><span class=p>)</span>
-		<span class=s>`uvm_field_
-</span><span class=s>		`</span><span class=nx>uvm_field_</span>
-	<span class=s>`uvm_object_utils_end
-</span><span class=s>
-</span><span class=s>endclass
-</span><span class=s>
-</span><span class=s>class test_seq extends uvm_sequence;
-</span><span class=s>	`</span><span class=nf>uvm_object_utils</span><span class=p>(</span><span class=nx>test_seq</span><span class=p>)</span>
-
-	<span class=nx>function</span> <span class=nb>new</span><span class=p>(</span><span class=kt>string</span> <span class=nx>name</span><span class=p>=</span><span class=s>&#34;test_seq&#34;</span><span class=p>);</span>
-		<span class=nx>super</span><span class=p>.</span><span class=nb>new</span><span class=p>(</span><span class=nx>name</span><span class=p>);</span>
-	<span class=nx>endfunction</span>
-
-	<span class=nx>virtual</span> <span class=nx>task</span> <span class=nf>body</span><span class=p>();</span>
-		<span class=nx>test_trans</span> <span class=nx>tr</span><span class=p>;</span>
-		<span class=nf>repeat</span><span class=p>(</span><span class=mi>10</span><span class=p>)</span> <span class=nx>begin</span>
-			<span class=s>`uvm_do(tr)
-</span><span class=s>		end
-</span><span class=s>		endtask
-</span><span class=s>endclass
-</span><span class=s>
-</span><span class=s>class test_sqr extends uvm_sequencer#(test_trans);
-</span><span class=s>	`</span><span class=nf>uvm_component_utils</span><span class=p>(</span><span class=nx>test_sqr</span><span class=p>)</span>
-
-	<span class=nx>function</span> <span class=nb>new</span><span class=p>(</span><span class=kt>string</span> <span class=nx>name</span><span class=p>=</span><span class=s>&#34;test_sqr&#34;</span><span class=p>,</span> <span class=nx>uvm_component</span> <span class=nx>parent</span><span class=p>=</span><span class=nx>null</span><span class=p>);</span>
-		<span class=nx>super</span><span class=p>.</span><span class=nb>new</span><span class=p>(</span><span class=nx>name</span><span class=p>,</span> <span class=nx>parent</span><span class=p>);</span>
-	<span class=nx>endfunction</span>
-<span class=nx>endclass</span>
-
-<span class=nx>class</span> <span class=nx>test_drv</span> <span class=nx>extends</span> <span class=nx>uvm_driver</span><span class=err>#</span><span class=p>(</span><span class=nx>test_trans</span><span class=p>);</span>
-	<span class=s>`uvm_component_utils(test_drv);
-</span><span class=s>
-</span><span class=s>	function new(string name=&#34;test_drv&#34;, uvm_component parent=null);
-</span><span class=s>		super.new(name,parent);
-</span><span class=s>	endfunction
-</span><span class=s>
-</span><span class=s>	 function void set_interface();
-</span><span class=s>		//设置接口
-</span><span class=s>
-</span><span class=s>	endfunction
-</span><span class=s>
-</span><span class=s>	test_trans tmp;
-</span><span class=s>	task main_phase(uvm_phase phase);
-</span><span class=s>		forever begin
-</span><span class=s>			seq_item_port.get_next_item(tmp);
-</span><span class=s>			//驱动
-</span><span class=s>
-</span><span class=s>			seq_item_port.item_done();
-</span><span class=s>		end
-</span><span class=s>	endtask
-</span><span class=s>
-</span><span class=s>endclass
-</span><span class=s>
-</span><span class=s>class test_mom extends uvm_monitor#(test_trans);
-</span><span class=s>	`</span><span class=nf>uvm_component_utils</span><span class=p>(</span><span class=nx>test_mom</span><span class=p>)</span>
-
-	<span class=nx>uvm_analysis_port</span><span class=err>#</span><span class=p>(</span><span class=nx>test_trans</span><span class=p>)</span> <span class=nx>ap</span><span class=p>;</span>
-
-	<span class=nx>function</span> <span class=nb>new</span><span class=p>(</span><span class=kt>string</span> <span class=nx>name</span><span class=p>=</span><span class=s>&#34;test_mom&#34;</span><span class=p>,</span> <span class=nx>uvm_component</span> <span class=nx>parent</span><span class=p>=</span><span class=nx>null</span><span class=p>);</span>
-		<span class=nx>super</span><span class=p>.</span><span class=nb>new</span><span class=p>(</span><span class=nx>name</span><span class=p>,</span> <span class=nx>parent</span><span class=p>);</span>
-		<span class=nx>ap</span> <span class=p>=</span> <span class=nb>new</span><span class=p>(</span><span class=s>&#34;ap_mon&#34;</span><span class=p>,</span><span class=nx>this</span><span class=p>);</span>
-	<span class=nx>endfunction</span>
-
-	<span class=nx>task</span> <span class=nf>main_phase</span><span class=p>(</span><span class=nx>uvm_phase</span> <span class=nx>phase</span><span class=p>);</span>
-		<span class=c1>//驱动
-</span><span class=c1></span>
-
-	<span class=nx>endtask</span>
-<span class=nx>endclass</span>
-
-<span class=nx>class</span> <span class=nx>test_agent</span> <span class=nx>extends</span> <span class=nx>uvm_agent</span><span class=p>;</span>
-	<span class=err>`</span><span class=nf>uvm_component_utils</span><span class=p>(</span><span class=nx>test_agent</span><span class=p>)</span>
-
-	<span class=nx>function</span> <span class=nb>new</span><span class=p>(</span><span class=kt>string</span> <span class=nx>name</span><span class=p>=</span><span class=s>&#34;test_agent&#34;</span><span class=p>,</span> <span class=nx>uvm_component</span> <span class=nx>parent</span><span class=p>=</span><span class=nx>null</span><span class=p>);</span>
-	<span class=nx>super</span><span class=p>.</span><span class=nb>new</span><span class=p>(</span><span class=nx>name</span><span class=p>,</span> <span class=nx>parent</span><span class=p>);</span>
-	<span class=nx>endfunction</span>
-
-	<span class=nx>test_drv</span> <span class=nx>drv</span><span class=p>;</span>
-	<span class=nx>test_mom</span> <span class=nx>mon</span><span class=p>;</span>
-	<span class=nx>test_sqr</span> <span class=nx>sqr</span><span class=p>;</span>
-	<span class=nx>function</span> <span class=nx>void</span> <span class=nf>build_phase</span><span class=p>(</span><span class=nx>uvm_phase</span> <span class=nx>phase</span><span class=p>);</span>
-		<span class=nx>drv</span> <span class=p>=</span> <span class=nx>test_drv</span><span class=p>::</span><span class=nx>type_id</span><span class=p>::</span><span class=nf>create</span><span class=p>(</span><span class=s>&#34;test_drv&#34;</span><span class=p>,</span> <span class=nx>this</span><span class=p>);</span>
-		<span class=nx>mon</span> <span class=p>=</span> <span class=nx>test_mom</span><span class=p>::</span><span class=nx>type_id</span><span class=p>::</span><span class=nf>create</span><span class=p>(</span><span class=s>&#34;test_mom&#34;</span><span class=p>,</span> <span class=nx>this</span><span class=p>);</span>
-		<span class=nx>sqr</span> <span class=p>=</span> <span class=nx>test_sqr</span><span class=p>::</span><span class=nx>type_id</span><span class=p>::</span><span class=nf>create</span><span class=p>(</span><span class=s>&#34;test_sqr&#34;</span><span class=p>,</span> <span class=nx>this</span><span class=p>);</span>
-	<span class=nx>endfunction</span>
-
-	<span class=nx>function</span> <span class=nx>void</span> <span class=nf>connect_phase</span><span class=p>(</span><span class=nx>uvm_phase</span> <span class=nx>phase</span><span class=p>);</span>
-		<span class=nx>super</span><span class=p>.</span><span class=nf>connect_phase</span><span class=p>(</span><span class=nx>phase</span><span class=p>);</span>
-		<span class=nx>drv</span><span class=p>.</span><span class=nx>seq_item_port</span><span class=p>.</span><span class=nf>connect</span><span class=p>(</span><span class=nx>sqr</span><span class=p>.</span><span class=nx>seq_item_export</span><span class=p>);</span>
-	<span class=nx>endfunction</span>
-
-<span class=nx>endclass</span>
-
-<span class=nx>endpackage</span>
-
-</code></pre></td></tr></table>
-</div>
-</div></div><div class=post-footer id=post-footer>
+</span></code></pre></td><td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=s>`include &#34;uvm_macros.svh&#34;
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>package test_pkg;
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>import uvm_pkg::*;
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>class test_trans extends uvm_sequence_item;
+</span></span></span><span class=line><span class=cl><span class=s>	function new(string name=&#34;test_trans&#34;);
+</span></span></span><span class=line><span class=cl><span class=s>		super.new(name);
+</span></span></span><span class=line><span class=cl><span class=s>	endfunction
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>	//输入变量
+</span></span></span><span class=line><span class=cl><span class=s>	rand ;
+</span></span></span><span class=line><span class=cl><span class=s>	rand ;
+</span></span></span><span class=line><span class=cl><span class=s>	`</span><span class=nf>uvm_object_utils_begin</span><span class=p>(</span><span class=nx>test_trans</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>		<span class=s>`uvm_field_
+</span></span></span><span class=line><span class=cl><span class=s>		`</span><span class=nx>uvm_field_</span>
+</span></span><span class=line><span class=cl>	<span class=s>`uvm_object_utils_end
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>endclass
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>class test_seq extends uvm_sequence;
+</span></span></span><span class=line><span class=cl><span class=s>	`</span><span class=nf>uvm_object_utils</span><span class=p>(</span><span class=nx>test_seq</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>function</span> <span class=nb>new</span><span class=p>(</span><span class=kt>string</span> <span class=nx>name</span><span class=p>=</span><span class=s>&#34;test_seq&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=nx>super</span><span class=p>.</span><span class=nb>new</span><span class=p>(</span><span class=nx>name</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>	<span class=nx>endfunction</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>virtual</span> <span class=nx>task</span> <span class=nf>body</span><span class=p>();</span>
+</span></span><span class=line><span class=cl>		<span class=nx>test_trans</span> <span class=nx>tr</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>		<span class=nf>repeat</span><span class=p>(</span><span class=mi>10</span><span class=p>)</span> <span class=nx>begin</span>
+</span></span><span class=line><span class=cl>			<span class=s>`uvm_do(tr)
+</span></span></span><span class=line><span class=cl><span class=s>		end
+</span></span></span><span class=line><span class=cl><span class=s>		endtask
+</span></span></span><span class=line><span class=cl><span class=s>endclass
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>class test_sqr extends uvm_sequencer#(test_trans);
+</span></span></span><span class=line><span class=cl><span class=s>	`</span><span class=nf>uvm_component_utils</span><span class=p>(</span><span class=nx>test_sqr</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>function</span> <span class=nb>new</span><span class=p>(</span><span class=kt>string</span> <span class=nx>name</span><span class=p>=</span><span class=s>&#34;test_sqr&#34;</span><span class=p>,</span> <span class=nx>uvm_component</span> <span class=nx>parent</span><span class=p>=</span><span class=nx>null</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=nx>super</span><span class=p>.</span><span class=nb>new</span><span class=p>(</span><span class=nx>name</span><span class=p>,</span> <span class=nx>parent</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>	<span class=nx>endfunction</span>
+</span></span><span class=line><span class=cl><span class=nx>endclass</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>class</span> <span class=nx>test_drv</span> <span class=nx>extends</span> <span class=nx>uvm_driver</span><span class=err>#</span><span class=p>(</span><span class=nx>test_trans</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>	<span class=s>`uvm_component_utils(test_drv);
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>	function new(string name=&#34;test_drv&#34;, uvm_component parent=null);
+</span></span></span><span class=line><span class=cl><span class=s>		super.new(name,parent);
+</span></span></span><span class=line><span class=cl><span class=s>	endfunction
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>	 function void set_interface();
+</span></span></span><span class=line><span class=cl><span class=s>		//设置接口
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>	endfunction
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>	test_trans tmp;
+</span></span></span><span class=line><span class=cl><span class=s>	task main_phase(uvm_phase phase);
+</span></span></span><span class=line><span class=cl><span class=s>		forever begin
+</span></span></span><span class=line><span class=cl><span class=s>			seq_item_port.get_next_item(tmp);
+</span></span></span><span class=line><span class=cl><span class=s>			//驱动
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>			seq_item_port.item_done();
+</span></span></span><span class=line><span class=cl><span class=s>		end
+</span></span></span><span class=line><span class=cl><span class=s>	endtask
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>endclass
+</span></span></span><span class=line><span class=cl><span class=s>
+</span></span></span><span class=line><span class=cl><span class=s>class test_mom extends uvm_monitor#(test_trans);
+</span></span></span><span class=line><span class=cl><span class=s>	`</span><span class=nf>uvm_component_utils</span><span class=p>(</span><span class=nx>test_mom</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>uvm_analysis_port</span><span class=err>#</span><span class=p>(</span><span class=nx>test_trans</span><span class=p>)</span> <span class=nx>ap</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>function</span> <span class=nb>new</span><span class=p>(</span><span class=kt>string</span> <span class=nx>name</span><span class=p>=</span><span class=s>&#34;test_mom&#34;</span><span class=p>,</span> <span class=nx>uvm_component</span> <span class=nx>parent</span><span class=p>=</span><span class=nx>null</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=nx>super</span><span class=p>.</span><span class=nb>new</span><span class=p>(</span><span class=nx>name</span><span class=p>,</span> <span class=nx>parent</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=nx>ap</span> <span class=p>=</span> <span class=nb>new</span><span class=p>(</span><span class=s>&#34;ap_mon&#34;</span><span class=p>,</span><span class=nx>this</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>	<span class=nx>endfunction</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>task</span> <span class=nf>main_phase</span><span class=p>(</span><span class=nx>uvm_phase</span> <span class=nx>phase</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=c1>//驱动
+</span></span></span><span class=line><span class=cl><span class=c1></span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>endtask</span>
+</span></span><span class=line><span class=cl><span class=nx>endclass</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>class</span> <span class=nx>test_agent</span> <span class=nx>extends</span> <span class=nx>uvm_agent</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=err>`</span><span class=nf>uvm_component_utils</span><span class=p>(</span><span class=nx>test_agent</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>function</span> <span class=nb>new</span><span class=p>(</span><span class=kt>string</span> <span class=nx>name</span><span class=p>=</span><span class=s>&#34;test_agent&#34;</span><span class=p>,</span> <span class=nx>uvm_component</span> <span class=nx>parent</span><span class=p>=</span><span class=nx>null</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>	<span class=nx>super</span><span class=p>.</span><span class=nb>new</span><span class=p>(</span><span class=nx>name</span><span class=p>,</span> <span class=nx>parent</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>	<span class=nx>endfunction</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>test_drv</span> <span class=nx>drv</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=nx>test_mom</span> <span class=nx>mon</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=nx>test_sqr</span> <span class=nx>sqr</span><span class=p>;</span>
+</span></span><span class=line><span class=cl>	<span class=nx>function</span> <span class=nx>void</span> <span class=nf>build_phase</span><span class=p>(</span><span class=nx>uvm_phase</span> <span class=nx>phase</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=nx>drv</span> <span class=p>=</span> <span class=nx>test_drv</span><span class=p>::</span><span class=nx>type_id</span><span class=p>::</span><span class=nf>create</span><span class=p>(</span><span class=s>&#34;test_drv&#34;</span><span class=p>,</span> <span class=nx>this</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=nx>mon</span> <span class=p>=</span> <span class=nx>test_mom</span><span class=p>::</span><span class=nx>type_id</span><span class=p>::</span><span class=nf>create</span><span class=p>(</span><span class=s>&#34;test_mom&#34;</span><span class=p>,</span> <span class=nx>this</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=nx>sqr</span> <span class=p>=</span> <span class=nx>test_sqr</span><span class=p>::</span><span class=nx>type_id</span><span class=p>::</span><span class=nf>create</span><span class=p>(</span><span class=s>&#34;test_sqr&#34;</span><span class=p>,</span> <span class=nx>this</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>	<span class=nx>endfunction</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>	<span class=nx>function</span> <span class=nx>void</span> <span class=nf>connect_phase</span><span class=p>(</span><span class=nx>uvm_phase</span> <span class=nx>phase</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=nx>super</span><span class=p>.</span><span class=nf>connect_phase</span><span class=p>(</span><span class=nx>phase</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>		<span class=nx>drv</span><span class=p>.</span><span class=nx>seq_item_port</span><span class=p>.</span><span class=nf>connect</span><span class=p>(</span><span class=nx>sqr</span><span class=p>.</span><span class=nx>seq_item_export</span><span class=p>);</span>
+</span></span><span class=line><span class=cl>	<span class=nx>endfunction</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>endclass</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nx>endpackage</span>
+</span></span></code></pre></td></tr></table></div></div></div><div class=post-footer id=post-footer>
 <div class=post-info>
 <div class=post-info-line>
 <div class=post-info-mod>
 <span>更新于 2021-05-16</span>
-</div>
-<div class=post-info-license></div>
-</div>
-<div class=post-info-line>
+</div><div class=post-info-license></div></div><div class=post-info-line>
 <div class=post-info-md><span>
 <a class=link-to-markdown href=/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/index.md target=_blank>阅读原始文档</a>
-</span></div>
-<div class=post-info-share>
+</span></div><div class=post-info-share>
 <span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://cslgbk.github.io/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/ data-title=自动化生成agent代码 data-hashtags=UVM,验证自动化,python><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://cslgbk.github.io/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/ data-hashtag=UVM><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://cslgbk.github.io/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/ data-title=自动化生成agent代码><i class="fab fa-hacker-news fa-fw"></i></a><a href=javascript:void(0); title="分享到 Line" data-sharer=line data-url=https://cslgbk.github.io/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/ data-title=自动化生成agent代码><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://cslgbk.github.io/%E8%87%AA%E5%8A%A8%E5%8C%96%E7%94%9F%E6%88%90agent%E4%BB%A3%E7%A0%81/ data-title=自动化生成agent代码><i class="fab fa-weibo fa-fw"></i></a></span>
-</div>
-</div>
-</div>
-<div class=post-info-more>
-<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/uvm/>UVM</a>,&nbsp;<a href=/tags/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96/>验证自动化</a>,&nbsp;<a href=/tags/python/>python</a></section>
-<section>
+</div></div></div><div class=post-info-more>
+<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/uvm/>UVM</a>,&nbsp;<a href=/tags/%E9%AA%8C%E8%AF%81%E8%87%AA%E5%8A%A8%E5%8C%96/>验证自动化</a>,&nbsp;<a href=/tags/python/>python</a></section><section>
 <span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span>
-</section>
-</div>
-<div class=post-nav><a href=/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/ class=prev rel=prev title=含寄存器模型验证结构搭建><i class="fas fa-angle-left fa-fw"></i>含寄存器模型验证结构搭建</a>
-<a href=/vim%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/ class=next rel=next title=vim基本用法>vim基本用法<i class="fas fa-angle-right fa-fw"></i></a></div>
-</div>
-<div id=comments><div id=valine class=comment></div><noscript>
+</section></div><div class=post-nav><a href=/%E5%90%AB%E5%AF%84%E5%AD%98%E5%99%A8%E6%A8%A1%E5%9E%8B%E9%AA%8C%E8%AF%81%E7%BB%93%E6%9E%84%E7%9A%84%E6%90%AD%E5%BB%BA/ class=prev rel=prev title=含寄存器模型验证结构搭建><i class="fas fa-angle-left fa-fw"></i>含寄存器模型验证结构搭建</a>
+<a href=/vim%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95/ class=next rel=next title=vim基本用法>vim基本用法<i class="fas fa-angle-right fa-fw"></i></a></div></div><div id=comments><div id=valine class=comment></div><noscript>
 Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.
-</noscript></div></article></div>
-</main><footer class=footer>
-<div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.92.2">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
-</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2019 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>bk</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
-</div>
-</footer></div>
-<div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部>
+</noscript></div></article></div></main><footer class=footer>
+<div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.93.0">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
+</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2019 - 2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=/ target=_blank>bk</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title=回到顶部>
 <i class="fas fa-arrow-up fa-fw"></i>
 </a><a href=# id=view-comments class=fixed-button title=查看评论>
 <i class="fas fa-comment fa-fw"></i>
 </a>
-</div><link rel=stylesheet href=/lib/valine/valine.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:100},comment:{valine:{appId:"QGzwQXOqs5JOhN4RGPOkR2mR-MdYXbMMI",appKey:"WBmoGyJtbqUswvfLh6L8iEBr",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!0,highlight:!0,lang:"zh-cn",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://leancloud.hugoloveit.com",visitor:!0}},search:{algoliaAppID:"PASDMWALPK",algoliaIndex:"index.zh-cn",algoliaSearchKey:"b42948e51daaa93df92381c8e2ac0f93",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:50,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.js></script></body>
-</html>
+</div><link rel=stylesheet href=/lib/valine/valine.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/smooth-scroll@16.1.3/dist/smooth-scroll.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.37.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/algoliasearch@4.2.0/dist/algoliasearch-lite.umd.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.2.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.4.0/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"复制到剪贴板",maxShownLines:100},comment:{valine:{appId:"QGzwQXOqs5JOhN4RGPOkR2mR-MdYXbMMI",appKey:"WBmoGyJtbqUswvfLh6L8iEBr",avatar:"mp",el:"#valine",emojiCDN:"https://cdn.jsdelivr.net/npm/emoji-datasource-google@5.0.1/img/google/64/",emojiMaps:{100:"1f4af.png",alien:"1f47d.png",anger:"1f4a2.png",angry:"1f620.png",anguished:"1f627.png",astonished:"1f632.png",black_heart:"1f5a4.png",blue_heart:"1f499.png",blush:"1f60a.png",bomb:"1f4a3.png",boom:"1f4a5.png",broken_heart:"1f494.png",brown_heart:"1f90e.png",clown_face:"1f921.png",cold_face:"1f976.png",cold_sweat:"1f630.png",confounded:"1f616.png",confused:"1f615.png",cry:"1f622.png",crying_cat_face:"1f63f.png",cupid:"1f498.png",dash:"1f4a8.png",disappointed:"1f61e.png",disappointed_relieved:"1f625.png",dizzy:"1f4ab.png",dizzy_face:"1f635.png",drooling_face:"1f924.png",exploding_head:"1f92f.png",expressionless:"1f611.png",face_vomiting:"1f92e.png",face_with_cowboy_hat:"1f920.png",face_with_hand_over_mouth:"1f92d.png",face_with_head_bandage:"1f915.png",face_with_monocle:"1f9d0.png",face_with_raised_eyebrow:"1f928.png",face_with_rolling_eyes:"1f644.png",face_with_symbols_on_mouth:"1f92c.png",face_with_thermometer:"1f912.png",fearful:"1f628.png",flushed:"1f633.png",frowning:"1f626.png",ghost:"1f47b.png",gift_heart:"1f49d.png",green_heart:"1f49a.png",grimacing:"1f62c.png",grin:"1f601.png",grinning:"1f600.png",hankey:"1f4a9.png",hear_no_evil:"1f649.png",heart:"2764-fe0f.png",heart_decoration:"1f49f.png",heart_eyes:"1f60d.png",heart_eyes_cat:"1f63b.png",heartbeat:"1f493.png",heartpulse:"1f497.png",heavy_heart_exclamation_mark_ornament:"2763-fe0f.png",hole:"1f573-fe0f.png",hot_face:"1f975.png",hugging_face:"1f917.png",hushed:"1f62f.png",imp:"1f47f.png",innocent:"1f607.png",japanese_goblin:"1f47a.png",japanese_ogre:"1f479.png",joy:"1f602.png",joy_cat:"1f639.png",kiss:"1f48b.png",kissing:"1f617.png",kissing_cat:"1f63d.png",kissing_closed_eyes:"1f61a.png",kissing_heart:"1f618.png",kissing_smiling_eyes:"1f619.png",laughing:"1f606.png",left_speech_bubble:"1f5e8-fe0f.png",love_letter:"1f48c.png",lying_face:"1f925.png",mask:"1f637.png",money_mouth_face:"1f911.png",nauseated_face:"1f922.png",nerd_face:"1f913.png",neutral_face:"1f610.png",no_mouth:"1f636.png",open_mouth:"1f62e.png",orange_heart:"1f9e1.png",partying_face:"1f973.png",pensive:"1f614.png",persevere:"1f623.png",pleading_face:"1f97a.png",pouting_cat:"1f63e.png",purple_heart:"1f49c.png",rage:"1f621.png",relaxed:"263a-fe0f.png",relieved:"1f60c.png",revolving_hearts:"1f49e.png",right_anger_bubble:"1f5ef-fe0f.png",robot_face:"1f916.png",rolling_on_the_floor_laughing:"1f923.png",scream:"1f631.png",scream_cat:"1f640.png",see_no_evil:"1f648.png",shushing_face:"1f92b.png",skull:"1f480.png",skull_and_crossbones:"2620-fe0f.png",sleeping:"1f634.png",sleepy:"1f62a.png",slightly_frowning_face:"1f641.png",slightly_smiling_face:"1f642.png",smile:"1f604.png",smile_cat:"1f638.png",smiley:"1f603.png",smiley_cat:"1f63a.png",smiling_face_with_3_hearts:"1f970.png",smiling_imp:"1f608.png",smirk:"1f60f.png",smirk_cat:"1f63c.png",sneezing_face:"1f927.png",sob:"1f62d.png",space_invader:"1f47e.png",sparkling_heart:"1f496.png",speak_no_evil:"1f64a.png",speech_balloon:"1f4ac.png","star-struck":"1f929.png",stuck_out_tongue:"1f61b.png",stuck_out_tongue_closed_eyes:"1f61d.png",stuck_out_tongue_winking_eye:"1f61c.png",sunglasses:"1f60e.png",sweat:"1f613.png",sweat_drops:"1f4a6.png",sweat_smile:"1f605.png",thinking_face:"1f914.png",thought_balloon:"1f4ad.png",tired_face:"1f62b.png",triumph:"1f624.png",two_hearts:"1f495.png",unamused:"1f612.png",upside_down_face:"1f643.png",weary:"1f629.png",white_frowning_face:"2639-fe0f.png",white_heart:"1f90d.png",wink:"1f609.png",woozy_face:"1f974.png",worried:"1f61f.png",yawning_face:"1f971.png",yellow_heart:"1f49b.png",yum:"1f60b.png",zany_face:"1f92a.png",zipper_mouth_face:"1f910.png",zzz:"1f4a4.png"},enableQQ:!0,highlight:!0,lang:"zh-cn",pageSize:10,placeholder:"你的评论 ...",recordIP:!0,serverURLs:"https://leancloud.hugoloveit.com",visitor:!0}},search:{algoliaAppID:"PASDMWALPK",algoliaIndex:"index.zh-cn",algoliaSearchKey:"b42948e51daaa93df92381c8e2ac0f93",highlightTag:"em",maxResultLength:10,noResultsFound:"没有找到结果",snippetLength:50,type:"algolia"}}</script><script type=text/javascript src=/js/theme.min.js></script></body></html>

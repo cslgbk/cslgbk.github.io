@@ -4,20 +4,22 @@
 <meta name=viewport content="width=device-width,initial-scale=1">
 <meta name=robots content="noodp">
 <meta http-equiv=x-ua-compatible content="IE=edge, chrome=1">
-<title>Synchronous design - RTL Design Style Guide - BK's Blogs</title><meta name=Description content="BK‘s Blogs"><meta property="og:title" content="Synchronous design - RTL Design Style Guide">
-<meta property="og:description" content="同步设计">
+<title> - BK's Blogs</title><meta name=Description content="BK‘s Blogs"><meta property="og:title" content>
+<meta property="og:description" content="cvt 2560 1400
+xrandr &ndash;newmode
+xrandr &ndash;addmode">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://cslgbk.github.io/synchronous-design-rtl-design-style-guide/"><meta property="og:image" content="https://cslgbk.github.io/t.png"><meta property="article:section" content="posts">
-<meta property="article:published_time" content="2021-11-07T18:37:19+08:00">
-<meta property="article:modified_time" content="2022-01-04T00:07:44+08:00">
+<meta property="og:url" content="https://cslgbk.github.io/linux%E6%B7%BB%E5%8A%A0%E5%88%86%E8%BE%A8%E7%8E%87/"><meta property="og:image" content="https://cslgbk.github.io/t.png"><meta property="article:section" content="posts">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://cslgbk.github.io/t.png">
-<meta name=twitter:title content="Synchronous design - RTL Design Style Guide">
-<meta name=twitter:description content="同步设计">
+<meta name=twitter:title content>
+<meta name=twitter:description content="cvt 2560 1400
+xrandr &ndash;newmode
+xrandr &ndash;addmode">
 <meta name=application-name content="BK's Blogs">
 <meta name=apple-mobile-web-app-title content="BK's Blogs"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://cslgbk.github.io/synchronous-design-rtl-design-style-guide/><link rel=prev href=https://cslgbk.github.io/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0/><link rel=next href=https://cslgbk.github.io/initial-reset-rtl-design-style-guide/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Synchronous design - RTL Design Style Guide","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/cslgbk.github.io\/synchronous-design-rtl-design-style-guide\/"},"image":["https:\/\/cslgbk.github.io\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"RTL","wordcount":205,"url":"https:\/\/cslgbk.github.io\/synchronous-design-rtl-design-style-guide\/","datePublished":"2021-11-07T18:37:19+08:00","dateModified":"2022-01-04T00:07:44+08:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"bk","logo":"https:\/\/cslgbk.github.io\/t.png"},"author":{"@type":"Person","name":"bk"},"description":""}</script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"light"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"light"==="dark")&&document.body.setAttribute("theme","dark")</script>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://cslgbk.github.io/linux%E6%B7%BB%E5%8A%A0%E5%88%86%E8%BE%A8%E7%8E%87/><link rel=next href=https://cslgbk.github.io/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/normalize.css@8.0.1/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.0/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@3.7.2/animate.min.css><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/cslgbk.github.io\/linux%E6%B7%BB%E5%8A%A0%E5%88%86%E8%BE%A8%E7%8E%87\/"},"image":["https:\/\/cslgbk.github.io\/images\/Apple-Devices-Preview.png"],"genre":"posts","wordcount":7,"url":"https:\/\/cslgbk.github.io\/linux%E6%B7%BB%E5%8A%A0%E5%88%86%E8%BE%A8%E7%8E%87\/","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"bk","logo":"https:\/\/cslgbk.github.io\/t.png"},"author":{"@type":"Person","name":"bk"},"description":""}</script></head><body header-desktop=fixed header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"light"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"light"==="dark")&&document.body.setAttribute("theme","dark")</script>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
 <div class=header-wrapper>
 <div class=header-title>
@@ -65,39 +67,29 @@
 <div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile">
 <div id=search-dropdown-mobile></div></div><main class=main>
 <div class=container><div class=toc id=toc-auto>
-<h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX">Synchronous design - RTL Design Style Guide</h1><div class=post-meta>
-<div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw"></i>bk</a></span>&nbsp;<span class=post-category>收录于 <a href=/categories/rtl-design-style/><i class="far fa-folder fa-fw"></i>RTL Design Style</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=2021-11-07>2021-11-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 205 字&nbsp;
-<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;<span id=/synchronous-design-rtl-design-style-guide/ class=leancloud_visitors data-flag-title="Synchronous design - RTL Design Style Guide">
+<h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animated flipInX"></h1><div class=post-meta>
+<div class=post-meta-line><span class=post-author><a href=/ title=Author rel=author class=author><i class="fas fa-user-circle fa-fw"></i>bk</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=0001-01-01>0001-01-01</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 7 字&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟&nbsp;<span id=/linux%E6%B7%BB%E5%8A%A0%E5%88%86%E8%BE%A8%E7%8E%87/ class=leancloud_visitors data-flag-title>
 <i class="far fa-eye fa-fw"></i>&nbsp;<span class=leancloud-visitors-count></span>&nbsp;次阅读
 </span>&nbsp;</div></div><div class="details toc" id=toc-static kept>
 <div class="details-summary toc-title">
 <span>目录</span>
 <span><i class="details-icon fas fa-angle-right"></i></span>
-</div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
-<ul>
-<li>
-<ul>
-<li><a href=#同步设计>同步设计</a></li></ul></li></ul></nav></div></div><div class=content id=content><h3 id=同步设计>同步设计</h3><p>[1] 设计时尽可能使用时钟的一个沿</p><p>[2] 不使用基本逻辑单元（与门、或门、非门等）搭建锁存器和触发器</p><p>[3] 组合逻辑中不得使用反馈信号（避免combination loop)</p><p><img class=lazyload src=/svg/loading.min.svg data-src=/images/RTL_DESIGN_STYLE/1-2.png data-srcset="/images/RTL_DESIGN_STYLE/1-2.png, /images/RTL_DESIGN_STYLE/1-2.png 1.5x, /images/RTL_DESIGN_STYLE/1-2.png 2x" data-sizes=auto alt=/images/RTL_DESIGN_STYLE/1-2.png title=&amp;quot;&amp;quot;></p><div class="details admonition note open">
-<div class="details-summary admonition-title">
-<i class="icon fas fa-pencil-alt fa-fw"></i>注意<i class="details-icon fas fa-angle-right fa-fw"></i>
-</div><div class=details-content>
-<div class=admonition-content><ul>
-<li>随着电路的规模越来越大，数字电路的速度通过DC、PT、BG等工具进行分析，因此尽量使用时钟的上升沿或者下降沿作为触发器的时钟，以降低电路的复杂性。</li><li>虽然触发器可以通过基本的门搭建，但是工具往往会将门电路搭建的触发器作为combination loop报错</li></ul></div></div></div></div><div class=post-footer id=post-footer>
+</div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents></nav></div></div><div class=content id=content><p>cvt 2560 1400</p><p>xrandr &ndash;newmode</p><p>xrandr &ndash;addmode</p></div><div class=post-footer id=post-footer>
 <div class=post-info>
 <div class=post-info-line>
 <div class=post-info-mod>
-<span>更新于 2022-01-04&nbsp;<a class=git-hash href=https://github.com/dillonzq/LoveIt/commit/aa2ae5953e593810a26a041b18f17c302b599d99 target=_blank title="commit by cslgbk(cslgbk@126.com) aa2ae5953e593810a26a041b18f17c302b599d99: mxmx">
-<i class="fas fa-hashtag fa-fw"></i>aa2ae59</a></span>
+<span>更新于 0001-01-01</span>
 </div><div class=post-info-license></div></div><div class=post-info-line>
 <div class=post-info-md><span>
-<a class=link-to-markdown href=/synchronous-design-rtl-design-style-guide/index.md target=_blank>阅读原始文档</a>
+<a class=link-to-markdown href=/linux%E6%B7%BB%E5%8A%A0%E5%88%86%E8%BE%A8%E7%8E%87/index.md target=_blank>阅读原始文档</a>
 </span></div><div class=post-info-share>
-<span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://cslgbk.github.io/synchronous-design-rtl-design-style-guide/ data-title="Synchronous design - RTL Design Style Guide" data-hashtags=RTL><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://cslgbk.github.io/synchronous-design-rtl-design-style-guide/ data-hashtag=RTL><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://cslgbk.github.io/synchronous-design-rtl-design-style-guide/ data-title="Synchronous design - RTL Design Style Guide"><i class="fab fa-hacker-news fa-fw"></i></a><a href=javascript:void(0); title="分享到 Line" data-sharer=line data-url=https://cslgbk.github.io/synchronous-design-rtl-design-style-guide/ data-title="Synchronous design - RTL Design Style Guide"><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://cslgbk.github.io/synchronous-design-rtl-design-style-guide/ data-title="Synchronous design - RTL Design Style Guide"><i class="fab fa-weibo fa-fw"></i></a></span>
+<span><a href=javascript:void(0); title="分享到 Twitter" data-sharer=twitter data-url=https://cslgbk.github.io/linux%E6%B7%BB%E5%8A%A0%E5%88%86%E8%BE%A8%E7%8E%87/ data-title><i class="fab fa-twitter fa-fw"></i></a><a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://cslgbk.github.io/linux%E6%B7%BB%E5%8A%A0%E5%88%86%E8%BE%A8%E7%8E%87/><i class="fab fa-facebook-square fa-fw"></i></a><a href=javascript:void(0); title="分享到 Hacker News" data-sharer=hackernews data-url=https://cslgbk.github.io/linux%E6%B7%BB%E5%8A%A0%E5%88%86%E8%BE%A8%E7%8E%87/ data-title><i class="fab fa-hacker-news fa-fw"></i></a><a href=javascript:void(0); title="分享到 Line" data-sharer=line data-url=https://cslgbk.github.io/linux%E6%B7%BB%E5%8A%A0%E5%88%86%E8%BE%A8%E7%8E%87/ data-title><i data-svg-src=https://cdn.jsdelivr.net/npm/simple-icons@2.14.0/icons/line.svg></i></a><a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://cslgbk.github.io/linux%E6%B7%BB%E5%8A%A0%E5%88%86%E8%BE%A8%E7%8E%87/ data-title><i class="fab fa-weibo fa-fw"></i></a></span>
 </div></div></div><div class=post-info-more>
-<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/rtl/>RTL</a></section><section>
+<section class=post-tags></section><section>
 <span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/>主页</a></span>
-</section></div><div class=post-nav><a href=/%E5%9F%BA%E6%9C%AC%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99-rtl-design-style-guide%E7%AC%94%E8%AE%B0/ class=prev rel=prev title="RTL基本设计原则-RTL Design Style Guide笔记"><i class="fas fa-angle-left fa-fw"></i>RTL基本设计原则-RTL Design Style Guide笔记</a>
-<a href=/initial-reset-rtl-design-style-guide/ class=next rel=next title="Initial Reset   RTL Design Style Guide">Initial Reset RTL Design Style Guide<i class="fas fa-angle-right fa-fw"></i></a></div></div><div id=comments><div id=valine class=comment></div><noscript>
+</section></div><div class=post-nav>
+<a href=/%E6%AD%A3%E6%80%81%E5%88%86%E5%B8%83%E9%9A%8F%E6%9C%BAitem/ class=next rel=next title=正态分布随机化item>正态分布随机化item<i class="fas fa-angle-right fa-fw"></i></a></div></div><div id=comments><div id=valine class=comment></div><noscript>
 Please enable JavaScript to view the comments powered by <a href=https://valine.js.org/>Valine</a>.
 </noscript></div></article></div></main><footer class=footer>
 <div class=footer-container><div class=footer-line>由 <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.93.0">Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/dillonzq/LoveIt target=_blank rel="noopener noreffer" title="LoveIt 0.2.10"><i class="far fa-kiss-wink-heart fa-fw"></i> LoveIt</a>
